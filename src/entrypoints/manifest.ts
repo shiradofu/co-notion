@@ -19,10 +19,10 @@ export function defineManifest(): Manifest.WebExtensionManifest {
     },
     content_scripts: [
       {
-        matches: ["https://*/*"],
+        matches: ["https://www.notion.so/*"],
         js: ["./content.js"],
       },
     ],
-    permissions: ["alarms"],
+    permissions: ["alarms", "storage"],
   };
 }
