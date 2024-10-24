@@ -1,5 +1,5 @@
 import type { Manifest } from "webextension-polyfill";
-import pkg from "../package.json";
+import pkg from "../../package.json";
 
 export function defineManifest(): Manifest.WebExtensionManifest {
   const iconPath = "./assets/icon-512.png";

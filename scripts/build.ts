@@ -1,14 +1,22 @@
 import { writeFile } from "node:fs/promises";
+import { relative } from "node:path";
 import { build } from "esbuild";
 import glob from "tiny-glob";
-import { defineManifest } from "../src/manifest";
+import { defineManifest } from "../src/entrypoints/manifest";
 
-export async function buildFile(path: string) {
-  console.log("build", path);
-  const paths = path.includes("*") ? await glob(path) : [path];
+export async function buildFile(pathExpressions: string[]) {
+  const paths = (
+    await Promise.all(
+      pathExpressions.map(async (p) => {
+        return p.includes("*") ? await glob(p) : [p];
+      }),
+    )
+  ).flat();
+
   const entryPoints: string[] = [];
   let manifestPromise = Promise.resolve();
   for (const p of paths) {
+    console.log("build", relative(".", p));
     if (p.endsWith("/manifest.ts")) {
       manifestPromise = writeManifest();
     } else {
@@ -38,4 +46,4 @@ async function writeManifest() {
   ).catch((e) => console.error(e));
 }
 
-(async () => buildFile("src/*"))();
+(async () => buildFile(["src/**/.*"]))();
