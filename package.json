@@ -1,6 +1,6 @@
 {
-  "name": "webext-mini",
-  "displayName": "webext-mini",
+  "name": "notion-utils",
+  "displayName": "notion-utils",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
