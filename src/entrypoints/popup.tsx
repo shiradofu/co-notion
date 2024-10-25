@@ -1,11 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import {
-  type Config,
-  configNames,
-  getConfigInStorage,
-  setConfigInStorage,
-} from "../config";
+import { type Config, getConfigInStorage, setConfigInStorage } from "../config";
 import { i } from "../i18n";
 
 const App = () => {
@@ -31,7 +26,10 @@ const App = () => {
 
   return (
     <div className="App">
-      <h2 className="ConfigTitle">notion-utils</h2>
+      <div className="ConfigTitle">
+        <img src="./assets/icon-512.png" alt="notion utils logo" />
+        <span>notion-utils</span>
+      </div>
       <hr className="ConfigBorder" />
       <div className="ConfigGrid">
         <label htmlFor="defaultTeamspaceOnSearchOpen">

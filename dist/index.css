@@ -1,20 +1,53 @@
+:root {
+  --main-bg: #f7f7f5;
+  --main-text: #000000;
+  --main-border: #e6e6e3;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --main-bg: #202020;
+    --main-text: #d1d1d1;
+    --main-border: #343434;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--main-bg);
+  color: var(--main-text);
+  transition: 0.5s;
+}
+
+label {
+  cursor: pointer;
+}
+
 .App {
-  padding: 20px;
+  padding: 30px;
   width: max-content;
 }
 
 .ConfigTitle {
-  margin-top: 0;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+
+  img {
+    width: 1rem;
+    height: 1rem;
+  }
 }
 
 .ConfigBorder {
   width: 60%;
   margin-bottom: 20px;
   border: none;
-  border-top: 1px solid #333;
-  color: #333;
-  overflow: visible;
+  border-top: 1px solid var(--main-text);
   height: 5px;
 }
 
