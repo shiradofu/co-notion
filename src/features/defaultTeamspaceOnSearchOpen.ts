@@ -13,6 +13,9 @@ export async function setDefaultTeamspaceToSearchFilter(
 ) {
   if (overlayContainer.childElementCount !== 2) return;
 
+  // cannot get this when we're at "Home" tab, private page, etc.
+  const currentTeamspaceName = mustGetCurrentTeamspaceName();
+
   const overlay1 = overlayContainer.lastElementChild;
   if (!overlay1) return;
   const searchModal = mayGetSearchModalInOverlay(overlay1);
@@ -31,7 +34,6 @@ export async function setDefaultTeamspaceToSearchFilter(
     await mustGetSearchModalFilterMenuItems(overlayContainer);
   log.dbg("teamspace filter items:", teamspaceFilterItems);
 
-  const currentTeamspaceName = mustGetCurrentTeamspaceName();
   for (const item of teamspaceFilterItems) {
     if (item.textContent === currentTeamspaceName) {
       log.dbg(`${currentTeamspaceName} found, set.`);
