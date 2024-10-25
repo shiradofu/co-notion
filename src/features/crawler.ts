@@ -1,17 +1,22 @@
-const MAX_RETRY = 50;
-const interval = {
+const INTERVAL = {
   init: 300,
   click: 10,
 } as const;
 
+const TIMEOUT = {
+  init: 20 * 1000,
+  click: 5 * 1000,
+} as const;
+
 async function checkInterval<R>(
-  type: keyof typeof interval,
+  type: keyof typeof INTERVAL,
   fn: () => R | Promise<R>,
 ) {
   return await new Promise<R | undefined>((resolve) => {
     let n = 0;
+    const maxRetry = TIMEOUT[type] / INTERVAL[type];
     const tid = setInterval(async () => {
-      if (n > MAX_RETRY) {
+      if (n > maxRetry) {
         clearInterval(tid);
         resolve(undefined);
       }
@@ -21,7 +26,7 @@ async function checkInterval<R>(
         resolve(result);
       }
       n++;
-    }, interval[type]);
+    }, INTERVAL[type]);
   });
 }
 
@@ -88,7 +93,7 @@ export function getSearchModalInOverlay(overlay: Element) {
 }
 export const mayGetSearchModalInOverlay = may(
   getSearchModalInOverlay,
-  "search modal not foudn",
+  "search modal not found",
 );
 
 export function getSearchModalFilterButton(
