@@ -5,4 +5,11 @@ export const log = {
   dbg: (...data: unknown[]) => {
     process.env.NODE_ENV === "development" && console.log(LOG_PREFIX, ...data);
   },
+  thrown: (data: unknown) => {
+    if (data instanceof Error) {
+      log.err(data);
+    } else if (typeof data === "string") {
+      log.dbg(data);
+    }
+  },
 } as const;
