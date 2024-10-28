@@ -4,9 +4,11 @@ import {
   defaultConfig,
   getConfigInStorage,
 } from "../config";
-import { mustGetOverlayContainer } from "../features/crawler";
+import { AppCrawler } from "../features/crawler/AppCrawler";
+import { OverlayContainerCrawler } from "../features/crawler/OverlayContainerCrawler";
 import { setDefaultTeamspaceToSearchFilter } from "../features/defaultTeamspaceOnSearchOpen";
 
+const app = new AppCrawler();
 let config: Config = defaultConfig;
 
 function shouldObserveOverlayContainer() {
@@ -18,22 +20,24 @@ function shouldObserveOverlayContainer() {
 
   let prevOverlayCount = 1;
   const overlayObserver = new MutationObserver(([record]) => {
-    const overlayContainer = record.target as Element;
-    const count = overlayContainer.childElementCount;
+    const overlayContainer = new OverlayContainerCrawler(
+      record.target as Element,
+    );
+    const count = overlayContainer.getChildrenCount();
     const overlayCountDiff = count - prevOverlayCount;
     prevOverlayCount = count;
     config.defaultTeamspaceOnSearchOpen &&
       overlayCountDiff > 0 &&
-      setDefaultTeamspaceToSearchFilter(overlayContainer);
+      setDefaultTeamspaceToSearchFilter(app, overlayContainer);
   });
 
   async function applyConfig() {
-    if (shouldObserveOverlayContainer()) {
-      const overlayContainer = await mustGetOverlayContainer();
-      overlayObserver.observe(overlayContainer, { childList: true });
-    } else {
-      overlayObserver.disconnect();
-    }
+    shouldObserveOverlayContainer()
+      ? overlayObserver.observe(
+          await app.getOverlayContainer("must", { wait: "long" }),
+          { childList: true },
+        )
+      : overlayObserver.disconnect();
   }
   applyConfig();
 

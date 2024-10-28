@@ -1,54 +1,55 @@
-import {
-  mayGetSearchModalInOverlay,
-  mustGetCurrentTeamspaceName,
-  mustGetI18nedTeamspace,
-  mustGetSearchModalFilterButton,
-  mustGetSearchModalFilterMenuItems,
-  mustGetSearchModalInput,
-} from "../features/crawler";
 import { log } from "../utils/log";
+import type { AppCrawler } from "./crawler/AppCrawler";
+import type { OverlayContainerCrawler } from "./crawler/OverlayContainerCrawler";
+import { SearchModalCrawler } from "./crawler/SearchModalCrawler";
 
 export async function setDefaultTeamspaceToSearchFilter(
-  overlayContainer: Element,
+  app: AppCrawler,
+  overlayContainer: OverlayContainerCrawler,
 ) {
-  if (overlayContainer.childElementCount !== 2) return;
-
   try {
+    overlayContainer.checkChildrenCount("may", { args: [2] });
     // cannot get this when we're at "Home" tab, private page, etc.
-    const currentTeamspaceName = mustGetCurrentTeamspaceName();
+    const currentTeamspaceName = app.getCurrentTeamspaceName("may");
 
-    const overlay1 = overlayContainer.lastElementChild;
-    if (!overlay1) return;
-    const searchModal = mayGetSearchModalInOverlay(overlay1);
-    const i18nedTeamspace = mustGetI18nedTeamspace();
-    const teamspaceFilterBtn = mustGetSearchModalFilterButton(
-      searchModal,
-      i18nedTeamspace,
-    );
+    const modal = SearchModalCrawler.fromOverlayEl("may", {
+      args: [overlayContainer.getFrontmostOverlay("may")],
+    });
+
+    const i18nedTeamspace = app.getI18nedTeamspace("must");
+    const teamspaceFilterBtn = await modal.getFilterButton("must", {
+      args: [i18nedTeamspace],
+      wait: "short",
+    });
     if (teamspaceFilterBtn.textContent?.includes(":")) {
-      log.dbg("search filter is already set");
-      return;
+      throw "search filter is already set";
     }
 
     teamspaceFilterBtn.click();
-    const teamspaceFilterItems =
-      await mustGetSearchModalFilterMenuItems(overlayContainer);
+    await overlayContainer.checkChildrenCount("must", {
+      args: [3],
+      wait: "short",
+    });
+    const teamspaceFilterItems = modal.getFilterItems("must", {
+      args: [overlayContainer.getFrontmostOverlay("must")],
+    });
     log.dbg("teamspace filter items:", teamspaceFilterItems);
 
+    let currentTeamspaceFilterFound = false;
     for (const item of teamspaceFilterItems) {
       if (item.textContent === currentTeamspaceName) {
         log.dbg(`${currentTeamspaceName} found, set.`);
+        currentTeamspaceFilterFound = true;
         item.click();
         break;
       }
     }
+    if (!currentTeamspaceFilterFound) {
+      throw new Error("current teamspace filter not found");
+    }
 
-    const bg = document.elementFromPoint(0, 0) as HTMLElement | null;
-    if (!bg) throw new Error("failed to get element at (0, 0)");
-    bg.click();
-
-    const searchInput = mustGetSearchModalInput(searchModal);
-    searchInput.focus();
+    overlayContainer.closeFrontMostOverlay("must");
+    modal.getTextInput("must").focus();
   } catch (e) {
     log.thrown(e);
   }
