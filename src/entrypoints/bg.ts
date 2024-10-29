@@ -19,8 +19,8 @@ async function hotReload() {
 
   const reload = () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const tab = tabs.at(0);
-      if (tab && tab.id !== undefined) chrome.tabs.reload(tab.id);
+      // const tab = tabs.at(0);
+      // if (tab && tab.id !== undefined) chrome.tabs.reload(tab.id);
       chrome.runtime.reload();
     });
   };
