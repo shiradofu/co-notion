@@ -16,6 +16,12 @@ export async function setDefaultTeamspaceToSearchFilter(
       args: [overlayContainer.getFrontmostOverlay("may")],
     });
 
+    const areFiltersShown = modal.getFilterBar();
+    if (!areFiltersShown) {
+      const toggle = await modal.getFilterBarToggle("must", { wait: "short" });
+      toggle.click();
+    }
+
     const i18nedTeamspace = app.getI18nedTeamspace("must");
     const teamspaceFilterBtn = await modal.getFilterButton("must", {
       args: [i18nedTeamspace],
