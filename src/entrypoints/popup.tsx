@@ -1,26 +1,27 @@
 import { useCallback, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import { type Config, getConfigInStorage, setConfigInStorage } from "../config";
+import { type FeatureConfig, defaultFeatureConfig } from "../config/feature";
 import { i } from "../i18n";
+import { getFromSyncStorage, setToSyncStorage } from "../utils/storage";
 
 const App = () => {
-  const [config, setConfig] = useState<Config>({
-    defaultTeamspaceOnSearchOpen: false,
-  });
+  const [config, setConfig] = useState<FeatureConfig>(defaultFeatureConfig);
   const onChangeDefaultTeamspaceOnSearchOpen = useCallback(() => {
     setConfig((prev) => {
-      const newState = !prev.defaultTeamspaceOnSearchOpen;
-      setConfigInStorage({ defaultTeamspaceOnSearchOpen: newState });
+      const isEnabled = !prev.defaultTeamspaceOnSearchOpen.isEnabled;
+      setToSyncStorage("featureConfig", {
+        defaultTeamspaceOnSearchOpen: { isEnabled },
+      });
       return {
         ...prev,
-        defaultTeamspaceOnSearchOpen: newState,
+        defaultTeamspaceOnSearchOpen: { isEnabled },
       };
     });
   }, []);
 
   useEffect(() => {
     (async () => {
-      setConfig(await getConfigInStorage());
+      setConfig(await getFromSyncStorage("featureConfig"));
     })();
   }, []);
 
@@ -38,7 +39,7 @@ const App = () => {
         <input
           id="defaultTeamspaceOnSearchOpen"
           type="checkbox"
-          checked={config.defaultTeamspaceOnSearchOpen}
+          checked={config.defaultTeamspaceOnSearchOpen.isEnabled}
           onChange={onChangeDefaultTeamspaceOnSearchOpen}
         />
       </div>

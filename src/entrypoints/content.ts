@@ -1,22 +1,18 @@
-import {
-  type Config,
-  configNames,
-  defaultConfig,
-  getConfigInStorage,
-} from "../config";
+import { type FeatureConfig, defaultFeatureConfig } from "../config/feature";
 import { AppCrawler } from "../crawlers/AppCrawler";
 import { OverlayContainerCrawler } from "../crawlers/OverlayContainerCrawler";
 import { SetDefaultTeamspaceOnSearchOpen } from "../features/SetDefaultTeamspaceOnSearchOpen";
+import { getFromSyncStorage } from "../utils/storage";
 
 const app = new AppCrawler();
-let config: Config = defaultConfig;
+let featureConfig: FeatureConfig = defaultFeatureConfig;
 
 function shouldObserveOverlayContainer() {
-  return config.defaultTeamspaceOnSearchOpen;
+  return featureConfig.defaultTeamspaceOnSearchOpen;
 }
 
 (async () => {
-  config = await chrome.storage.sync.get<Config>(configNames);
+  featureConfig = await getFromSyncStorage("featureConfig");
 
   let prevOverlayCount = 1;
   const overlayObserver = new MutationObserver(([record]) => {
@@ -26,7 +22,7 @@ function shouldObserveOverlayContainer() {
     const count = overlayContainer.getChildrenCount();
     const overlayCountDiff = count - prevOverlayCount;
     prevOverlayCount = count;
-    config.defaultTeamspaceOnSearchOpen &&
+    featureConfig.defaultTeamspaceOnSearchOpen &&
       new SetDefaultTeamspaceOnSearchOpen().run(
         app,
         overlayContainer,
@@ -46,7 +42,7 @@ function shouldObserveOverlayContainer() {
 
   chrome.storage.onChanged.addListener(async (_changes, area) => {
     if (area !== "sync") return;
-    config = await getConfigInStorage();
+    featureConfig = await getFromSyncStorage("featureConfig");
     applyConfig();
   });
 })();
