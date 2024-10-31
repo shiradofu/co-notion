@@ -13,3 +13,34 @@ export const log = {
     }
   },
 } as const;
+
+export function logThrownSync<
+  T,
+  A extends unknown[],
+  R,
+  F = (this: T, ...args: A) => R,
+>(
+  target: F extends (this: T, ...args: A) => Promise<unknown> ? never : F,
+  _ctx: ClassMethodDecoratorContext<T, (this: T, ...args: A) => R>,
+) {
+  return function (this: T, ...args: A) {
+    try {
+      if (typeof target === "function") {
+        return target.call(this, ...args);
+      }
+    } catch (e) {
+      log.thrown(e);
+    }
+  };
+}
+
+export function logThrownAsync<T, A extends unknown[], R>(
+  target: (this: T, ...args: A) => Promise<R>,
+  _ctx: ClassMethodDecoratorContext<T, (this: T, ...args: A) => Promise<R>>,
+) {
+  return async function (this: T, ...args: A) {
+    return await target
+      .call(this, ...args)
+      .catch((e: unknown) => log.thrown(e));
+  };
+}
