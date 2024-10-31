@@ -8,7 +8,7 @@ const app = new AppCrawler();
 let featureConfig: FeatureConfig = defaultFeatureConfig;
 
 function shouldObserveOverlayContainer() {
-  return featureConfig.defaultTeamspaceOnSearchOpen;
+  return featureConfig.setDefaultTeamspaceOnSearchOpen;
 }
 
 (async () => {
@@ -22,7 +22,7 @@ function shouldObserveOverlayContainer() {
     const count = overlayContainer.getChildrenCount();
     const overlayCountDiff = count - prevOverlayCount;
     prevOverlayCount = count;
-    featureConfig.defaultTeamspaceOnSearchOpen &&
+    featureConfig.setDefaultTeamspaceOnSearchOpen &&
       new SetDefaultTeamspaceOnSearchOpen().run(
         app,
         overlayContainer,

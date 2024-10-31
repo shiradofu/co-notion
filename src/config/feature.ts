@@ -3,7 +3,7 @@ function c<T extends Record<string | number, unknown>>(config: T) {
 }
 
 export const defaultFeatureConfig = {
-  defaultTeamspaceOnSearchOpen: c({}),
+  setDefaultTeamspaceOnSearchOpen: c({}),
 };
 
 export type FeatureConfig = typeof defaultFeatureConfig;

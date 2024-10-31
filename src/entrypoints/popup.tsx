@@ -6,15 +6,15 @@ import { getFromSyncStorage, setToSyncStorage } from "../utils/storage";
 
 const App = () => {
   const [config, setConfig] = useState<FeatureConfig>(defaultFeatureConfig);
-  const onChangeDefaultTeamspaceOnSearchOpen = useCallback(() => {
+  const onChangeSetDefaultTeamspaceOnSearchOpen = useCallback(() => {
     setConfig((prev) => {
-      const isEnabled = !prev.defaultTeamspaceOnSearchOpen.isEnabled;
+      const isEnabled = !prev.setDefaultTeamspaceOnSearchOpen.isEnabled;
       setToSyncStorage("featureConfig", {
-        defaultTeamspaceOnSearchOpen: { isEnabled },
+        setDefaultTeamspaceOnSearchOpen: { isEnabled },
       });
       return {
         ...prev,
-        defaultTeamspaceOnSearchOpen: { isEnabled },
+        setDefaultTeamspaceOnSearchOpen: { isEnabled },
       };
     });
   }, []);
@@ -33,14 +33,14 @@ const App = () => {
       </div>
       <hr className="ConfigBorder" />
       <div className="ConfigGrid">
-        <label htmlFor="defaultTeamspaceOnSearchOpen">
-          {i("defaultTeamspaceOnSearchOpen")}
+        <label htmlFor="setDefaultTeamspaceOnSearchOpen">
+          {i("setDefaultTeamspaceOnSearchOpen")}
         </label>
         <input
-          id="defaultTeamspaceOnSearchOpen"
+          id="setDefaultTeamspaceOnSearchOpen"
           type="checkbox"
-          checked={config.defaultTeamspaceOnSearchOpen.isEnabled}
-          onChange={onChangeDefaultTeamspaceOnSearchOpen}
+          checked={config.setDefaultTeamspaceOnSearchOpen.isEnabled}
+          onChange={onChangeSetDefaultTeamspaceOnSearchOpen}
         />
       </div>
     </div>
