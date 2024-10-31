@@ -4,9 +4,9 @@ import {
   defaultConfig,
   getConfigInStorage,
 } from "../config";
+import { AppCrawler } from "../crawlers/AppCrawler";
+import { OverlayContainerCrawler } from "../crawlers/OverlayContainerCrawler";
 import { SetDefaultTeamspaceOnSearchOpen } from "../features/SetDefaultTeamspaceOnSearchOpen";
-import { AppCrawler } from "../features/crawler/AppCrawler";
-import { OverlayContainerCrawler } from "../features/crawler/OverlayContainerCrawler";
 
 const app = new AppCrawler();
 let config: Config = defaultConfig;

@@ -1,7 +1,7 @@
+import type { AppCrawler } from "../crawlers/AppCrawler";
+import type { OverlayContainerCrawler } from "../crawlers/OverlayContainerCrawler";
+import { SearchModalCrawler } from "../crawlers/SearchModalCrawler";
 import { log, logThrownAsync } from "../utils/log";
-import type { AppCrawler } from "./crawler/AppCrawler";
-import type { OverlayContainerCrawler } from "./crawler/OverlayContainerCrawler";
-import { SearchModalCrawler } from "./crawler/SearchModalCrawler";
 
 export class SetDefaultTeamspaceOnSearchOpen {
   @logThrownAsync
