@@ -4,9 +4,9 @@ import {
   defaultConfig,
   getConfigInStorage,
 } from "../config";
+import { SetDefaultTeamspaceOnSearchOpen } from "../features/SetDefaultTeamspaceOnSearchOpen";
 import { AppCrawler } from "../features/crawler/AppCrawler";
 import { OverlayContainerCrawler } from "../features/crawler/OverlayContainerCrawler";
-import { setDefaultTeamspaceToSearchFilter } from "../features/defaultTeamspaceOnSearchOpen";
 
 const app = new AppCrawler();
 let config: Config = defaultConfig;
@@ -27,8 +27,11 @@ function shouldObserveOverlayContainer() {
     const overlayCountDiff = count - prevOverlayCount;
     prevOverlayCount = count;
     config.defaultTeamspaceOnSearchOpen &&
-      overlayCountDiff > 0 &&
-      setDefaultTeamspaceToSearchFilter(app, overlayContainer);
+      new SetDefaultTeamspaceOnSearchOpen().run(
+        app,
+        overlayContainer,
+        overlayCountDiff,
+      );
   });
 
   async function applyConfig() {
