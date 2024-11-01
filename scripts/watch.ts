@@ -157,8 +157,9 @@ async function fireReload() {
   }, 100);
 }
 
-chokidar.watch("src").on("all", async (event, path) => {
+chokidar.watch("src").on("all", async (event: string, path: string) => {
   if (!["add", "change", "unlink"].includes(event)) return;
+  if (path.endsWith("test.ts")) return;
   console.log(event, path);
 
   switch (event) {

@@ -7,7 +7,7 @@
     "build": "tsc && NODE_ENV=production tsx scripts/build.ts",
     "dev": "tsx scripts/watch.ts",
     "fmt": "biome format --write",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tsc && tsx --test",
     "clean": "rm -rf dist/*.js"
   },
   "keywords": [],
