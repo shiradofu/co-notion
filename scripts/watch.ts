@@ -29,6 +29,7 @@ class SourceFileAdapter {
   getRelativeImportLabels() {
     const importeds = new Set<string>();
     for (const im of this.sourceFile.getImportDeclarations()) {
+      if (im.isTypeOnly()) continue;
       const modSpec = im.getModuleSpecifierValue();
       if (!modSpec.startsWith(".")) continue;
       const imported = resolve(this.dir, modSpec);
