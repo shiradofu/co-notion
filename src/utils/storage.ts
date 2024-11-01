@@ -18,3 +18,12 @@ export async function setToSyncStorage(
     [key]: data,
   });
 }
+
+export function addListenerToSyncStorage(
+  fn: (changes: Record<string, chrome.storage.StorageChange>) => void,
+) {
+  chrome.storage.onChanged.addListener((changes, area) => {
+    if (area !== "sync") return;
+    fn(changes);
+  });
+}

@@ -1,17 +1,25 @@
-import type { AppCrawler } from "../crawlers/AppCrawler";
+import type { TriggeredByOverlayMutation } from "../conductors/OverlayObserver";
+import { AppCrawler } from "../crawlers/AppCrawler";
 import type { OverlayContainerCrawler } from "../crawlers/OverlayContainerCrawler";
 import { SearchModalCrawler } from "../crawlers/SearchModalCrawler";
 import { log, logThrownAsync } from "../utils/log";
 
-export class SetDefaultTeamspaceOnSearchOpen {
-  @logThrownAsync
-  async run(
-    app: AppCrawler,
+export class SetDefaultTeamspaceOnSearchOpen
+  implements TriggeredByOverlayMutation
+{
+  onMutateOverlay(
     overlayContainer: OverlayContainerCrawler,
     overlayCountDiff: number,
   ) {
     if (overlayCountDiff <= 0) return;
+    this.run(overlayContainer);
+  }
+
+  @logThrownAsync
+  private async run(overlayContainer: OverlayContainerCrawler) {
     overlayContainer.checkChildrenCount("may", { args: [2] });
+
+    const app = new AppCrawler();
 
     // cannot get this when we're at "Home" tab, private page, etc.
     const currentTeamspaceName = app.getCurrentTeamspaceName("may");
