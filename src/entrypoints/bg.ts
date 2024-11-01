@@ -1,44 +1,16 @@
-import browser from "webextension-polyfill";
+import { defaultFeatureConfig } from "../config/feature";
+import { merge } from "../utils/merge";
+import { getFromSyncStorage, setToSyncStorage } from "../utils/storage";
 
-async function hotReload() {
-  const extInfo = await browser.management.getSelf();
-  if (extInfo.installType !== "development") return;
-
-  const readFile = (path: string) =>
-    fetch(path, { mode: "same-origin" })
-      .then((res) => res.blob())
-      .then(
-        (blob) =>
-          new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.addEventListener("loadend", () => resolve(reader.result));
-            reader.addEventListener("error", () => reject(reader.error));
-            reader.readAsText(blob);
-          }),
-      );
-
-  const reload = () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      // const tab = tabs.at(0);
-      // if (tab && tab.id !== undefined) chrome.tabs.reload(tab.id);
-      chrome.runtime.reload();
-    });
-  };
-
-  const reloadFile = chrome.runtime.getURL("reload");
-  readFile(reloadFile).then((lastModified) => {
-    chrome.alarms.create({ delayInMinutes: 0.01 });
-    chrome.alarms.onAlarm.addListener(() =>
-      readFile(reloadFile).then((newLastModified) => {
-        console.log(`hot-reload: ${newLastModified}`);
-        newLastModified !== lastModified
-          ? reload()
-          : chrome.alarms.create({ delayInMinutes: 0.01 });
-      }),
-    );
+if (process.env.NODE_ENV === "development") {
+  import("../utils/reload").then(({ hotReload }) => {
+    chrome.runtime.onInstalled.addListener(hotReload);
   });
 }
 
-chrome.runtime.onInstalled.addListener(async () => {
-  await hotReload();
+chrome.runtime.onInstalled.addListener(async ({ reason }) => {
+  if (!["install", "update"].includes(reason)) return;
+  const featureConfig = (await getFromSyncStorage("featureConfig")) ?? {};
+  merge(featureConfig, defaultFeatureConfig);
+  await setToSyncStorage("featureConfig", featureConfig);
 });
