@@ -2,7 +2,9 @@ export const enUS = {
   configUI: {
     submit: "Save changes",
     setDefaultTeamspaceOnSearchOpen: {
-      isEnabled: "Set default teamspace when search modal opens",
+      isEnabled: "Set the default teamspace when search modal opened",
+      isEnabledOnCmdOrCtrlP: "by Cmd/Ctrl+P",
+      isEnabledOnCmdOrCtrlK: "by Cmd/Ctrl+K",
     },
   },
 };

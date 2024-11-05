@@ -1,12 +1,32 @@
+import type { TriggeredByKeymap } from "../conductors/KeymapManager";
 import type { TriggeredByOverlayMutation } from "../conductors/OverlayObserver";
+import type { FeatureConfig } from "../config/feature";
 import { AppCrawler } from "../crawlers/AppCrawler";
 import type { OverlayContainerCrawler } from "../crawlers/OverlayContainerCrawler";
 import { SearchModalCrawler } from "../crawlers/SearchModalCrawler";
+import type { KeyboardEventHandler } from "../utils/keymap";
 import { log, logThrownAsync } from "../utils/log";
 
+type TriggerKey = "Cmd/Ctrl+P" | "Cmd/Ctrl+K";
+
 export class SetDefaultTeamspaceOnSearchOpen
-  implements TriggeredByOverlayMutation
+  implements TriggeredByOverlayMutation, TriggeredByKeymap
 {
+  private triggered = false;
+
+  constructor(
+    private config: FeatureConfig["setDefaultTeamspaceOnSearchOpen"],
+  ) {}
+
+  keymaps: Record<TriggerKey, KeyboardEventHandler> = {
+    "Cmd/Ctrl+P": () => {
+      this.triggered = this.config.isEnabledOnCmdOrCtrlP;
+    },
+    "Cmd/Ctrl+K": () => {
+      this.triggered = this.config.isEnabledOnCmdOrCtrlK;
+    },
+  };
+
   onMutateOverlay(
     overlayContainer: OverlayContainerCrawler,
     overlayCountDiff: number,
@@ -17,6 +37,7 @@ export class SetDefaultTeamspaceOnSearchOpen
 
   @logThrownAsync
   private async run(overlayContainer: OverlayContainerCrawler) {
+    if (!this.checkTriggered()) return;
     overlayContainer.checkChildrenCount("may", { args: [2] });
 
     const app = new AppCrawler();
@@ -74,5 +95,11 @@ export class SetDefaultTeamspaceOnSearchOpen
     if (!currentTeamspaceFilterFound) {
       throw `filter "${currentTeamspaceName}" not found`;
     }
+  }
+
+  private checkTriggered() {
+    const bool = this.triggered;
+    this.triggered = false;
+    return bool;
   }
 }

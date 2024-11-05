@@ -6,7 +6,10 @@ function c<T extends Record<string | number, unknown>>(config: T) {
 }
 
 export const getDefaultFeatureConfig = () => ({
-  setDefaultTeamspaceOnSearchOpen: c({}),
+  setDefaultTeamspaceOnSearchOpen: c({
+    isEnabledOnCmdOrCtrlP: false,
+    isEnabledOnCmdOrCtrlK: false,
+  }),
 });
 
 export type FeatureConfig = ReturnType<typeof getDefaultFeatureConfig>;

@@ -18,7 +18,7 @@ export function buildFeatures(featureConfig: FeatureConfig) {
     .map((k) => {
       // TODO: new FeatureClasses[k](featureConfig[k], features)
       const instance = featureConfig[k].isEnabled
-        ? new FeatureClasses[k]()
+        ? new FeatureClasses[k](featureConfig[k])
         : undefined;
       (features[k] as typeof instance) = instance;
     });
