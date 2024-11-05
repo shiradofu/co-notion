@@ -66,11 +66,13 @@ export class SetDefaultTeamspaceOnSearchOpen
         break;
       }
     }
-    if (!currentTeamspaceFilterFound) {
-      throw new Error("current teamspace filter not found");
-    }
 
     overlayContainer.closeFrontMostOverlay("must");
     modal.getTextInput("must").focus();
+
+    // when in private page, filter won't be found
+    if (!currentTeamspaceFilterFound) {
+      throw `filter "${currentTeamspaceName}" not found`;
+    }
   }
 }
