@@ -1,16 +1,25 @@
-import { defaultFeatureConfig } from "../config/feature";
+import { type FeatureConfig, getDefaultFeatureConfig } from "../config/feature";
 import { i } from "../i18n";
+import { log } from "../utils/log";
+import { forceMerge } from "../utils/merge";
 import { type Obj, getObjValueByCtx } from "../utils/obj";
 import { getFromSyncStorage, setToSyncStorage } from "../utils/storage";
 
 type Primitive = boolean | string | number;
 
 class FeatureConfigForm {
-  private config = defaultFeatureConfig;
+  private config: FeatureConfig;
   private readonly TRANSLATION_CTX = "configUI";
 
+  constructor() {
+    this.config = getDefaultFeatureConfig();
+  }
+
   async init() {
-    this.config = await getFromSyncStorage("featureConfig");
+    // Keys of objects stored in chrome.storage are force sorted by alphabetically.
+    // Overwriting values of defaultFeatureConfig by storage-stored values to use
+    // the order we defined.
+    forceMerge(this.config, await getFromSyncStorage("featureConfig"));
     this.render();
   }
 
@@ -63,7 +72,7 @@ class FeatureConfigForm {
         })
         .catch((e) => {
           this.renderSubmissionStatus(false, submission);
-          console.error(e);
+          log.err(e);
         });
     });
   }
@@ -105,7 +114,6 @@ class FeatureConfigForm {
   }
 
   private onChangeInput = ({ currentTarget: input }: Event) => {
-    console.log(input);
     if (!(input instanceof HTMLInputElement)) return;
 
     const ctx = input.id.split(".");

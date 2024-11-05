@@ -34,3 +34,13 @@ export function merge(shouldBeUpdated: Obj, base: Obj) {
     if (!(k in base)) delete shouldBeUpdated[k];
   }
 }
+
+export function forceMerge(base: Obj, over: Obj) {
+  for (const k of Object.keys(base)) {
+    if (typeof base[k] === "object" && !Array.isArray(base[k])) {
+      forceMerge(base[k] as Obj, over[k] as Obj);
+    } else {
+      base[k] = over[k];
+    }
+  }
+}
