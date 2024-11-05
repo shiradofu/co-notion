@@ -5,10 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="./index.css" />
-    <title>title</title>
+    <title>notion-utils config</title>
   </head>
   <body>
-    <div id="root" />
+    <div class="PopupRoot">
+      <div class="ConfigTitle">
+        <img src="./assets/icon-512.png" alt="notion-utils logo" />
+        <span>notion-utils</span>
+      </div>
+      <hr class="ConfigBorder" />
+      <form class="ConfigForm">
+        <ul class="ConfigForm__List"></ul>
+        <div class="ConfigForm__Submission"></div>
+      </form>
+    </div>
     <script type="module" src="./popup.js"></script>
   </body>
 </html>

@@ -1,3 +1,5 @@
+import type { Obj } from "./obj";
+
 function isSameType<T>(x: unknown, y: T): x is T {
   return (
     typeof x === typeof y &&
@@ -6,7 +8,6 @@ function isSameType<T>(x: unknown, y: T): x is T {
   );
 }
 
-type Obj = Record<string | number, unknown>;
 export function merge(shouldBeUpdated: Obj, base: Obj) {
   for (const k of Object.keys(base)) {
     if (

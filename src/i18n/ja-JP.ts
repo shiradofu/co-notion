@@ -1,3 +1,8 @@
 export const jaJP = {
-  setDefaultTeamspaceOnSearchOpen: "検索時に自動で現在のチームスペースを指定",
+  configUI: {
+    submit: "設定を保存",
+    setDefaultTeamspaceOnSearchOpen: {
+      isEnabled: "検索時に自動で現在のチームスペースを指定",
+    },
+  },
 };

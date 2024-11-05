@@ -1,6 +1,7 @@
 :root {
   --main-bg: #f7f7f5;
   --main-text: #000000;
+  --main-text-rgb: 0, 0, 0;
   --main-border: #e6e6e3;
 }
 
@@ -8,6 +9,7 @@
   :root {
     --main-bg: #202020;
     --main-text: #d1d1d1;
+    --main-text-rgb: 209, 209, 209;
     --main-border: #343434;
   }
 }
@@ -20,11 +22,15 @@ body {
   transition: 0.5s;
 }
 
-label {
+label, input {
   cursor: pointer;
 }
 
-.App {
+ul {
+  padding: 0;
+}
+
+.PopupRoot {
   padding: 30px;
   width: max-content;
 }
@@ -37,12 +43,13 @@ label {
   font-size: 1.2rem;
   font-weight: bold;
 
-  img {
+  > img {
     width: 1rem;
     height: 1rem;
   }
 }
 
+/*TODO: ConfigTitle:after に置き換える */
 .ConfigBorder {
   width: 60%;
   margin-bottom: 20px;
@@ -51,9 +58,57 @@ label {
   height: 5px;
 }
 
-.ConfigGrid {
+.ConfigForm__List {
   display: grid;
-  grid-template-columns: 1fr max-content;
-  gap: 1rem;
+  grid-template-columns: [label] 1fr [input] max-content;
   font-size: 1rem;
+}
+
+.ConfigList__Item {
+  display: grid;
+  grid-column: 1 / span 2;
+  grid-template-columns: subgrid;
+  column-gap: 16px;
+  justify-items: start;
+  padding: 7px 5px;
+
+  &:has(:hover) {
+    background-color: rgba(var(--main-text-rgb), 0.2);
+  }
+
+   > .ConfigList__ItemLabel {
+    width: 100%;
+  }
+}
+
+.ConfigList__Item--depth1 {
+  margin-left: 2rem;
+}
+
+.ConfigForm__Submission {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+
+  .ConfigForm__SubmissionStatus {
+    font-size: 1.5em;
+    font-weight: bold;
+
+    &.ConfigForm__SubmissionStatus--succeeded {
+      color: green;
+    }
+
+    &.ConfigForm__SubmissionStatus--failed {
+      color: red;
+    }
+  }
+
+  .ConfigForm__SubmissionButton {
+    color: var(--main-text);
+    background-color: var(--main-bg);
+    border: 1px solid var(--main-text);
+    border-radius: .3em;
+    padding: 5px 10px;
+  }
 }
