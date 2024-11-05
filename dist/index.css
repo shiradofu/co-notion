@@ -22,7 +22,8 @@ body {
   transition: 0.5s;
 }
 
-label, input {
+label,
+input {
   cursor: pointer;
 }
 
@@ -75,14 +76,26 @@ ul {
   &:has(:hover) {
     background-color: rgba(var(--main-text-rgb), 0.2);
   }
+}
 
-   > .ConfigList__ItemLabel {
-    width: 100%;
+.ConfigList__Item--depth0 {
+  font-weight: bold;
+
+  &:not(:has(:checked)) {
+    opacity: 0.7;
+
+    & ~ .ConfigList__Item--depth1 {
+      display: none;
+    }
   }
 }
 
 .ConfigList__Item--depth1 {
   margin-left: 2rem;
+}
+
+.ConfigList__ItemLabel {
+  width: 100%;
 }
 
 .ConfigForm__Submission {
@@ -108,7 +121,7 @@ ul {
     color: var(--main-text);
     background-color: var(--main-bg);
     border: 1px solid var(--main-text);
-    border-radius: .3em;
+    border-radius: 0.3em;
     padding: 5px 10px;
   }
 }
