@@ -9,6 +9,7 @@ export const getDefaultFeatureConfig = () => ({
   setDefaultTeamspaceOnSearchOpen: c({
     isEnabledOnCmdOrCtrlP: false,
     isEnabledOnCmdOrCtrlK: false,
+    isEnabledOnClick: false,
   }),
 });
 

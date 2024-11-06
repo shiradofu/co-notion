@@ -2,7 +2,7 @@ import { createCrawlerFn } from "./create";
 
 export class AppCrawler {
   getOverlayContainer = createCrawlerFn(
-    () => document.querySelector(".notion-overlay-container"),
+    () => document.querySelector<HTMLElement>(".notion-overlay-container"),
     "overlay container not found",
   );
 
@@ -14,7 +14,14 @@ export class AppCrawler {
   );
 
   getCurrentTeamspaceName = createCrawlerFn(
-    () => document.querySelector("header .notion-record-icon + *")?.textContent,
+    () =>
+      document.querySelector<HTMLElement>("header .notion-record-icon + *")
+        ?.textContent,
     "current teamspace name not found",
+  );
+
+  getSidebar = createCrawlerFn(
+    () => document.querySelector<HTMLLIElement>(".notion-sidebar"),
+    "sidebar not found",
   );
 }

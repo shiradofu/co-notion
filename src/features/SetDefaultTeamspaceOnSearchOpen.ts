@@ -1,16 +1,14 @@
+import type { TriggeredByClick } from "../conductors/ClickmapManager";
 import type { TriggeredByKeymap } from "../conductors/KeymapManager";
 import type { TriggeredByOverlayMutation } from "../conductors/OverlayObserver";
 import type { FeatureConfig } from "../config/feature";
 import { AppCrawler } from "../crawlers/AppCrawler";
 import type { OverlayContainerCrawler } from "../crawlers/OverlayContainerCrawler";
 import { SearchModalCrawler } from "../crawlers/SearchModalCrawler";
-import type { KeyboardEventHandler } from "../utils/keymap";
 import { log, logThrownAsync } from "../utils/log";
 
-type TriggerKey = "Cmd/Ctrl+P" | "Cmd/Ctrl+K";
-
 export class SetDefaultTeamspaceOnSearchOpen
-  implements TriggeredByOverlayMutation, TriggeredByKeymap
+  implements TriggeredByOverlayMutation, TriggeredByKeymap, TriggeredByClick
 {
   private triggered = false;
 
@@ -18,12 +16,18 @@ export class SetDefaultTeamspaceOnSearchOpen
     private config: FeatureConfig["setDefaultTeamspaceOnSearchOpen"],
   ) {}
 
-  keymaps: Record<TriggerKey, KeyboardEventHandler> = {
+  keymaps = {
     "Cmd/Ctrl+P": () => {
       this.triggered = this.config.isEnabledOnCmdOrCtrlP;
     },
     "Cmd/Ctrl+K": () => {
       this.triggered = this.config.isEnabledOnCmdOrCtrlK;
+    },
+  };
+
+  clickmaps = {
+    sidebar: () => {
+      this.triggered = this.config.isEnabledOnClick;
     },
   };
 

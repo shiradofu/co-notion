@@ -5,6 +5,7 @@ export const enUS = {
       isEnabled: "Set the default teamspace when search modal opened",
       isEnabledOnCmdOrCtrlP: "by Cmd/Ctrl+P",
       isEnabledOnCmdOrCtrlK: "by Cmd/Ctrl+K",
+      isEnabledOnClick: "by clicking 'Search' on the sidebar",
     },
   },
 };
