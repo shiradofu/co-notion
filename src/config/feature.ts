@@ -11,6 +11,7 @@ export const getDefaultFeatureConfig = () => ({
     isEnabledOnCmdOrCtrlK: false,
     isEnabledOnClick: false,
   }),
+  closeInputableDialogOnSingleEsc: c({}),
 });
 
 export type FeatureConfig = ReturnType<typeof getDefaultFeatureConfig>;

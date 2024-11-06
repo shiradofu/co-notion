@@ -21,7 +21,7 @@ export class AppCrawler {
   );
 
   getSidebar = createCrawlerFn(
-    () => document.querySelector<HTMLLIElement>(".notion-sidebar"),
+    () => document.querySelector<HTMLElement>(".notion-sidebar"),
     "sidebar not found",
   );
 }

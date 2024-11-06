@@ -7,5 +7,8 @@ export const enUS = {
       isEnabledOnCmdOrCtrlK: "by Cmd/Ctrl+K",
       isEnabledOnClick: "by clicking 'Search' on the sidebar",
     },
+    closeInputableDialogOnSingleEsc: {
+      isEnabled: "Close inputable dialog on single Esc",
+    },
   },
 };

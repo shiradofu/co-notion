@@ -7,5 +7,8 @@ export const jaJP = {
       isEnabledOnCmdOrCtrlK: "Cmd/Ctrl+K で検索を開いたとき",
       isEnabledOnClick: "サイドバーの「検索」をクリックして開いたとき",
     },
+    closeInputableDialogOnSingleEsc: {
+      isEnabled: "文字入力可能なウィンドウを Esc 一回で閉じる",
+    },
   },
 };

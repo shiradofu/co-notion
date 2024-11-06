@@ -6,7 +6,7 @@ import type { Conductor } from "./types";
 type MouseEventHandler = (e: MouseEvent) => void;
 
 export interface TriggeredByClick {
-  clickmaps: Record<keyof ClickmapCrawler, MouseEventHandler>;
+  clickmaps: Partial<Record<keyof ClickmapCrawler, MouseEventHandler>>;
 }
 const uniqueKey: keyof TriggeredByClick = "clickmaps";
 
