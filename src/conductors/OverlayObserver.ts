@@ -15,9 +15,9 @@ export class OverlayObserver extends BaseObserver implements Conductor {
   private prevOverlayCount = 1;
   private overlayContainer?: OverlayContainerCrawler;
 
-  async conduct(features: FeatureInstances) {
-    const targets = features.filter((f) => uniqueKey in f);
-    if (targets.length === 0) return;
+  async conduct(enabledFeatures: FeatureInstances) {
+    const targetFeatures = enabledFeatures.filter((f) => uniqueKey in f);
+    if (targetFeatures.length === 0) return;
 
     this.observer = new MutationObserver(([record]) => {
       this.overlayContainer =
@@ -27,8 +27,8 @@ export class OverlayObserver extends BaseObserver implements Conductor {
       const overlayCountDiff = count - this.prevOverlayCount;
       this.prevOverlayCount = count;
 
-      for (const t of targets) {
-        t.onMutateOverlay(this.overlayContainer, overlayCountDiff);
+      for (const f of targetFeatures) {
+        f.onMutateOverlay(this.overlayContainer, overlayCountDiff);
       }
     });
 

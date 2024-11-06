@@ -14,13 +14,13 @@ const uniqueKey: keyof TriggeredByKeymap = "keymaps";
 export class KeymapManager implements Conductor {
   private handlers: KeyboardEventHandler[] = [];
 
-  conduct(features: FeatureInstances) {
-    const targets = features.filter((f) => uniqueKey in f);
-    for (const t of targets) {
-      for (const [mapStr, baseHandler] of Object.entries(t.keymaps)) {
+  conduct(enabledFeatures: FeatureInstances) {
+    const targetFeatures = enabledFeatures.filter((f) => uniqueKey in f);
+    for (const f of targetFeatures) {
+      for (const [mapStr, baseHandler] of Object.entries(f.keymaps)) {
         const h = createKeyboadEventHandler(mapStr, baseHandler);
         if (!h) {
-          log.err(`invaild keymap found: ${mapStr}`);
+          log.err(`invaild keymap found in ${f.constructor.name}: ${mapStr}`);
           continue;
         }
 
