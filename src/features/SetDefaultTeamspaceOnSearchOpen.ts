@@ -5,12 +5,13 @@ import type { FeatureConfig } from "../config/feature";
 import { AppCrawler } from "../crawlers/AppCrawler";
 import type { OverlayContainerCrawler } from "../crawlers/OverlayContainerCrawler";
 import { SearchModalCrawler } from "../crawlers/SearchModalCrawler";
-import { log, logThrownAsync } from "../utils/log";
+import { Log } from "../utils/log";
 
 export class SetDefaultTeamspaceOnSearchOpen
   implements TriggeredByOverlayMutation, TriggeredByKeymap, TriggeredByClick
 {
   private triggered = false;
+  private log = new Log(this.constructor.name);
 
   constructor(
     private config: FeatureConfig["setDefaultTeamspaceOnSearchOpen"],
@@ -39,12 +40,13 @@ export class SetDefaultTeamspaceOnSearchOpen
     this.run(overlayContainer);
   }
 
-  @logThrownAsync
+  @Log.thrownInMethodAsync
   private async run(overlayContainer: OverlayContainerCrawler) {
     if (!this.checkTriggered()) return;
     overlayContainer.checkChildrenCount("may", { args: [2] });
 
     const app = new AppCrawler();
+    const localLog = this.log.local(".run");
 
     // cannot get this when we're at "Home" tab, private page, etc.
     const currentTeamspaceName = app.getCurrentTeamspaceName("may");
@@ -79,13 +81,13 @@ export class SetDefaultTeamspaceOnSearchOpen
       args: [overlayContainer.getFrontmostOverlay("must")],
       wait: "short",
     });
-    log.dbg("teamspace filter items:", teamspaceFilterItems);
+    localLog.dbg("teamspace filter items:", teamspaceFilterItems);
 
     let currentTeamspaceFilterFound = false;
     for (const item of teamspaceFilterItems) {
       const itemName = item?.firstElementChild?.lastElementChild?.textContent;
       if (itemName === currentTeamspaceName) {
-        log.dbg(`${currentTeamspaceName} found, set.`);
+        localLog.dbg(`${currentTeamspaceName} found, set.`);
         currentTeamspaceFilterFound = true;
         item.click();
         break;

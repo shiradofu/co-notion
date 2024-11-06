@@ -3,7 +3,7 @@ import {
   type KeyboardEventHandler,
   createKeyboadEventHandler,
 } from "../utils/keymap";
-import { log } from "../utils/log";
+import { Log } from "../utils/log";
 import type { Conductor } from "./types";
 
 export interface TriggeredByKeymap {
@@ -13,6 +13,7 @@ const uniqueKey: keyof TriggeredByKeymap = "keymaps";
 
 export class KeymapManager implements Conductor {
   private handlers: KeyboardEventHandler[] = [];
+  private log = new Log(this.constructor.name);
 
   conduct(enabledFeatures: FeatureInstances) {
     const targetFeatures = enabledFeatures.filter((f) => uniqueKey in f);
@@ -20,7 +21,9 @@ export class KeymapManager implements Conductor {
       for (const [mapStr, baseHandler] of Object.entries(f.keymaps)) {
         const h = createKeyboadEventHandler(mapStr, baseHandler);
         if (!h) {
-          log.err(`invaild keymap found in ${f.constructor.name}: ${mapStr}`);
+          this.log.err(
+            `invaild keymap found in ${f.constructor.name}: ${mapStr}`,
+          );
           continue;
         }
 

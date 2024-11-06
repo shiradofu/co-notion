@@ -1,6 +1,6 @@
 import { type FeatureConfig, getDefaultFeatureConfig } from "../config/feature";
 import { i } from "../i18n";
-import { log } from "../utils/log";
+import { Log } from "../utils/log";
 import { forceMerge } from "../utils/merge";
 import { type Obj, getObjValueByCtx } from "../utils/obj";
 import { getFromSyncStorage, setToSyncStorage } from "../utils/storage";
@@ -10,6 +10,7 @@ type Primitive = boolean | string | number;
 class FeatureConfigForm {
   private config: FeatureConfig;
   private readonly TRANSLATION_CTX = "configUI";
+  private log = new Log(this.constructor.name);
 
   constructor() {
     this.config = getDefaultFeatureConfig();
@@ -72,7 +73,7 @@ class FeatureConfigForm {
         })
         .catch((e) => {
           this.renderSubmissionStatus(false, submission);
-          log.err(e);
+          this.log.local("addSubmission").err(e);
         });
     });
   }

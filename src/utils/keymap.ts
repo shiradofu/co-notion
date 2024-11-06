@@ -1,4 +1,4 @@
-import { log } from "./log";
+import { Log } from "./log";
 import { IS_MACOS } from "./os";
 
 export type KeyboardEventHandler = (e: KeyboardEvent) => void;
@@ -22,12 +22,14 @@ const keyStrMapper = [
 ] as const;
 
 function parseMapStr(mapStr: string) {
+  const log = new Log("utils/keymap/parseMapStr");
+
   const components = !mapStr.endsWith("++")
     ? mapStr.split("+")
     : [...mapStr.split("+").slice(0, -2), "+"];
   const key = components.pop();
   if (!key) {
-    log.dbg(`key not found in ${mapStr}`);
+    log.dbg(`non-mod key not found in mapStr: ${mapStr}`);
     return;
   }
   const mods = components;
