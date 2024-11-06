@@ -23,6 +23,8 @@ export class KeymapManager implements Conductor {
           log.err(`invaild keymap found: ${mapStr}`);
           continue;
         }
+
+        this.handlers.push(h);
         document.body.addEventListener("keydown", h);
       }
     }
