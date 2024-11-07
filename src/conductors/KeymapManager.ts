@@ -18,11 +18,13 @@ export class KeymapManager implements Conductor {
   conduct(enabledFeatures: FeatureInstances) {
     const targetFeatures = enabledFeatures.filter((f) => uniqueKey in f);
     for (const f of targetFeatures) {
-      for (const [mapStr, baseHandler] of Object.entries(f.keymaps)) {
-        const h = createKeyboadEventHandler(mapStr, baseHandler);
+      for (const [keyCombo, baseHandler] of Object.entries(f.keymaps)) {
+        if (!keyCombo) continue;
+
+        const h = createKeyboadEventHandler(keyCombo, baseHandler);
         if (!h) {
           this.log.err(
-            `invaild keymap found in ${f.constructor.name}: ${mapStr}`,
+            `invaild key combo found in ${f.constructor.name}: ${keyCombo}`,
           );
           continue;
         }

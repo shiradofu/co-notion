@@ -1,12 +1,22 @@
 import { Log } from "./log";
 import { IS_MACOS } from "./os";
 
+export type KeyCombo = {
+  [K in
+    | "key"
+    | "ctrlKey"
+    | "shiftKey"
+    | "altKey"
+    | "metaKey"]: KeyboardEvent[K];
+};
+
 export type KeyboardEventHandler = (e: KeyboardEvent) => void;
 
 const modsRegexp = {
   ctrl: "([Cc]trl|CTRL|[Cc]ontrol|CONTROL)",
   cmd: "([Cc]md|CMD|[Cc]ommand|COMMAND)",
 };
+
 const keyStrMapper = [
   [/^([Ee]nter|ENTER|[Rr]eturn|RETURN)$/, "Enter"],
   [/^([Ee]scape|ESCAPE|[Ee]sc|ESC)$/, "Escape"],
@@ -18,26 +28,24 @@ const keyStrMapper = [
   [/^(([Aa]rrow)?[Uu]p|↑)$/, "ArrowUp"],
   [/^([Ee]nd|END)$/, "End"],
   [/^([Hh]ome|HOME)$/, "Home"],
-  [/^[Pp]age[Dd]own$/, "PageDown"],
-  [/^[Pp]age[Uu]p$/, "PageUp"],
+  [/^[Pp]age ?[Dd]own$/, "PageDown"],
+  [/^[Pp]age ?[Uu]p$/, "PageUp"],
 ] as const;
 
-function parseMapStr(mapStr: string) {
-  const log = new Log("utils/keymap/parseMapStr");
+function parseKeyComboStr(keyComboStr: string) {
+  const log = new Log("utils/keymap/parseKeyComboStr");
 
-  const components = !mapStr.endsWith("++")
-    ? mapStr.split("+")
-    : [...mapStr.split("+").slice(0, -2), "+"];
+  const components = !keyComboStr.endsWith("++")
+    ? keyComboStr.split("+")
+    : [...keyComboStr.split("+").slice(0, -2), "+"];
   const key = components.pop();
   if (!key) {
-    log.dbg(`non-mod key not found in mapStr: ${mapStr}`);
+    log.dbg(`non-mod key not found in key combo: ${keyComboStr}`);
     return;
   }
   const mods = components;
 
-  const map: { -readonly [K in "key"]: KeyboardEvent["key"] } & {
-    [K in "ctrlKey" | "shiftKey" | "altKey" | "metaKey"]: KeyboardEvent[K];
-  } = {
+  const keyCombo: KeyCombo = {
     key: "",
     ctrlKey: !!mods.find(
       (m) =>
@@ -56,37 +64,37 @@ function parseMapStr(mapStr: string) {
   };
 
   if (key.length === 1) {
-    map.key = map.shiftKey ? key.toUpperCase() : key.toLowerCase();
+    keyCombo.key = keyCombo.shiftKey ? key.toUpperCase() : key.toLowerCase();
   } else {
     for (const [regex, mapped] of keyStrMapper) {
       if (regex.test(key)) {
-        map.key = mapped;
+        keyCombo.key = mapped;
         break;
       }
     }
   }
 
-  if (map.key === "") {
-    log.dbg(`unknown key "${key}" in "${mapStr}"`);
+  if (keyCombo.key === "") {
+    log.dbg(`unknown key "${key}" in "${keyComboStr}"`);
     return;
   }
 
-  return map;
+  return keyCombo;
 }
 
 export function createKeyboadEventHandler(
-  mapStr: string,
+  keyComboStr: string,
   handler: KeyboardEventHandler,
 ): KeyboardEventHandler | undefined {
-  const map = parseMapStr(mapStr);
-  if (!map) return;
+  const keyCombo = parseKeyComboStr(keyComboStr);
+  if (!keyCombo) return;
 
   return (e) => {
     if (
-      e.key === map.key &&
-      e.ctrlKey === map.ctrlKey &&
-      e.shiftKey === map.shiftKey &&
-      e.metaKey === map.metaKey
+      e.key === keyCombo.key &&
+      e.ctrlKey === keyCombo.ctrlKey &&
+      e.shiftKey === keyCombo.shiftKey &&
+      e.metaKey === keyCombo.metaKey
     ) {
       handler(e);
     }
