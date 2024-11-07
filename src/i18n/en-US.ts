@@ -10,5 +10,8 @@ export const enUS = {
     closeInputableDialogOnSingleEsc: {
       isEnabled: "Close inputable dialog on single Esc",
     },
+    preventSearchModalFromRestoringPrevCond: {
+      isEnabled: "Prevent search modal from restoring prev conditions",
+    },
   },
 };

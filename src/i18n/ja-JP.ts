@@ -10,5 +10,8 @@ export const jaJP = {
     closeInputableDialogOnSingleEsc: {
       isEnabled: "文字入力可能なウィンドウを Esc 一回で閉じる",
     },
+    preventSearchModalFromRestoringPrevCond: {
+      isEnabled: "前回の検索条件を復元しない",
+    },
   },
 };

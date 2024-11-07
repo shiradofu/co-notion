@@ -1,10 +1,13 @@
 import type { FeatureConfig } from "../config/feature";
 import { CloseInputableDialogOnSingleEsc } from "./CloseInputableDialogOnSingleEsc";
+import { PreventSearchModalFromRestoringPrevCond } from "./PreventSearchModalFromRestoringPrevCond";
 import { SetDefaultTeamspaceOnSearchOpen } from "./SetDefaultTeamspaceOnSearchOpen";
 
 const FeatureClasses = {
   setDefaultTeamspaceOnSearchOpen: SetDefaultTeamspaceOnSearchOpen,
   closeInputableDialogOnSingleEsc: CloseInputableDialogOnSingleEsc,
+  preventSearchModalFromRestoringPrevCond:
+    PreventSearchModalFromRestoringPrevCond,
 } as const;
 
 export type Features = {
@@ -18,7 +21,6 @@ export function buildFeatures(featureConfig: FeatureConfig) {
   Object.keys(FeatureClasses)
     .filter((v): v is keyof typeof FeatureClasses => true)
     .map((k) => {
-      // TODO: new FeatureClasses[k](featureConfig[k], features)
       const instance = featureConfig[k].isEnabled
         ? // biome-ignore lint: suspicious/noExplicitAny
           new FeatureClasses[k](featureConfig[k] as any)

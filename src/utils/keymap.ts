@@ -9,6 +9,7 @@ const modsRegexp = {
 };
 const keyStrMapper = [
   [/^([Ee]nter|ENTER|[Rr]eturn|RETURN)$/, "Enter"],
+  [/^([Ee]scape|ESCAPE|[Ee]sc|ESC)$/, "Escape"],
   [/^([Ss]pace|SPACE)$/, " "],
   [/^([Tt]ab|TAB)$/, "Tab"],
   [/^(([Aa]rrow)?[Dd]own|↓)$/, "ArrowDown"],

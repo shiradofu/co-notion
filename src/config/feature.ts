@@ -12,6 +12,7 @@ export const getDefaultFeatureConfig = () => ({
     isEnabledOnClick: false,
   }),
   closeInputableDialogOnSingleEsc: c({}),
+  preventSearchModalFromRestoringPrevCond: c({}),
 });
 
 export type FeatureConfig = ReturnType<typeof getDefaultFeatureConfig>;

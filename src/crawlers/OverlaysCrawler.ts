@@ -8,14 +8,21 @@ export class OverlaysCrawler {
     return this.containerEl.childElementCount - 1;
   }
 
+  checkCount = (count: number) => this.count === count;
+
   ensureCount = createCrawlerFn(
-    (count: number) => this.count === count,
+    this.checkCount,
     (count) => `overlay count is not ${count}`,
   );
 
   getFrontmost = createCrawlerFn(
     () => this.containerEl.lastElementChild,
     "no overlay found",
+  );
+
+  getFrontmostBg = createCrawlerFn(
+    () => document.elementFromPoint(0, 0) as HTMLElement | null,
+    "failed to get frontmost overlay's background",
   );
 
   closeFrontmost = createCrawlerFn(() => {
