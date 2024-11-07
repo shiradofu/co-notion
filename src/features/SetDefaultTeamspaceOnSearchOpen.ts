@@ -3,7 +3,7 @@ import type { TriggeredByKeymap } from "../conductors/KeymapManager";
 import type { TriggeredByOverlayMutation } from "../conductors/OverlayObserver";
 import type { FeatureConfig } from "../config/feature";
 import { AppCrawler } from "../crawlers/AppCrawler";
-import type { OverlayContainerCrawler } from "../crawlers/OverlayContainerCrawler";
+import type { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
 import { SearchModalCrawler } from "../crawlers/SearchModalCrawler";
 import { Log } from "../utils/log";
 
@@ -32,18 +32,17 @@ export class SetDefaultTeamspaceOnSearchOpen
     },
   };
 
-  onMutateOverlay(
-    overlayContainer: OverlayContainerCrawler,
-    overlayCountDiff: number,
-  ) {
-    if (overlayCountDiff <= 0) return;
-    this.run(overlayContainer);
+  onMutateOverlay(overlays: OverlaysCrawler, overlaysCountDiff: number) {
+    if (overlaysCountDiff > 0) {
+      this.run(overlays);
+    }
   }
 
   @Log.thrownInMethodAsync
-  private async run(overlayContainer: OverlayContainerCrawler) {
+  private async run(overlays: OverlaysCrawler) {
+    // TODO: move conds to onMutateOverlay
     if (!this.checkTriggered()) return;
-    overlayContainer.checkChildrenCount("may", { args: [2] });
+    overlays.ensureCount("may", { args: [1] });
 
     const app = new AppCrawler();
     const localLog = this.log.local(".run");
@@ -52,7 +51,7 @@ export class SetDefaultTeamspaceOnSearchOpen
     const currentTeamspaceName = app.getCurrentTeamspaceName("may");
 
     const modal = SearchModalCrawler.fromOverlayEl("may", {
-      args: [overlayContainer.getFrontmostOverlay("may")],
+      args: [overlays.getFrontmost("may")],
     });
 
     const areFiltersShown = modal.getFilterBar();
@@ -73,12 +72,10 @@ export class SetDefaultTeamspaceOnSearchOpen
     }
 
     teamspaceFilterBtn.click();
-    await overlayContainer.checkChildrenCount("must", {
-      args: [3],
-      wait: "short",
-    });
+    await overlays.ensureCount("must", { args: [2], wait: "short" });
+
     const teamspaceFilterItems = await modal.getFilterItems("must", {
-      args: [overlayContainer.getFrontmostOverlay("must")],
+      args: [overlays.getFrontmost("must")],
       wait: "short",
     });
     localLog.dbg("teamspace filter items:", teamspaceFilterItems);
@@ -94,7 +91,7 @@ export class SetDefaultTeamspaceOnSearchOpen
       }
     }
 
-    overlayContainer.closeFrontMostOverlay("must");
+    overlays.closeFrontmost("must");
     modal.getTextInput("must").focus();
 
     // when in private page, filter won't be found

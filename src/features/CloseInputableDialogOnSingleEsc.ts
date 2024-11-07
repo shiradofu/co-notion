@@ -1,6 +1,6 @@
 import type { TriggeredByClick } from "../conductors/ClickmapManager";
 import type { TriggeredByOverlayMutation } from "../conductors/OverlayObserver";
-import type { OverlayContainerCrawler } from "../crawlers/OverlayContainerCrawler";
+import type { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
 import { Log } from "../utils/log";
 
 export class CloseInputableDialogOnSingleEsc
@@ -9,12 +9,10 @@ export class CloseInputableDialogOnSingleEsc
   private overlayContainerClicked = false;
   private log = new Log(this.constructor.name);
 
-  onMutateOverlay(
-    overlayContainer: OverlayContainerCrawler,
-    overlayCountDiff: number,
-  ) {
-    if (overlayCountDiff <= 0) return;
-    this.run(overlayContainer);
+  onMutateOverlay(overlays: OverlaysCrawler, overlaysCountDiff: number) {
+    if (overlaysCountDiff > 0) {
+      this.run(overlays);
+    }
   }
 
   clickmaps = {
@@ -27,8 +25,8 @@ export class CloseInputableDialogOnSingleEsc
   };
 
   @Log.thrownInMethodAsync
-  private async run(overlayContainer: OverlayContainerCrawler) {
-    const overlay = overlayContainer.getFrontmostOverlay("may");
+  private async run(overlays: OverlaysCrawler) {
+    const overlay = overlays.getFrontmost("may");
 
     const input = overlay.querySelector<HTMLElement>("input");
     if (!input) {
@@ -47,7 +45,7 @@ export class CloseInputableDialogOnSingleEsc
       setTimeout(() => {
         t.isConnected &&
           document.activeElement?.nodeName === "BODY" &&
-          overlayContainer.closeFrontMostOverlay();
+          overlays.closeFrontmost();
       });
     });
   }

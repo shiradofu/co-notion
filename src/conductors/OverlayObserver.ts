@@ -1,34 +1,33 @@
-import { OverlayContainerCrawler } from "../crawlers/OverlayContainerCrawler";
+import { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
 import type { FeatureInstances } from "../features/";
 import { BaseObserver } from "./BaseObserver";
 import type { Conductor } from "./types";
 
 export interface TriggeredByOverlayMutation {
   onMutateOverlay: (
-    overlayContainer: OverlayContainerCrawler,
-    overlayCountDiff: number,
+    overlays: OverlaysCrawler,
+    overlaysCountDiff: number,
   ) => void;
 }
 const uniqueKey: keyof TriggeredByOverlayMutation = "onMutateOverlay";
 
 export class OverlayObserver extends BaseObserver implements Conductor {
-  private prevOverlayCount = 1;
-  private overlayContainer?: OverlayContainerCrawler;
+  private prevOverlaysCount = 0;
+  private overlays?: OverlaysCrawler;
 
   async conduct(enabledFeatures: FeatureInstances) {
     const targetFeatures = enabledFeatures.filter((f) => uniqueKey in f);
     if (targetFeatures.length === 0) return;
 
     this.observer = new MutationObserver(([record]) => {
-      this.overlayContainer =
-        this.overlayContainer ??
-        new OverlayContainerCrawler(record.target as Element);
-      const count = this.overlayContainer.getChildrenCount();
-      const overlayCountDiff = count - this.prevOverlayCount;
-      this.prevOverlayCount = count;
+      this.overlays =
+        this.overlays ?? new OverlaysCrawler(record.target as Element);
+      const count = this.overlays.count;
+      const overlaysCountDiff = count - this.prevOverlaysCount;
+      this.prevOverlaysCount = count;
 
       for (const f of targetFeatures) {
-        f.onMutateOverlay(this.overlayContainer, overlayCountDiff);
+        f.onMutateOverlay(this.overlays, overlaysCountDiff);
       }
     });
 
