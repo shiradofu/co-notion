@@ -9,12 +9,6 @@ export class CloseInputableDialogOnSingleEsc
   private overlayContainerClicked = false;
   private log = new Log(this.constructor.name);
 
-  onMutateOverlay(overlays: OverlaysCrawler, overlaysCountDiff: number) {
-    if (overlaysCountDiff > 0) {
-      this.run(overlays);
-    }
-  }
-
   clickmaps = {
     overlayContainer: () => {
       this.overlayContainerClicked = true;
@@ -23,6 +17,12 @@ export class CloseInputableDialogOnSingleEsc
       }, 10);
     },
   };
+
+  onMutateOverlay(overlays: OverlaysCrawler, overlaysCountDiff: number) {
+    if (overlaysCountDiff > 0) {
+      this.run(overlays);
+    }
+  }
 
   @Log.thrownInMethodAsync
   private async run(overlays: OverlaysCrawler) {
