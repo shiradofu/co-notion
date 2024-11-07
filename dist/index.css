@@ -63,6 +63,10 @@ ul {
   display: grid;
   grid-template-columns: [label] 1fr [input] max-content;
   font-size: 1rem;
+
+  & > :first-child {
+    margin-top: 0;
+  }
 }
 
 .ConfigList__Item {
@@ -71,7 +75,7 @@ ul {
   grid-template-columns: subgrid;
   column-gap: 16px;
   justify-items: start;
-  padding: 7px 5px;
+  padding: 5px;
 
   &:has(:hover) {
     background-color: rgba(var(--main-text-rgb), 0.2);
@@ -80,6 +84,7 @@ ul {
 
 .ConfigList__Item--depth0 {
   font-weight: bold;
+  margin-top: 10px;
 
   &:not(:has(:checked)) {
     opacity: 0.7;
