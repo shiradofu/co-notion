@@ -13,5 +13,10 @@ export const enUS = {
     preventSearchModalFromRestoringPrevCond: {
       isEnabled: "Prevent search modal from restoring prev conditions",
     },
+    addKeymapToInsertProfilePageLink: {
+      isEnabled: "Add keymap to insert profile page link",
+      profilePageTitle: "profile page title",
+      keymap: "keymap",
+    },
   },
 };

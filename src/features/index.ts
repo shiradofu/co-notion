@@ -1,4 +1,5 @@
 import type { FeatureConfig } from "../config/feature";
+import { AddKeymapToInsertProfilePageLink } from "./AddKeymapToInsertProfilePageLink";
 import { CloseInputableDialogOnSingleEsc } from "./CloseInputableDialogOnSingleEsc";
 import { PreventSearchModalFromRestoringPrevCond } from "./PreventSearchModalFromRestoringPrevCond";
 import { SetDefaultTeamspaceOnSearchOpen } from "./SetDefaultTeamspaceOnSearchOpen";
@@ -8,6 +9,7 @@ const FeatureClasses = {
   closeInputableDialogOnSingleEsc: CloseInputableDialogOnSingleEsc,
   preventSearchModalFromRestoringPrevCond:
     PreventSearchModalFromRestoringPrevCond,
+  addKeymapToInsertProfilePageLink: AddKeymapToInsertProfilePageLink,
 } as const;
 
 export type Features = {

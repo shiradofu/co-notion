@@ -13,6 +13,10 @@ export const getDefaultFeatureConfig = () => ({
   }),
   closeInputableDialogOnSingleEsc: c({}),
   preventSearchModalFromRestoringPrevCond: c({}),
+  addKeymapToInsertProfilePageLink: c({
+    profilePageTitle: "",
+    keymap: "Cmd/Ctrl+I",
+  }),
 });
 
 export type FeatureConfig = ReturnType<typeof getDefaultFeatureConfig>;

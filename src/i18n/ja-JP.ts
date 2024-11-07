@@ -13,5 +13,10 @@ export const jaJP = {
     preventSearchModalFromRestoringPrevCond: {
       isEnabled: "前回の検索条件を復元しない",
     },
+    addKeymapToInsertProfilePageLink: {
+      isEnabled: "プロフィールページへのリンクをショートカットで挿入",
+      profilePageTitle: "プロフィールページ名",
+      keymap: "キーボードショートカット",
+    },
   },
 };

@@ -109,6 +109,9 @@ class FeatureConfigForm {
     input.type = this.valueTypeToInputType(configValue);
     this.setInputValue(input, configValue);
     input.addEventListener("change", this.onChangeInput);
+    if (ctx.at(-1) === "keymap") {
+      input.classList.add("ConfigList__ItemInput--monospace");
+    }
     li.appendChild(input);
 
     return li;

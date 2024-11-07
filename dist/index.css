@@ -98,6 +98,10 @@ ul {
   width: 100%;
 }
 
+.ConfigList__ItemInput--monospace {
+  font-family: monospace;
+}
+
 .ConfigForm__Submission {
   display: flex;
   justify-content: flex-end;
