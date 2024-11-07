@@ -1,5 +1,6 @@
 import { conductFeatures } from "../conductors";
 import { buildFeatures } from "../features";
+import { Log } from "../utils/log";
 import { addListenerToSyncStorage, getFromSyncStorage } from "../utils/storage";
 
 async function setup() {
@@ -8,6 +9,9 @@ async function setup() {
   conductFeatures(features);
 }
 
-// TODO: wait until app has been loaded
-setup();
-addListenerToSyncStorage(setup);
+if (document.body.classList.contains("notion-body")) {
+  setup();
+  addListenerToSyncStorage(setup);
+} else {
+  Log.dbg("non-app page detected, disabled");
+}
