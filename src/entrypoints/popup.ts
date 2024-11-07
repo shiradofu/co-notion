@@ -97,6 +97,7 @@ class FeatureConfigForm {
     const depth = ctx.at(-1) === "isEnabled" ? ctx.length - 2 : ctx.length - 1;
     const li = document.createElement("li");
     li.classList.add("ConfigList__Item", `ConfigList__Item--depth${depth}`);
+    li.dataset.depth = `${depth}`;
 
     const label = document.createElement("label");
     label.classList.add("ConfigList__ItemLabel");
@@ -125,6 +126,27 @@ class FeatureConfigForm {
     const config = getObjValueByCtx<Obj>(this.config, ctx);
     if (!key || !config || !(key in config)) {
       throw new Error(`${ctx.join(".")} not found in featureConfig table`);
+    }
+
+    if (key === "isEnabled") {
+      const items =
+        document.querySelector<HTMLElement>(".ConfigForm__List")?.children;
+      let flag = false;
+      let depth = "0";
+      for (const item of items ?? []) {
+        if (!(item instanceof HTMLElement)) continue;
+        if (item.querySelector("input") === input) {
+          flag = true;
+          depth = item.dataset.depth ?? "0";
+          continue;
+        }
+        if (!flag) continue;
+        if (item.dataset.depth && item.dataset.depth <= depth) break;
+        const hiddenClass = "ConfigList__Item--hidden";
+        input.checked
+          ? item.classList.remove(hiddenClass)
+          : item.classList.add(hiddenClass);
+      }
     }
 
     this.setConfigValue(config, key, input);

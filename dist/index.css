@@ -83,15 +83,15 @@ ul {
 
   &:not(:has(:checked)) {
     opacity: 0.7;
-
-    & ~ .ConfigList__Item--depth1 {
-      display: none;
-    }
   }
 }
 
 .ConfigList__Item--depth1 {
   margin-left: 2rem;
+}
+
+.ConfigList__Item--hidden {
+  display: none;
 }
 
 .ConfigList__ItemLabel {
