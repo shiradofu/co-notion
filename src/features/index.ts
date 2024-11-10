@@ -3,6 +3,7 @@ import { AddKeymapToInsertProfilePageLink } from "./AddKeymapToInsertProfilePage
 import { CloseInputableDialogOnSingleEsc } from "./CloseInputableDialogOnSingleEsc";
 import { PreventSearchModalFromRestoringPrevCond } from "./PreventSearchModalFromRestoringPrevCond";
 import { SetDefaultTeamspaceOnSearchOpen } from "./SetDefaultTeamspaceOnSearchOpen";
+import { ShowInlinePageLinkAsIcon } from "./ShowInlinePageLinkAsIcon";
 
 const FeatureClasses = {
   setDefaultTeamspaceOnSearchOpen: SetDefaultTeamspaceOnSearchOpen,
@@ -10,6 +11,7 @@ const FeatureClasses = {
   preventSearchModalFromRestoringPrevCond:
     PreventSearchModalFromRestoringPrevCond,
   addKeymapToInsertProfilePageLink: AddKeymapToInsertProfilePageLink,
+  showInlinePageLinkAsIcon: ShowInlinePageLinkAsIcon,
 } as const;
 
 export type Features = {

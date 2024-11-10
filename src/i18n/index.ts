@@ -9,15 +9,30 @@ const tables = {
 
 type TranslationCtx = keyof (typeof tables)["ja-JP"];
 
-export function i(ctx: [TranslationCtx, ...string[]]) {
+export function i(ctx: [TranslationCtx, ...string[]]): string;
+export function i<A extends unknown[]>(
+  ctx: [TranslationCtx, ...string[]],
+  ...args: A
+): string;
+export function i<A extends unknown[]>(
+  ctx: [TranslationCtx, ...string[]],
+  ...args: A
+) {
   const locale = navigator.language as keyof typeof tables;
   const table = tables[locale] ?? tables["ja-JP"];
+
   let translated = getObjValueByCtx(table, ctx);
   if (!translated && locale !== "ja-JP") {
     translated = getObjValueByCtx(tables["ja-JP"], ctx);
   }
-  if (!translated || typeof translated !== "string") {
+
+  if (
+    !translated ||
+    (args.length === 0 && typeof translated !== "string") ||
+    (args.length > 0 && typeof translated !== "function")
+  ) {
     throw new Error(`${ctx.join(".")} couldn't be translated`);
   }
-  return translated;
+
+  return typeof translated === "function" ? translated(...args) : translated;
 }

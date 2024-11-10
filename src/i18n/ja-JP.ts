@@ -18,5 +18,10 @@ export const jaJP = {
       profilePageTitle: "プロフィールページ名",
       keymap: "キーボードショートカット",
     },
+    showInlinePageLinkAsIcon: {
+      isEnabled: "文中のページリンクをアイコンとして表示",
+      iconContainerPageUrls: "アイコン表示したいページを含んだページ・DBのURL",
+      reload: (target: string) => `「${target}」を読込`,
+    },
   },
 };

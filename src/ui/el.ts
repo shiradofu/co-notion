@@ -6,8 +6,8 @@ type ElAttrs<T extends TagName, E = HTMLElementTagNameMap[T]> = {
   classes?: (string | false | undefined)[];
   onChange?: (e: Event) => void;
   onSubmit?: (e: Event) => void;
-  data?: Record<string, string>;
   type?: E extends HTMLButtonElement ? E["type"] : never;
+  href?: E extends HTMLAnchorElement ? string : never;
   htmlFor?: E extends HTMLLabelElement ? string : never;
   value?: E extends HTMLTextAreaElement
     ? string
@@ -32,9 +32,12 @@ function addAttrs<T extends TagName>(
   }
   if (attrs.onChange) e.addEventListener("change", attrs.onChange);
   if (attrs.onSubmit) e.addEventListener("submit", attrs.onSubmit);
-  if (attrs.data) {
-    for (const k of Object.keys(attrs.data)) {
-      e.dataset[k] = attrs.data[k];
+
+  if (e instanceof HTMLAnchorElement) {
+    if (attrs.href) {
+      e.href = attrs.href;
+      e.target = "_blank";
+      e.rel = "noopener noreferrer";
     }
   }
 

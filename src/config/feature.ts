@@ -17,6 +17,9 @@ export const getDefaultFeatureConfig = () => ({
     profilePageTitle: "",
     keymap: "Cmd/Ctrl+I",
   }),
+  showInlinePageLinkAsIcon: c({
+    iconContainerPageUrls: "",
+  }),
 });
 
 export type FeatureConfig = ReturnType<typeof getDefaultFeatureConfig>;

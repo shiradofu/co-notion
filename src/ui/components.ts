@@ -85,17 +85,20 @@ function ConfigItemTree({
       subConfig.length > 0 &&
         ConfigSubList({
           children: subConfig.map(([k, v]) => {
+            const newCtx = [...ctx, k];
+
             if (["boolean", "string", "number"].includes(typeof v)) {
               return ConfigItem({
-                ctx: [...ctx, k],
+                ctx: newCtx,
                 value: v as Primitive,
                 onChangeInput,
+                ...makeCustomItemProps(newCtx, v as Primitive),
               });
             }
 
             return ConfigItemTree({
               config: v as Obj,
-              ctx: [...ctx, k],
+              ctx: newCtx,
               onChangeInput,
             });
           }),
@@ -127,7 +130,7 @@ export function ConfigFormSubmission({ isSuccess }: { isSuccess?: boolean }) {
             "ConfigFormSubmission__Status",
             isSuccess
               ? "ConfigFormSubmission__Status--success"
-              : "ConfigFormSubmission__Status--failed",
+              : "ConfigFormSubmission__Status--failure",
           ],
         }),
       el("button", {
@@ -137,4 +140,56 @@ export function ConfigFormSubmission({ isSuccess }: { isSuccess?: boolean }) {
       }),
     ],
   });
+}
+
+function makeCustomItemProps(
+  ctx: string[],
+  value: Primitive,
+): Partial<Parameters<typeof ConfigItem>[0]> {
+  const id = ctxToId(ctx);
+
+  if (id === "showInlinePageLinkAsIcon.iconContainerPageUrls") {
+    if (typeof value !== "string") {
+      throw new Error(`${id} is not string: ${value}`);
+    }
+
+    const baseUrl = "https://www.notion.so/";
+    const pages = value
+      .split("\n")
+      .reverse()
+      .reduce<{ name?: string; url: string }[]>((acc, cur) => {
+        if (typeof cur !== "string" || !cur) return acc;
+        if (cur.startsWith(baseUrl)) {
+          acc.push({ url: cur, name: "" });
+        } else {
+          const last = acc.at(-1);
+          if (last && !last.name) last.name = cur;
+        }
+        return acc;
+      }, [])
+      .reverse();
+
+    const parentCtx = ctx.slice(0, -1);
+    const extra = el("div", {
+      classes: ["ConfigItemBody__IconContainerPageReloadLinks"],
+      children: pages.map((page) =>
+        el("a", {
+          href: page.url,
+          children: [
+            i(
+              ["configUI", ...parentCtx, "reload"],
+              page.name || page.url.substring(baseUrl.length),
+            ),
+          ],
+        }),
+      ),
+    });
+
+    return {
+      extra,
+      textarea: true,
+    };
+  }
+
+  return {};
 }
