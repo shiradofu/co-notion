@@ -20,6 +20,7 @@ body {
   background-color: var(--main-bg);
   color: var(--main-text);
   transition: 0.5s;
+  font-size: 0.9rem;
 }
 
 label,
@@ -59,22 +60,45 @@ ul {
   height: 5px;
 }
 
-.ConfigForm__List {
+.ConfigForm {
   display: grid;
-  grid-template-columns: [label] 1fr [input] max-content;
-  font-size: 1rem;
-
-  & > :first-child {
-    margin-top: 0;
-  }
+  gap: 1rem;
 }
 
-.ConfigList__Item {
+.ConfigListRoot {
+  display: grid;
+  grid-template-columns: [label] 1fr [input] max-content;
+  column-gap: 1rem;
+  row-gap: 0.5rem;
+}
+
+.ConfigSubList {
+  margin-left: 2rem;
+}
+
+.ConfigListSubgrid {
   display: grid;
   grid-column: 1 / span 2;
   grid-template-columns: subgrid;
-  column-gap: 16px;
-  justify-items: start;
+  align-items: center;
+}
+
+.ConfigItem--isEnabled {
+  > .ConfigItemBody {
+    font-weight: bold;
+  }
+
+  &:has(> .ConfigItemBody > input:not(:checked)) {
+    opacity: 0.7;
+
+    > .ConfigSubList {
+      display: none;
+    }
+  }
+}
+
+.ConfigItemBody {
+  width: 100%;
   padding: 5px;
 
   &:has(:hover) {
@@ -82,55 +106,34 @@ ul {
   }
 }
 
-.ConfigList__Item--depth0 {
-  font-weight: bold;
-  margin-top: 10px;
-
-  &:not(:has(:checked)) {
-    opacity: 0.7;
-  }
-}
-
-.ConfigList__Item--depth1 {
-  margin-left: 2rem;
-}
-
-.ConfigList__Item--hidden {
-  display: none;
-}
-
-.ConfigList__ItemLabel {
-  width: 100%;
-}
-
-.ConfigList__ItemInput--monospace {
-  font-family: monospace;
-}
-
-.ConfigForm__Submission {
+.ConfigFormSubmission {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 16px;
 
-  .ConfigForm__SubmissionStatus {
+  .ConfigFormSubmission__Status {
     font-size: 1.5em;
     font-weight: bold;
 
-    &.ConfigForm__SubmissionStatus--succeeded {
+    &.ConfigFormSubmission__Status--success {
       color: green;
     }
 
-    &.ConfigForm__SubmissionStatus--failed {
+    &.ConfigFormSubmission__Status--failed {
       color: red;
     }
   }
 
-  .ConfigForm__SubmissionButton {
+  .ConfigFormSubmission__Button {
     color: var(--main-text);
     background-color: var(--main-bg);
     border: 1px solid var(--main-text);
     border-radius: 0.3em;
     padding: 5px 10px;
   }
+}
+
+.font-monospace {
+  font-family: monospace;
 }

@@ -1,19 +1,37 @@
 import { type FeatureConfig, getDefaultFeatureConfig } from "../config/feature";
-import { i } from "../i18n";
+import { ConfigFormSubmission, ConfigList } from "../ui/components";
+import { el } from "../ui/el";
 import { Log } from "../utils/log";
 import { forceMerge } from "../utils/merge";
 import { type Obj, getObjValueByCtx } from "../utils/obj";
 import { getFromSyncStorage, setToSyncStorage } from "../utils/storage";
 
-type Primitive = boolean | string | number;
-
 class FeatureConfigForm {
   private config: FeatureConfig;
-  private readonly TRANSLATION_CTX = "configUI";
+  private _submissionStatus?: boolean;
+  private submissionStatusTimer?: NodeJS.Timeout;
   private log = new Log(this.constructor.name);
 
   constructor() {
     this.config = getDefaultFeatureConfig();
+  }
+
+  get isSubmissionSuccess() {
+    return this._submissionStatus;
+  }
+
+  set isSubmissionSuccess(v: boolean | undefined) {
+    clearTimeout(this.submissionStatusTimer);
+    this._submissionStatus = v;
+
+    if (v !== undefined) {
+      this.renderForm();
+      this.submissionStatusTimer = setTimeout(() => {
+        this.isSubmissionSuccess = undefined;
+      }, 3000);
+    } else {
+      this.renderSubmission();
+    }
   }
 
   async init() {
@@ -21,180 +39,79 @@ class FeatureConfigForm {
     // Overwriting values of defaultFeatureConfig by storage-stored values to use
     // the order we defined.
     forceMerge(this.config, await getFromSyncStorage("featureConfig"));
-    this.render();
+    this.renderForm();
   }
 
-  private async render() {
-    const form = document.querySelector<HTMLFormElement>(".ConfigForm");
-    if (!form) throw new Error("ConfigForm not found");
-
-    const list = form?.querySelector<HTMLUListElement>(".ConfigForm__List");
-    if (!list) throw new Error("ConfigForm__List not found");
-    this.renderTree(this.config, list, []);
-
-    const submission = form.querySelector<HTMLElement>(
-      ".ConfigForm__Submission",
-    );
-    if (!submission) throw new Error("ConfigForm__Submission not found");
-    this.addSubmission(form, submission);
-  }
-
-  private renderTree(config: Obj, list: HTMLElement, ctx: string[]) {
-    if ("isEnabled" in config && typeof config.isEnabled === "boolean") {
-      const li = this.createItem([...ctx, "isEnabled"], config.isEnabled);
-      list.appendChild(li);
-    }
-
-    for (const k of Object.keys(config)) {
-      if (k === "isEnabled") continue;
-      const v = config[k];
-      if (Array.isArray(v)) continue; // no array config values for now
-      if (typeof v === "object" && v) {
-        this.renderTree(v as Obj, list, [...ctx, k]);
-        continue;
-      }
-      const li = this.createItem([...ctx, k], v as Primitive);
-      list.appendChild(li);
-    }
-  }
-
-  private addSubmission(form: HTMLElement, submission: HTMLElement) {
-    const button = document.createElement("button");
-    button.classList.add("ConfigForm__SubmissionButton");
-    button.type = "submit";
-    button.textContent = i([this.TRANSLATION_CTX, "submit"]);
-    submission.appendChild(button);
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      setToSyncStorage("featureConfig", this.config)
-        .then(() => {
-          this.renderSubmissionStatus(true, submission);
-        })
-        .catch((e) => {
-          this.renderSubmissionStatus(false, submission);
-          this.log.local("addSubmission").err(e);
-        });
+  private renderForm() {
+    const formClass = "ConfigForm";
+    const form = el("form", {
+      classes: [formClass],
+      onSubmit: this.onSubmitForm,
+      children: [
+        ConfigList({ config: this.config, onChangeInput: this.onChangeInput }),
+        ConfigFormSubmission({ isSuccess: this.isSubmissionSuccess }),
+      ],
     });
+    this.render(formClass, form);
   }
 
-  private renderSubmissionStatus(isSucceed: boolean, submission: HTMLElement) {
-    const i = document.createElement("i");
-    i.textContent = isSucceed ? "✓" : "×";
-    i.classList.add(
-      "ConfigForm__SubmissionStatus",
-      `ConfigForm__SubmissionStatus--${isSucceed ? "succeeded" : "failed"}`,
+  private renderSubmission() {
+    this.render(
+      "ConfigFormSubmission",
+      ConfigFormSubmission({
+        isSuccess: this.isSubmissionSuccess,
+      }),
     );
-    submission.insertBefore(i, submission.firstChild);
-    setTimeout(() => {
-      i.remove();
-    }, 3000);
   }
 
-  private createItem(ctx: string[], configValue: Primitive) {
-    const id = ctx.join(".");
-
-    const depth = ctx.at(-1) === "isEnabled" ? ctx.length - 2 : ctx.length - 1;
-    const li = document.createElement("li");
-    li.classList.add("ConfigList__Item", `ConfigList__Item--depth${depth}`);
-    li.dataset.depth = `${depth}`;
-
-    const label = document.createElement("label");
-    label.classList.add("ConfigList__ItemLabel");
-    label.htmlFor = id;
-    label.textContent = i([this.TRANSLATION_CTX, ...ctx]);
-    li.appendChild(label);
-
-    const input = document.createElement("input");
-    input.id = id;
-    input.type = this.valueTypeToInputType(configValue);
-    this.setInputValue(input, configValue);
-    input.addEventListener("change", this.onChangeInput);
-    if (ctx.at(-1) === "keymap") {
-      input.classList.add("ConfigList__ItemInput--monospace");
-    }
-    li.appendChild(input);
-
-    return li;
+  private render(targetClass: string, element: HTMLElement) {
+    const target = document.querySelector<HTMLElement>(`.${targetClass}`);
+    if (!target) throw new Error(`${targetClass} not found`);
+    target.replaceWith(element);
   }
 
-  private onChangeInput = ({ currentTarget: input }: Event) => {
-    if (!(input instanceof HTMLInputElement)) return;
-
-    const ctx = input.id.split(".");
-    const key = ctx.pop();
-    const config = getObjValueByCtx<Obj>(this.config, ctx);
-    if (!key || !config || !(key in config)) {
-      throw new Error(`${ctx.join(".")} not found in featureConfig table`);
-    }
-
-    if (key === "isEnabled") {
-      const items =
-        document.querySelector<HTMLElement>(".ConfigForm__List")?.children;
-      let flag = false;
-      let depth = "0";
-      for (const item of items ?? []) {
-        if (!(item instanceof HTMLElement)) continue;
-        if (item.querySelector("input") === input) {
-          flag = true;
-          depth = item.dataset.depth ?? "0";
-          continue;
-        }
-        if (!flag) continue;
-        if (item.dataset.depth && item.dataset.depth <= depth) break;
-        const hiddenClass = "ConfigList__Item--hidden";
-        input.checked
-          ? item.classList.remove(hiddenClass)
-          : item.classList.add(hiddenClass);
-      }
-    }
-
-    this.setConfigValue(config, key, input);
+  private onSubmitForm = (e: Event) => {
+    e.preventDefault();
+    setToSyncStorage("featureConfig", this.config)
+      .then(() => {
+        this.isSubmissionSuccess = true;
+      })
+      .catch((e) => {
+        this.isSubmissionSuccess = false;
+        this.log.local("submit").err(e);
+      });
   };
 
-  private valueTypeToInputType(configValue: Primitive) {
-    switch (typeof configValue) {
-      case "boolean":
-        return "checkbox";
-      case "string":
-        return "text";
-      case "number":
-        return "number";
-    }
-  }
+  private onChangeInput = ({ currentTarget: input }: Event) => {
+    if (
+      input instanceof HTMLInputElement ||
+      input instanceof HTMLTextAreaElement
+    ) {
+      const ctx = input.id.split(".");
+      const key = ctx.pop();
+      const config = getObjValueByCtx<Obj>(this.config, ctx);
+      if (!key || !config || !(key in config)) {
+        throw new Error(`${ctx.join(".")} not found in featureConfig table`);
+      }
 
-  private setInputValue(input: HTMLInputElement, configValue: Primitive) {
-    switch (typeof configValue) {
-      case "boolean": {
-        input.checked = configValue;
-        break;
-      }
-      case "string": {
-        input.value = configValue;
-        break;
-      }
-      case "number": {
-        input.value = `${configValue}`;
-      }
+      this.setConfigValue(config, key, input);
     }
-  }
+  };
 
-  private setConfigValue(config: Obj, key: string, input: HTMLInputElement) {
-    switch (typeof config[key]) {
-      case "boolean": {
-        config[key] = input.checked;
-        break;
-      }
-      case "string": {
-        config[key] = input.value;
-        break;
-      }
-      case "number": {
-        const v = Number(input.value);
-        if (Number.isNaN(v)) return;
-        config[key] = v;
-        break;
-      }
+  private setConfigValue(
+    config: Obj,
+    key: string,
+    input: HTMLInputElement | HTMLTextAreaElement,
+  ) {
+    if (input instanceof HTMLTextAreaElement) {
+      config[key] = input.value;
+      return;
+    }
+    if (typeof config[key] === "boolean") config[key] = input.checked;
+    if (typeof config[key] === "string") config[key] = input.value;
+    if (typeof config[key] === "number") {
+      const v = Number(input.value);
+      if (!Number.isNaN(v)) config[key] = v;
     }
   }
 }

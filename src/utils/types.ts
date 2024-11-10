@@ -16,3 +16,5 @@ export type SyncMethod<
   R,
   F = (this: T, ...args: A) => R,
 > = F extends (this: T, ...args: A) => Promise<unknown> ? never : F;
+
+export type Primitive = boolean | string | number;
