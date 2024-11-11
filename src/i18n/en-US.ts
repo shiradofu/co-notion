@@ -30,4 +30,7 @@ export const enUS = {
       crawlFailure: "No pages found",
     },
   },
+  notionTerms: {
+    Teamspace: "Teamspace",
+  },
 };

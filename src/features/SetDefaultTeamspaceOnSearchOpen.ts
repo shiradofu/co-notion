@@ -5,6 +5,7 @@ import type { FeatureConfig } from "../config/feature";
 import { AppCrawler } from "../crawlers/AppCrawler";
 import type { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
 import { SearchModalCrawler } from "../crawlers/SearchModalCrawler";
+import { i } from "../i18n";
 import { Log } from "../utils/log";
 
 export class SetDefaultTeamspaceOnSearchOpen
@@ -62,9 +63,8 @@ export class SetDefaultTeamspaceOnSearchOpen
       toggle.click();
     }
 
-    const i18nedTeamspace = app.getI18nedTeamspace("must");
     const teamspaceFilterBtn = await modal.getFilterButton("must", {
-      args: [i18nedTeamspace],
+      args: [i(["notionTerms", "Teamspace"])],
       wait: "short",
     });
     if (teamspaceFilterBtn.textContent?.includes(":")) {

@@ -30,4 +30,7 @@ export const jaJP = {
       crawlFailure: "対象が見つかりませんでした",
     },
   },
+  notionTerms: {
+    Teamspace: "チームスペース",
+  },
 };

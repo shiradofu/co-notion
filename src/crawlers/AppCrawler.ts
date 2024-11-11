@@ -11,13 +11,6 @@ export class AppCrawler {
     "overlay container not found",
   );
 
-  getI18nedTeamspace = createCrawlerFn(
-    () =>
-      document.querySelector<HTMLElement>(".notion-outliner-team-header")
-        ?.textContent,
-    "failed to get translated name of 'Teamspace'",
-  );
-
   getCurrentTeamspaceName = createCrawlerFn(
     () =>
       document.querySelector<HTMLElement>("header .notion-record-icon + *")
