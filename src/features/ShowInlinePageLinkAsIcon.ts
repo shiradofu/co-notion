@@ -73,7 +73,7 @@ export class ShowInlinePageLinkAsIcon
 
   span:has(> img) {
     width: ${iconSize} !important;
-    margin: 0 0.15em !important;
+    margin: 0 0.1em !important;
   }
 
   svg, span:not(:has(img)) {
