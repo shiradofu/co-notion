@@ -61,8 +61,9 @@ export class SearchModalCrawler {
 
   getSearchResultContainer = createCrawlerFn(
     () =>
-      this.modalEl.querySelector<HTMLElement>(".search-results-list")
-        ?.firstElementChild as HTMLElement | null | undefined,
+      this.modalEl.querySelector<HTMLElement>(
+        "section:has(> .search-results-list)",
+      )?.firstElementChild as HTMLElement | null | undefined,
     "search result container not found",
   );
 }

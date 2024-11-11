@@ -1,11 +1,18 @@
 import type { TriggeredByOverlayMutation } from "../conductors/OverlayObserver";
 import type { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
 import { SearchModalCrawler } from "../crawlers/SearchModalCrawler";
+import { createCrawlerFn } from "../crawlers/create";
 import {
   type KeyboardEventHandler,
   createKeyboadEventHandler,
 } from "../utils/keymap";
 import { Log } from "../utils/log";
+import {
+  MutationObserved,
+  MutationObservedRoot,
+  ObserverChain,
+  ResizeObserved,
+} from "../utils/observers";
 
 export class PreventSearchModalFromRestoringPrevCond
   implements TriggeredByOverlayMutation
@@ -74,79 +81,46 @@ export class PreventSearchModalFromRestoringPrevCond
     modalEl.addEventListener("keydown", enterListener);
   }
 
-  @Log.thrownInMethodSync
-  private observeSearchResultItemsToAddClickListener(
+  @Log.thrownInMethodAsync
+  private async observeSearchResultItemsToAddClickListener(
     searchModal: SearchModalCrawler,
   ) {
-    const addClickListenerToSectionChildren = (section: HTMLElement) => {
-      for (const item of section.children) {
-        item.addEventListener("click", () => {
-          this.log.dbg(
-            "search result item click detected, clear seach modal input",
-          );
-          this.clearSearchModalInput(searchModal);
-        });
-      }
-    };
+    const getSectionsFromContainer = createCrawlerFn(
+      (container: HTMLElement) =>
+        Array.from(
+          container.querySelectorAll<HTMLElement>(
+            ":has(> .search-result-body-section-title)",
+          ),
+        ),
+      "it's ok if not found",
+    );
 
-    const getSectionsFromContainer = (container: HTMLElement) => {
-      return container.querySelectorAll<HTMLElement>(
-        ":has(> .search-result-body-section-title)",
-      );
-    };
-
-    const searchResultSectionsObserver = new MutationObserver(([record]) => {
-      const section = record.target as HTMLElement;
-      this.log.dbg(
-        "search result changed, add click listeners to items:",
-        section.children,
-      );
-      addClickListenerToSectionChildren(section);
-    });
-
-    const searchResultContainerObserver = new MutationObserver(([record]) => {
-      this.log.dbg(
-        "search result container children changed, start observing search result sections",
-      );
-      const searchResultContainer = record.target as HTMLElement;
-      const searchResultSections = getSectionsFromContainer(
-        searchResultContainer,
-      );
-      this.log.dbg(length, searchResultSections.length);
-      for (const section of searchResultSections) {
-        this.log.dbg({ section });
-        addClickListenerToSectionChildren(section);
-        searchResultSectionsObserver.observe(section, { childList: true });
-      }
-    });
-
-    const modalObserver = new MutationObserver(([record]) => {
-      const modal = new SearchModalCrawler(record.target as HTMLElement);
-      const searchResultContainer = modal.getSearchResultContainer();
-      if (!searchResultContainer) return;
-
-      this.log.dbg(
-        "modal style changed, start observing search result container",
-      );
-      searchResultContainerObserver.observe(searchResultContainer, {
-        childList: true,
-      });
-    });
-
-    searchModal
-      .getSearchResultContainer({ wait: "short" })
-      .then((container) => {
-        if (!container) return;
-        const sections = getSectionsFromContainer(container);
-        for (const sec of sections) {
-          addClickListenerToSectionChildren(sec);
-        }
-      });
-
-    modalObserver.observe(searchModal.getModal(), {
-      attributes: true,
-      attributeFilter: ["style"],
-    });
+    await new ObserverChain(
+      new MutationObservedRoot(() => searchModal.getModal(), {
+        attributes: true,
+        attributeFilter: ["style"],
+      }),
+      new ResizeObserved((modal) =>
+        new SearchModalCrawler(modal).getSearchResultContainer({
+          wait: "short",
+        }),
+      ),
+      new MutationObserved(
+        (container) =>
+          getSectionsFromContainer({ args: [container], wait: "short" }),
+        { childList: true },
+        (section: HTMLElement) => {
+          for (const item of section.children) {
+            item.addEventListener("click", () => {
+              this.log.dbg(
+                "search result item click detected, clear seach modal input",
+              );
+              this.clearSearchModalInput(searchModal);
+            });
+          }
+        },
+      ),
+    ).observe();
   }
 
   private async clearSearchModalInput(searchModal: SearchModalCrawler) {
