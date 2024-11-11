@@ -1,4 +1,5 @@
 import { type FeatureConfig, getDefaultFeatureConfig } from "../config/feature";
+import { setLang } from "../i18n";
 import { ConfigFormSubmission, ConfigList } from "../ui/components";
 import { el } from "../ui/el";
 import { Log } from "../utils/log";
@@ -39,6 +40,7 @@ class FeatureConfigForm {
     // Overwriting values of defaultFeatureConfig by storage-stored values to use
     // the order we defined.
     forceMerge(this.config, await Storage.sync.get("featureConfig"));
+    await setLang();
     this.renderForm();
   }
 

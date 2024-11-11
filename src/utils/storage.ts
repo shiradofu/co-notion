@@ -1,5 +1,6 @@
 import type { FeatureConfig } from "../config/feature";
 import type { IconPageLinkPathnames } from "../features/ShowInlinePageLinkAsIcon";
+import type { AvailableLang } from "../i18n";
 
 type StorageSync = {
   featureConfig: FeatureConfig;
@@ -7,6 +8,7 @@ type StorageSync = {
 };
 
 type StorageLocal = {
+  lang: AvailableLang;
   iconPageLinkPathnames: IconPageLinkPathnames;
 };
 

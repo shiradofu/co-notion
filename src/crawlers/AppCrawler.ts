@@ -1,6 +1,11 @@
 import { createCrawlerFn } from "./create";
 
 export class AppCrawler {
+  getNotionLang = createCrawlerFn(
+    () => document.documentElement.lang,
+    "failed to get lang",
+  );
+
   getOverlayContainer = createCrawlerFn(
     () => document.querySelector<HTMLElement>(".notion-overlay-container"),
     "overlay container not found",
