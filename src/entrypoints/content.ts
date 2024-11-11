@@ -1,17 +1,18 @@
 import { conductFeatures } from "../conductors";
 import { buildFeatures } from "../features";
 import { Log } from "../utils/log";
-import { addListenerToSyncStorage, getFromSyncStorage } from "../utils/storage";
+import { Storage } from "../utils/storage";
 
-async function setup() {
-  const featureConfig = await getFromSyncStorage("featureConfig");
+async function setup(x?: unknown) {
+  x && console.log("cofig changed:", x);
+  const featureConfig = await Storage.sync.get("featureConfig");
   const features = buildFeatures(featureConfig);
   conductFeatures(features);
 }
 
 if (document.body.classList.contains("notion-body")) {
   setup();
-  addListenerToSyncStorage(setup);
+  Storage.sync.addListener("featureConfig", setup);
 } else {
   Log.dbg("non-app page detected, disabled");
 }

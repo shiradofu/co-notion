@@ -4,7 +4,7 @@ import { el } from "../ui/el";
 import { Log } from "../utils/log";
 import { forceMerge } from "../utils/merge";
 import { type Obj, getObjValueByCtx } from "../utils/obj";
-import { getFromSyncStorage, setToSyncStorage } from "../utils/storage";
+import { Storage } from "../utils/storage";
 
 class FeatureConfigForm {
   private config: FeatureConfig;
@@ -38,7 +38,7 @@ class FeatureConfigForm {
     // Keys of objects stored in chrome.storage are force sorted by alphabetically.
     // Overwriting values of defaultFeatureConfig by storage-stored values to use
     // the order we defined.
-    forceMerge(this.config, await getFromSyncStorage("featureConfig"));
+    forceMerge(this.config, await Storage.sync.get("featureConfig"));
     this.renderForm();
   }
 
@@ -72,7 +72,8 @@ class FeatureConfigForm {
 
   private onSubmitForm = (e: Event) => {
     e.preventDefault();
-    setToSyncStorage("featureConfig", this.config)
+    Storage.sync
+      .set("featureConfig", this.config)
       .then(() => {
         this.isSubmissionSuccess = true;
       })
