@@ -131,7 +131,7 @@ ul {
   }
 }
 
-.ConfigItemBody__IconContainerPageReloadLinks {
+.ConfigItemBody__IconSourceReloadLinks {
   display: grid;
   gap: 5px;
   padding: 5px;

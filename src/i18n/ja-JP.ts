@@ -20,8 +20,14 @@ export const jaJP = {
     },
     showInlinePageLinkAsIcon: {
       isEnabled: "文中のページリンクをアイコンとして表示",
-      iconContainerPageUrls: "アイコン表示したいページを含んだページ・DBのURL",
+      iconSourceUrls: "アイコン表示したいページを含んだページ・DBのURL",
       reload: (target: string) => `「${target}」を読込`,
+    },
+  },
+  feature: {
+    showInlinePageLinkAsIcon: {
+      crawlSuccess: (n: number) => `${n}件読み込みました！`,
+      crawlFailure: "対象が見つかりませんでした",
     },
   },
 };

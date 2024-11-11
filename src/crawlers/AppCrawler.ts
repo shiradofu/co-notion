@@ -24,4 +24,15 @@ export class AppCrawler {
     () => document.querySelector<HTMLElement>(".notion-sidebar"),
     "sidebar not found",
   );
+
+  getMain = createCrawlerFn(
+    () => document.querySelector("main"),
+    "main not found",
+  );
+
+  getInternalLinksInMainContent = createCrawlerFn(
+    () => document.querySelectorAll<HTMLAnchorElement>('main a[href^="/"]'),
+    "internal links in main not found",
+    { isSuccessFn: (result) => result.length > 0 },
+  );
 }

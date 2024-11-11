@@ -13,4 +13,8 @@ chrome.runtime.onInstalled.addListener(async ({ reason }) => {
   const featureConfig = (await Storage.sync.get("featureConfig")) ?? {};
   merge(featureConfig, getDefaultFeatureConfig());
   await Storage.sync.set("featureConfig", featureConfig);
+
+  if ((await Storage.local.get("iconPageLinkPathnames")) === undefined) {
+    Storage.local.set("iconPageLinkPathnames", {});
+  }
 });

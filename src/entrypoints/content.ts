@@ -3,11 +3,11 @@ import { buildFeatures } from "../features";
 import { Log } from "../utils/log";
 import { Storage } from "../utils/storage";
 
-async function setup(x?: unknown) {
-  x && console.log("cofig changed:", x);
+async function setup(changes?: unknown) {
   const featureConfig = await Storage.sync.get("featureConfig");
+  changes && Log.dbg("cofig changed, rebuild featrues", { featureConfig });
   const features = buildFeatures(featureConfig);
-  conductFeatures(features);
+  await conductFeatures(features);
 }
 
 if (document.body.classList.contains("notion-body")) {

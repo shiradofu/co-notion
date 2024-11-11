@@ -18,3 +18,7 @@ export type SyncMethod<
 > = F extends (this: T, ...args: A) => Promise<unknown> ? never : F;
 
 export type Primitive = boolean | string | number;
+
+export type Arrayable<T> = T | T[];
+export type Promisable<T> = T | Promise<T>;
+export type Nullable<T> = T | null | undefined;

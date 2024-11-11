@@ -1,5 +1,7 @@
 import type { FeatureConfig } from "../config/feature";
+import { ShowInlinePageLinkAsIcon } from "../features/ShowInlinePageLinkAsIcon";
 import { i } from "../i18n";
+import { appBaseUrl } from "../utils/constants";
 import type { Obj } from "../utils/obj";
 import type { Primitive } from "../utils/types";
 import { type Child, type Children, el } from "./el";
@@ -148,41 +150,29 @@ function makeCustomItemProps(
 ): Partial<Parameters<typeof ConfigItem>[0]> {
   const id = ctxToId(ctx);
 
-  if (id === "showInlinePageLinkAsIcon.iconContainerPageUrls") {
+  if (id === "showInlinePageLinkAsIcon.iconSourceUrls") {
     if (typeof value !== "string") {
       throw new Error(`${id} is not string: ${value}`);
     }
 
-    const baseUrl = "https://www.notion.so/";
-    const pages = value
-      .split("\n")
-      .reverse()
-      .reduce<{ name?: string; url: string }[]>((acc, cur) => {
-        if (typeof cur !== "string" || !cur) return acc;
-        if (cur.startsWith(baseUrl)) {
-          acc.push({ url: cur, name: "" });
-        } else {
-          const last = acc.at(-1);
-          if (last && !last.name) last.name = cur;
-        }
-        return acc;
-      }, [])
-      .reverse();
-
+    const sources = ShowInlinePageLinkAsIcon.parseIconSourceUrlsStr(value);
     const parentCtx = ctx.slice(0, -1);
     const extra = el("div", {
-      classes: ["ConfigItemBody__IconContainerPageReloadLinks"],
-      children: pages.map((page) =>
-        el("a", {
-          href: page.url,
+      classes: ["ConfigItemBody__IconSourceReloadLinks"],
+      children: sources.map((source) => {
+        const url = new URL(source.url);
+        url.searchParams.append(ShowInlinePageLinkAsIcon.param, "1");
+
+        return el("a", {
+          href: url.toString(),
           children: [
             i(
               ["configUI", ...parentCtx, "reload"],
-              page.name || page.url.substring(baseUrl.length),
+              source.name || source.url.substring(appBaseUrl.length),
             ),
           ],
-        }),
-      ),
+        });
+      }),
     });
 
     return {

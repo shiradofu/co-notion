@@ -18,7 +18,7 @@ export const getDefaultFeatureConfig = () => ({
     keymap: "Cmd/Ctrl+I",
   }),
   showInlinePageLinkAsIcon: c({
-    iconContainerPageUrls: "",
+    iconSourceUrls: "",
   }),
 });
 

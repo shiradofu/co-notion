@@ -1,6 +1,6 @@
 import type { FeatureInstances } from "../features";
 
 export interface Conductor {
-  conduct(features: FeatureInstances): void;
+  conduct(enabledFeatures: FeatureInstances): void;
   clear(): void;
 }

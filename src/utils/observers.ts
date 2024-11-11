@@ -1,6 +1,6 @@
-type Arrayable<T> = T | T[];
-type Promisable<T> = T | Promise<T>;
-type QueryResult = Promisable<Arrayable<HTMLElement> | null | undefined>;
+import type { Arrayable, Nullable, Promisable } from "./types";
+
+type QueryResult = Promisable<Nullable<Arrayable<HTMLElement>>>;
 
 type ObservedFnTrigger = "manual" | "onObserve" | "onMutate" | "onResize";
 
@@ -28,26 +28,34 @@ export class MutationObservedRoot {
   ) {}
 }
 
-type Observeds = (MutationObservedRoot | MutationObserved | ResizeObserved)[];
+type ObservedRoot = MutationObservedRoot;
+type ObservedSub = MutationObserved | ResizeObserved;
+type Observed = ObservedRoot | ObservedSub;
 
 export class ObserverChain {
-  private arr: [MutationObservedRoot, ...(MutationObserved | ResizeObserved)[]];
+  private arr: [ObservedRoot, ...ObservedSub[]];
+  private observers: (MutationObserver | ResizeObserver)[] = [];
 
-  constructor(
-    ...arr: [MutationObservedRoot, ...(MutationObserved | ResizeObserved)[]]
-  ) {
+  constructor(...arr: [ObservedRoot, ...ObservedSub[]]) {
     this.arr = arr;
   }
 
   observe() {
+    this.disconnect();
     return Promise.all([
       this.runRecursive(this.arr),
       this.observeRecursive([...this.arr].reverse()),
     ]);
   }
 
+  disconnect() {
+    if (this.observers.length === 0) return;
+    for (const o of this.observers) o.disconnect();
+    this.observers = [];
+  }
+
   private async observeRecursive(
-    reversedArr: Observeds,
+    reversedArr: Observed[],
     observeChildrenIn?: (observed: HTMLElement) => void,
   ) {
     const current = reversedArr.at(0);
@@ -65,6 +73,7 @@ export class ObserverChain {
         observeChildrenIn(currentMutated);
       }
     });
+    this.observers.push(observer);
 
     if (current instanceof MutationObservedRoot) {
       const rootEls = [await current.query()].flat();
@@ -85,7 +94,7 @@ export class ObserverChain {
     });
   }
 
-  private async runRecursive(arr: Observeds, parent?: HTMLElement) {
+  private async runRecursive(arr: Observed[], parent?: HTMLElement) {
     const current = arr.at(0);
     if (!current) return;
 
@@ -99,7 +108,6 @@ export class ObserverChain {
           : [];
 
     for (const currentEl of currentEls) {
-      console.log(currentEl);
       if (!currentEl) continue;
       if (current.fn) current.fn(currentEl, "manual");
       this.runRecursive(nextArr, currentEl);
