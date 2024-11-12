@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc && NODE_ENV=production tsx scripts/build.ts",
+    "build:dev": "tsc && tsx scripts/build.ts",
     "dev": "tsx scripts/watch.ts",
     "fmt": "biome format --write",
     "test": "tsc && tsx --test",

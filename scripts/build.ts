@@ -4,6 +4,8 @@ import { build } from "esbuild";
 import glob from "tiny-glob";
 import { defineManifest } from "../src/entrypoints/manifest";
 
+process.env.NODE_ENV = process.env.NODE_ENV ?? "development";
+
 export async function buildFile(pathExpressions: string[]) {
   const paths = (
     await Promise.all(
@@ -33,7 +35,7 @@ async function runEsbuild(entryPoints: string[]) {
     minify: false,
     bundle: true,
     define: {
-      "process.env.NODE_ENV": `"${process.env.NODE_ENV ?? "development"}"`,
+      "process.env.NODE_ENV": `"${process.env.NODE_ENV}"`,
     },
   }).catch(() => console.error("failed to build", entryPoints));
 }

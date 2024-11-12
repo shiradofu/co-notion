@@ -4,6 +4,8 @@ import chokidar from "chokidar";
 import { Project, type SourceFile } from "ts-morph";
 import { buildFile } from "./build";
 
+process.env.NODE_ENV = "development";
+
 class SourceFileAdapter {
   public absPath: string;
   public isIndex: boolean;
