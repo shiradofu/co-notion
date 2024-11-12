@@ -20,7 +20,7 @@ export async function hotReload() {
     });
   };
 
-  const reloadFile = chrome.runtime.getURL("reload");
+  const reloadFile = chrome.runtime.getURL(".reload");
   readFile(reloadFile).then((lastModified) => {
     chrome.alarms.create({ delayInMinutes: 0.01 });
     chrome.alarms.onAlarm.addListener(() =>

@@ -153,7 +153,7 @@ let reloadTimer: NodeJS.Timeout | null = null;
 async function fireReload() {
   if (reloadTimer !== null) clearTimeout(reloadTimer);
   reloadTimer = setTimeout(async () => {
-    await writeFile("dist/reload", `${new Date().getTime()}`);
+    await writeFile("dist/.reload", `${new Date().getTime()}`);
   }, 100);
 }
 

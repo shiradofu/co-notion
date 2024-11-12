@@ -1,19 +1,20 @@
 {
   "name": "notion-utils",
   "displayName": "notion-utils",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "index.js",
   "scripts": {
     "build": "tsc && NODE_ENV=production tsx scripts/build.ts",
     "dev": "tsx scripts/watch.ts",
     "fmt": "biome format --write",
     "test": "tsc && tsx --test",
-    "clean": "rm -rf dist/*.js"
+    "clean": "rm -rf dist/*.js",
+    "zip": "npm run build && zip -r ext.zip dist -x 'dist/.*'"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "description": "",
+  "description": "Set of utils to enhance Notion",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/chrome": "^0.0.279",

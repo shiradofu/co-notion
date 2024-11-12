@@ -4,6 +4,9 @@ import pkg from "../../package.json";
 export function defineManifest(): Manifest.WebExtensionManifest {
   const iconPath = "./assets/icon-512.png";
 
+  const permissions = ["storage"];
+  process.env.NODE_ENV === "development" && permissions.push("alarm");
+
   return {
     manifest_version: 3,
     name: pkg.displayName || pkg.name,
@@ -23,6 +26,6 @@ export function defineManifest(): Manifest.WebExtensionManifest {
         js: ["./content.js"],
       },
     ],
-    permissions: ["alarms", "storage"],
+    permissions,
   };
 }
