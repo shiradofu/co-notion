@@ -1,6 +1,7 @@
 import type { TriggeredByClick } from "../conductors/ClickmapManager";
 import type { TriggeredByOverlayMutation } from "../conductors/OverlayObserver";
 import type { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
+import { createCrawlerFn } from "../crawlers/create";
 import { Log } from "../utils/log";
 
 export class CloseInputableDialogOnSingleEsc
@@ -28,7 +29,13 @@ export class CloseInputableDialogOnSingleEsc
   private async run(overlays: OverlaysCrawler) {
     const overlay = overlays.getFrontmost("may");
 
-    const input = overlay.querySelector<HTMLElement>("input");
+    const input = await createCrawlerFn(
+      () =>
+        overlay.querySelector(
+          ":is(.notion-peek-renderer [role=textbox], input)",
+        ),
+      "it's ok if not found",
+    )({ wait: "short" });
     if (!input) {
       this.log.dbg("input not found");
       return;
