@@ -5,7 +5,7 @@ export function defineManifest(): Manifest.WebExtensionManifest {
   const iconPath = "./assets/icon-512.png";
 
   const permissions = ["storage"];
-  process.env.NODE_ENV === "development" && permissions.push("alarm");
+  process.env.NODE_ENV === "development" && permissions.push("alarms");
 
   return {
     manifest_version: 3,
