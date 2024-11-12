@@ -1,6 +1,11 @@
 import { createCrawlerFn } from "./create";
 
 export class AppCrawler {
+  getFavicon = createCrawlerFn(
+    () => document.querySelector<HTMLLinkElement>('link[rel~="icon"]'),
+    "favicon not found",
+  );
+
   getNotionLang = createCrawlerFn(
     () => document.documentElement.lang,
     "failed to get lang",

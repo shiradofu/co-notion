@@ -20,6 +20,7 @@ export const getDefaultFeatureConfig = () => ({
   showInlinePageLinkAsIcon: c({
     iconSourceUrls: "",
   }),
+  fixFavicon: c({}),
 });
 
 export type FeatureConfig = ReturnType<typeof getDefaultFeatureConfig>;

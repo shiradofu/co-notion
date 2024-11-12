@@ -1,5 +1,5 @@
 import { createCrawlerFn } from "../crawlers/create";
-import type { FeatureInstances } from "../features";
+import type { FeatureInstanceArr } from "../features";
 import {
   MutationObserved,
   MutationObservedRoot,
@@ -16,8 +16,8 @@ const uniqueKey: keyof TriggeredByNavigation = "onNavigate";
 export class NavigationObserver extends BaseObserver implements Conductor {
   private url?: string;
 
-  async conduct(enabledFeatures: FeatureInstances) {
-    const targetFeatures = enabledFeatures.filter((f) => uniqueKey in f);
+  async conduct(deployableFeatures: FeatureInstanceArr) {
+    const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
     if (targetFeatures.length === 0) return;
 
     this.observer = new ObserverChain(

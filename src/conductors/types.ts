@@ -1,6 +1,6 @@
-import type { FeatureInstances } from "../features";
+import type { FeatureInstanceArr } from "../features";
 
 export interface Conductor {
-  conduct(enabledFeatures: FeatureInstances): void;
-  clear(): void;
+  conduct(deployableFeatures: FeatureInstanceArr): void;
+  clear(newDeployableFeatures: FeatureInstanceArr): void;
 }

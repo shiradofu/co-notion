@@ -1,5 +1,5 @@
 import { ClickmapCrawler } from "../crawlers/ClickmapCrawler";
-import type { FeatureInstances } from "../features";
+import type { FeatureInstanceArr } from "../features";
 import { Log } from "../utils/log";
 import type { Conductor } from "./types";
 
@@ -15,8 +15,8 @@ export class ClickmapManager implements Conductor {
   private elAndhandlers: [HTMLElement, MouseEventHandler][] = [];
   private log = new Log(this.constructor.name);
 
-  conduct(enabledFeatures: FeatureInstances) {
-    const targetFeatures = enabledFeatures.filter((f) => uniqueKey in f);
+  conduct(deployableFeatures: FeatureInstanceArr) {
+    const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
     for (const f of targetFeatures) {
       for (const [crawlerFnName, handler] of Object.entries(f.clickmaps)) {
         if (!this.checkCrawlerFnName(crawlerFnName)) {

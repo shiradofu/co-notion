@@ -23,6 +23,9 @@ export const jaJP = {
       iconSourceUrls: "アイコン表示したいページを含んだページ・DBのURL",
       reload: (target: string) => `「${target}」を読込`,
     },
+    fixFavicon: {
+      isEnabled: "タブに表示するアイコンを常に同じにする",
+    },
   },
   feature: {
     showInlinePageLinkAsIcon: {

@@ -1,4 +1,4 @@
-import type { FeatureInstances } from "../features";
+import type { FeatureInstanceArr } from "../features";
 import {
   type KeyboardEventHandler,
   createKeyboadEventHandler,
@@ -15,8 +15,8 @@ export class KeymapManager implements Conductor {
   private handlers: KeyboardEventHandler[] = [];
   private log = new Log(this.constructor.name);
 
-  conduct(enabledFeatures: FeatureInstances) {
-    const targetFeatures = enabledFeatures.filter((f) => uniqueKey in f);
+  conduct(deployableFeatures: FeatureInstanceArr) {
+    const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
     for (const f of targetFeatures) {
       for (const [keyCombo, baseHandler] of Object.entries(f.keymaps)) {
         if (!keyCombo) continue;

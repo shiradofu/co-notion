@@ -23,6 +23,9 @@ export const enUS = {
       iconSourceUrls: "URLs of pages/DBs containing icon pages",
       reload: (target: string) => `load "${target}"`,
     },
+    fixFavicon: {
+      isEnabled: "Always shows the same icon on Notion tabs",
+    },
   },
   feature: {
     showInlinePageLinkAsIcon: {

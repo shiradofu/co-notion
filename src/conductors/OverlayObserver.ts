@@ -1,5 +1,5 @@
 import { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
-import type { FeatureInstances } from "../features/";
+import type { FeatureInstanceArr } from "../features/";
 import { BaseObserver } from "./BaseObserver";
 import type { Conductor } from "./types";
 
@@ -15,8 +15,8 @@ export class OverlayObserver extends BaseObserver implements Conductor {
   private prevOverlaysCount = 0;
   private overlays?: OverlaysCrawler;
 
-  async conduct(enabledFeatures: FeatureInstances) {
-    const targetFeatures = enabledFeatures.filter((f) => uniqueKey in f);
+  async conduct(deployableFeatures: FeatureInstanceArr) {
+    const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
     if (targetFeatures.length === 0) return;
 
     this.observer = new MutationObserver(([record]) => {
