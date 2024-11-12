@@ -46,4 +46,4 @@ async function writeManifest() {
   ).catch((e) => console.error(e));
 }
 
-(async () => buildFile(["src/**/.*"]))();
+(async () => buildFile(["src/entrypoints/*.ts"]))();
