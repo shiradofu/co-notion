@@ -1,12 +1,11 @@
 import { writeFile } from "node:fs/promises";
-import { relative } from "node:path";
 import { build } from "esbuild";
 import glob from "tiny-glob";
 import { defineManifest } from "../src/entrypoints/manifest";
 
 process.env.NODE_ENV = process.env.NODE_ENV ?? "development";
 
-export async function buildFile(pathExpressions: string[]) {
+export async function buildFiles(pathExpressions: string[]) {
   const paths = (
     await Promise.all(
       pathExpressions.map(async (p) => {
@@ -18,7 +17,6 @@ export async function buildFile(pathExpressions: string[]) {
   const entryPoints: string[] = [];
   let manifestPromise = Promise.resolve();
   for (const p of paths) {
-    console.log("build", relative(".", p));
     if (p.endsWith("/manifest.ts")) {
       manifestPromise = writeManifest();
     } else {
@@ -38,6 +36,7 @@ async function runEsbuild(entryPoints: string[]) {
       "process.env.NODE_ENV": `"${process.env.NODE_ENV}"`,
     },
   }).catch(() => console.error("failed to build", entryPoints));
+  console.log("build");
 }
 
 async function writeManifest() {
@@ -48,4 +47,4 @@ async function writeManifest() {
   ).catch((e) => console.error(e));
 }
 
-(async () => buildFile(["src/entrypoints/*.ts"]))();
+(async () => buildFiles(["src/entrypoints/*.ts"]))();
