@@ -35,7 +35,7 @@ export class SetDefaultTeamspaceOnSearchOpen
   };
 
   onMutateOverlay(overlays: OverlaysCrawler, overlaysCountDiff: number) {
-    if (overlaysCountDiff > 0 || !this.checkTriggered()) {
+    if (overlaysCountDiff > 0 && this.checkTriggered()) {
       overlays.ensureCount("may", { args: [1] });
       this.run(overlays);
     }
