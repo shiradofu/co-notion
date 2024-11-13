@@ -40,7 +40,7 @@ function parseKeyComboStr(keyComboStr: string) {
     : [...keyComboStr.split("+").slice(0, -2), "+"];
   const key = components.pop();
   if (!key) {
-    log.dbg(`non-mod key not found in key combo: ${keyComboStr}`);
+    log.err(`non-mod key not found in key combo: ${keyComboStr}`);
     return;
   }
   const mods = components;
@@ -75,7 +75,7 @@ function parseKeyComboStr(keyComboStr: string) {
   }
 
   if (keyCombo.key === "") {
-    log.dbg(`unknown key "${key}" in "${keyComboStr}"`);
+    log.err(`unknown key "${key}" in "${keyComboStr}"`);
     return;
   }
 

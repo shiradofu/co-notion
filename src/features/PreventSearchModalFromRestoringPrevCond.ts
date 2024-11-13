@@ -43,8 +43,7 @@ export class PreventSearchModalFromRestoringPrevCond
 
     this.escListener = createKeyboadEventHandler("Escape", () => {
       if (overlays.checkCount(1)) {
-        this.log.dbg("Esc detected, clear seach modal input");
-        this.clearSearchModalInput(searchModal);
+        this.clearSearchModalInput(searchModal, "Esc");
       }
     });
     if (!this.escListener) throw new Error("failed to create Esc listener");
@@ -58,8 +57,7 @@ export class PreventSearchModalFromRestoringPrevCond
     searchModal: SearchModalCrawler,
   ) {
     overlays.getFrontmostBg("must").addEventListener("click", () => {
-      this.log.dbg("bg click detected, clear seach modal input");
-      this.clearSearchModalInput(searchModal);
+      this.clearSearchModalInput(searchModal, "bg click detected");
     });
   }
 
@@ -72,8 +70,7 @@ export class PreventSearchModalFromRestoringPrevCond
 
     const enterListener = createKeyboadEventHandler("Enter", (e) => {
       if (!e.isComposing && overlays.checkCount(1)) {
-        this.log.dbg("Enter detected, clear seach modal input");
-        this.clearSearchModalInput(searchModal);
+        this.clearSearchModalInput(searchModal, "Enter");
       }
     });
     if (!enterListener) throw new Error("failed to create Enter listener");
@@ -112,10 +109,10 @@ export class PreventSearchModalFromRestoringPrevCond
         (section: HTMLElement) => {
           for (const item of section.children) {
             item.addEventListener("click", () => {
-              this.log.dbg(
-                "search result item click detected, clear seach modal input",
+              this.clearSearchModalInput(
+                searchModal,
+                "search result item click",
               );
-              this.clearSearchModalInput(searchModal);
             });
           }
         },
@@ -123,7 +120,10 @@ export class PreventSearchModalFromRestoringPrevCond
     ).observe();
   }
 
-  private async clearSearchModalInput(searchModal: SearchModalCrawler) {
+  private async clearSearchModalInput(
+    searchModal: SearchModalCrawler,
+    trigger: string,
+  ) {
     const clearInputButton = await searchModal.getClearInputButton({
       wait: "short",
     });
@@ -131,6 +131,8 @@ export class PreventSearchModalFromRestoringPrevCond
       this.log.dbg("clear input button not found");
       return;
     }
+
+    this.log.dbg(`${trigger} detected, clear seach modal input`);
     clearInputButton.click();
   }
 

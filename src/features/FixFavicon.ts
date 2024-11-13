@@ -45,7 +45,6 @@ export class FixFavicon implements Speculative, SelfConducted {
 
     return () => {
       observer?.disconnect();
-      this.log.dbg(this.origFavicon);
       if (this.origFavicon) faviconEl.href = this.origFavicon;
     };
   }

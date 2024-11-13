@@ -44,7 +44,7 @@ export class CloseInputableDialogOnSingleEsc
 
     input.addEventListener("blur", (e) => {
       if (this.overlayContainerClicked) {
-        this.log.dbg("click detected, stop running");
+        this.log.dbg("click detected, cancel");
         return;
       }
       const t = e.currentTarget;
