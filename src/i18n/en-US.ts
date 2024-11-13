@@ -6,6 +6,7 @@ export const enUS = {
       isEnabledOnCmdOrCtrlP: "by Cmd/Ctrl+P",
       isEnabledOnCmdOrCtrlK: "by Cmd/Ctrl+K",
       isEnabledOnClick: "by clicking 'Search' on the sidebar",
+      useInPageFilterIfImGuest: "Use 'In' filter if I'm a guest",
     },
     closeInputableDialogOnSingleEsc: {
       isEnabled: "Close inputable dialog on single Esc",
@@ -35,5 +36,10 @@ export const enUS = {
   },
   notionTerms: {
     Teamspace: "Teamspace",
+    searchModal: {
+      filterBar: {
+        In: "In",
+      },
+    },
   },
 };

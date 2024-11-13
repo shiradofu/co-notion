@@ -23,6 +23,14 @@ export class AppCrawler {
     "current teamspace name not found",
   );
 
+  getRootPageName = createCrawlerFn(
+    () =>
+      document.querySelector<HTMLElement>(
+        "header .shadow-cursor-breadcrumb *:first-child",
+      )?.textContent,
+    "root page name not found",
+  );
+
   getSidebar = createCrawlerFn(
     () => document.querySelector<HTMLElement>(".notion-sidebar"),
     "sidebar not found",
@@ -37,5 +45,13 @@ export class AppCrawler {
     () => document.querySelectorAll<HTMLAnchorElement>('main a[href^="/"]'),
     "internal links in main not found",
     { isSuccessFn: (result) => result.length > 0 },
+  );
+
+  getTeamspaceTreeContainer = createCrawlerFn(
+    () =>
+      document.querySelector<HTMLElement>(
+        ".notion-outliner-team-header-container",
+      ),
+    "Teamspace tree container not found",
   );
 }

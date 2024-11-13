@@ -6,6 +6,8 @@ export const jaJP = {
       isEnabledOnCmdOrCtrlP: "Cmd/Ctrl+P で検索を開いたとき",
       isEnabledOnCmdOrCtrlK: "Cmd/Ctrl+K で検索を開いたとき",
       isEnabledOnClick: "サイドバーの「検索」をクリックして開いたとき",
+      useInPageFilterIfImGuest:
+        "自分がゲストのときは「ページ内」フィルタを使う",
     },
     closeInputableDialogOnSingleEsc: {
       isEnabled: "文字入力可能なウィンドウを Esc 一回で閉じる",
@@ -35,5 +37,10 @@ export const jaJP = {
   },
   notionTerms: {
     Teamspace: "チームスペース",
+    searchModal: {
+      filterBar: {
+        In: "ページ内",
+      },
+    },
   },
 };

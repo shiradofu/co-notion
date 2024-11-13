@@ -26,6 +26,7 @@ export const getDefaultFeatureConfig = () => ({
     isEnabledOnCmdOrCtrlP: false,
     isEnabledOnCmdOrCtrlK: false,
     isEnabledOnClick: false,
+    useInPageFilterIfImGuest: false,
   }),
   preventSearchModalFromRestoringPrevCond: c({}),
   showInlinePageLinkAsIcon: c({
