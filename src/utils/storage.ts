@@ -1,6 +1,7 @@
-import type { FeatureConfig } from "../features";
+import { type FeatureConfig, getDefaultFeatureConfig } from "../features";
 import type { IconPageLinkPathnames } from "../features/ShowInlinePageLinkAsIcon";
 import type { AvailableLang } from "../i18n";
+import { merge } from "./merge";
 
 type StorageSync = {
   featureConfig: FeatureConfig;
@@ -26,6 +27,16 @@ export class Storage<K extends keyof StorageType> {
 
   static get local() {
     return new Storage("local");
+  }
+
+  static async adaptToLatestInterface() {
+    const featureConfig = (await Storage.sync.get("featureConfig")) ?? {};
+    merge(featureConfig, getDefaultFeatureConfig());
+    await Storage.sync.set("featureConfig", featureConfig);
+
+    if ((await Storage.local.get("iconPageLinkPathnames")) === undefined) {
+      Storage.local.set("iconPageLinkPathnames", {});
+    }
   }
 
   async get<P extends keyof StorageType[K]>(key: P) {

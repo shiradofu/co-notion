@@ -1,5 +1,3 @@
-import { getDefaultFeatureConfig } from "../features";
-import { merge } from "../utils/merge";
 import { Storage } from "../utils/storage";
 
 if (process.env.NODE_ENV === "development") {
@@ -10,11 +8,5 @@ if (process.env.NODE_ENV === "development") {
 
 chrome.runtime.onInstalled.addListener(async ({ reason }) => {
   if (!["install", "update"].includes(reason)) return;
-  const featureConfig = (await Storage.sync.get("featureConfig")) ?? {};
-  merge(featureConfig, getDefaultFeatureConfig());
-  await Storage.sync.set("featureConfig", featureConfig);
-
-  if ((await Storage.local.get("iconPageLinkPathnames")) === undefined) {
-    Storage.local.set("iconPageLinkPathnames", {});
-  }
+  Storage.adaptToLatestInterface();
 });
