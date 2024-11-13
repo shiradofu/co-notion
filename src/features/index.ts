@@ -4,17 +4,19 @@ import { AddKeymapToInsertProfilePageLink } from "./AddKeymapToInsertProfilePage
 import { CloseInputableDialogOnSingleEsc } from "./CloseInputableDialogOnSingleEsc";
 import { FixFavicon } from "./FixFavicon";
 import { PreventSearchModalFromRestoringPrevCond } from "./PreventSearchModalFromRestoringPrevCond";
+import { RemovePlaceholderOnEmptyLine } from "./RemovePlaceholderOnEmptyLine";
 import { SetDefaultTeamspaceOnSearchOpen } from "./SetDefaultTeamspaceOnSearchOpen";
 import { ShowInlinePageLinkAsIcon } from "./ShowInlinePageLinkAsIcon";
 
 export const FeatureClasses = {
   setDefaultTeamspaceOnSearchOpen: SetDefaultTeamspaceOnSearchOpen,
-  closeInputableDialogOnSingleEsc: CloseInputableDialogOnSingleEsc,
   preventSearchModalFromRestoringPrevCond:
     PreventSearchModalFromRestoringPrevCond,
-  addKeymapToInsertProfilePageLink: AddKeymapToInsertProfilePageLink,
   showInlinePageLinkAsIcon: ShowInlinePageLinkAsIcon,
+  addKeymapToInsertProfilePageLink: AddKeymapToInsertProfilePageLink,
   fixFavicon: FixFavicon,
+  removePlaceholderOnEmptyLine: RemovePlaceholderOnEmptyLine,
+  closeInputableDialogOnSingleEsc: CloseInputableDialogOnSingleEsc,
 } as const;
 
 function c<T extends Record<string | number, unknown>>(config: T) {
@@ -37,6 +39,7 @@ export const getDefaultFeatureConfig = () => ({
     keymap: "Cmd/Ctrl+I",
   }),
   fixFavicon: c({}),
+  removePlaceholderOnEmptyLine: c({}),
   closeInputableDialogOnSingleEsc: c({}),
 });
 

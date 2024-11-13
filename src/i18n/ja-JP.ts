@@ -25,6 +25,9 @@ export const jaJP = {
       iconSourceUrls: "アイコン表示したいページを含んだページ・DBのURL",
       reload: (target: string) => `「${target}」を読込`,
     },
+    removePlaceholderOnEmptyLine: {
+      isEnabled: "空行に表示されるプレースホルダを非表示",
+    },
     fixFavicon: {
       isEnabled: "タブに表示するアイコンを常に同じにする",
     },
