@@ -27,16 +27,16 @@ export const getDefaultFeatureConfig = () => ({
     isEnabledOnCmdOrCtrlK: false,
     isEnabledOnClick: false,
   }),
-  closeInputableDialogOnSingleEsc: c({}),
   preventSearchModalFromRestoringPrevCond: c({}),
+  showInlinePageLinkAsIcon: c({
+    iconSourceUrls: "",
+  }),
   addKeymapToInsertProfilePageLink: c({
     profilePageTitle: "",
     keymap: "Cmd/Ctrl+I",
   }),
-  showInlinePageLinkAsIcon: c({
-    iconSourceUrls: "",
-  }),
   fixFavicon: c({}),
+  closeInputableDialogOnSingleEsc: c({}),
 });
 
 export type FeatureConfig = ReturnType<typeof getDefaultFeatureConfig>;
