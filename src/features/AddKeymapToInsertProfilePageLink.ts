@@ -1,8 +1,8 @@
 import type { FeatureConfig } from ".";
-import type { TriggeredByKeymap } from "../conductors/KeymapManager";
 import { AppCrawler } from "../crawlers/AppCrawler";
 import { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
 import { createCrawlerFn } from "../crawlers/create";
+import type { TriggeredByKeymap } from "../deployers/KeymapManager";
 import { Log } from "../utils/log";
 
 export class AddKeymapToInsertProfilePageLink implements TriggeredByKeymap {

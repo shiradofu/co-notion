@@ -1,10 +1,10 @@
 import type { FeatureConfig } from ".";
-import type { TriggeredByClick } from "../conductors/ClickmapManager";
-import type { TriggeredByKeymap } from "../conductors/KeymapManager";
-import type { TriggeredByOverlayMutation } from "../conductors/OverlayObserver";
 import { AppCrawler } from "../crawlers/AppCrawler";
 import type { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
 import { SearchModalCrawler } from "../crawlers/SearchModalCrawler";
+import type { TriggeredByClick } from "../deployers/ClickmapManager";
+import type { TriggeredByKeymap } from "../deployers/KeymapManager";
+import type { TriggeredByOverlayMutation } from "../deployers/OverlayObserver";
 import { i } from "../i18n";
 import { Log } from "../utils/log";
 

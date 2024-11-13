@@ -1,10 +1,10 @@
-import type { SelfConducted } from "../conductors/SelfConductor";
-import type { Speculative } from "../conductors/SpeculativeConductor";
 import { AppCrawler } from "../crawlers/AppCrawler";
+import type { SelfDeployed } from "../deployers/SelfDeployer";
+import type { Speculative } from "../deployers/SpeculativeDeployer";
 import { appBaseUrl } from "../utils/constants";
 import { Log } from "../utils/log";
 
-export class FixFavicon implements Speculative, SelfConducted {
+export class FixFavicon implements Speculative, SelfDeployed {
   private origFavicon?: string;
   private faviconUrl = `${appBaseUrl}images/favicon.ico`;
   private app = new AppCrawler();
@@ -18,7 +18,7 @@ export class FixFavicon implements Speculative, SelfConducted {
     return this.run();
   }
 
-  conductSelf(wasCleanedup: boolean) {
+  deploySelf(wasCleanedup: boolean) {
     if (!wasCleanedup) return;
     return this.run();
   }

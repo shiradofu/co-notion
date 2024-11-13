@@ -4,18 +4,18 @@ import {
   createKeyboadEventHandler,
 } from "../utils/keymap";
 import { Log } from "../utils/log";
-import type { Conductor } from "./types";
+import type { Deployer } from "./types";
 
 export interface TriggeredByKeymap {
   keymaps: Record<string, KeyboardEventHandler>;
 }
 const uniqueKey: keyof TriggeredByKeymap = "keymaps";
 
-export class KeymapManager implements Conductor {
+export class KeymapManager implements Deployer {
   private handlers: KeyboardEventHandler[] = [];
   private log = new Log(this.constructor.name);
 
-  conduct(deployableFeatures: FeatureInstanceArr) {
+  deploy(deployableFeatures: FeatureInstanceArr) {
     const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
     for (const f of targetFeatures) {
       for (const [keyCombo, baseHandler] of Object.entries(f.keymaps)) {
@@ -35,7 +35,7 @@ export class KeymapManager implements Conductor {
     }
   }
 
-  clear() {
+  cleanup() {
     for (const h of this.handlers) {
       document.body.removeEventListener("keydown", h);
     }

@@ -1,7 +1,7 @@
-import type { TriggeredByClick } from "../conductors/ClickmapManager";
-import type { TriggeredByOverlayMutation } from "../conductors/OverlayObserver";
 import type { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
 import { createCrawlerFn } from "../crawlers/create";
+import type { TriggeredByClick } from "../deployers/ClickmapManager";
+import type { TriggeredByOverlayMutation } from "../deployers/OverlayObserver";
 import { Log } from "../utils/log";
 
 export class CloseInputableDialogOnSingleEsc

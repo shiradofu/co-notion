@@ -5,7 +5,7 @@ export class BaseObserver {
   protected app: AppCrawler = new AppCrawler();
   protected observer?: MutationObserver | ObserverChain;
 
-  clear() {
+  cleanup() {
     this.observer?.disconnect();
   }
 }

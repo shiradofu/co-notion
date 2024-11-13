@@ -1,4 +1,4 @@
-import type { SpeculativeConductor } from "../conductors/SpeculativeConductor";
+import type { SpeculativeDeployer } from "../deployers/SpeculativeDeployer";
 import type { Assert, Equals } from "../utils/types";
 import { AddKeymapToInsertProfilePageLink } from "./AddKeymapToInsertProfilePageLink";
 import { CloseInputableDialogOnSingleEsc } from "./CloseInputableDialogOnSingleEsc";
@@ -60,7 +60,7 @@ export type FeatureInstanceArr = InstanceType<
 
 export function buildFeatures(
   featureConfig: FeatureConfig,
-  speculativeConductor: SpeculativeConductor,
+  speculativeDeployer: SpeculativeDeployer,
 ) {
   const deployable: FeatureInstanceArr = [];
 
@@ -68,7 +68,7 @@ export function buildFeatures(
     (k): k is keyof typeof FeatureClasses => true,
   )) {
     const { isEnabled } = featureConfig[name];
-    const speculative = speculativeConductor.get(name);
+    const speculative = speculativeDeployer.get(name);
 
     if (isEnabled && !speculative) {
       // biome-ignore lint: suspicious/noExplicitAny
@@ -77,7 +77,7 @@ export function buildFeatures(
     }
 
     if (!isEnabled && speculative) {
-      speculativeConductor.delete(name);
+      speculativeDeployer.delete(name);
     }
   }
 

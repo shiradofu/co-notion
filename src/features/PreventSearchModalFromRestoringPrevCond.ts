@@ -1,7 +1,7 @@
-import type { TriggeredByOverlayMutation } from "../conductors/OverlayObserver";
 import type { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
 import { SearchModalCrawler } from "../crawlers/SearchModalCrawler";
 import { createCrawlerFn } from "../crawlers/create";
+import type { TriggeredByOverlayMutation } from "../deployers/OverlayObserver";
 import {
   type KeyboardEventHandler,
   createKeyboadEventHandler,

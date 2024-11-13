@@ -6,17 +6,17 @@ import {
   ObserverChain,
 } from "../utils/observers";
 import { BaseObserver } from "./BaseObserver";
-import type { Conductor } from "./types";
+import type { Deployer } from "./types";
 
 export interface TriggeredByNavigation {
   onNavigate: (url: string) => void;
 }
 const uniqueKey: keyof TriggeredByNavigation = "onNavigate";
 
-export class NavigationObserver extends BaseObserver implements Conductor {
+export class NavigationObserver extends BaseObserver implements Deployer {
   private url?: string;
 
-  async conduct(deployableFeatures: FeatureInstanceArr) {
+  async deploy(deployableFeatures: FeatureInstanceArr) {
     const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
     if (targetFeatures.length === 0) return;
 

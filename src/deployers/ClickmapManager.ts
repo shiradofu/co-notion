@@ -1,7 +1,7 @@
 import { ClickmapCrawler } from "../crawlers/ClickmapCrawler";
 import type { FeatureInstanceArr } from "../features";
 import { Log } from "../utils/log";
-import type { Conductor } from "./types";
+import type { Deployer } from "./types";
 
 type MouseEventHandler = (e: MouseEvent) => void;
 
@@ -10,12 +10,12 @@ export interface TriggeredByClick {
 }
 const uniqueKey: keyof TriggeredByClick = "clickmaps";
 
-export class ClickmapManager implements Conductor {
+export class ClickmapManager implements Deployer {
   private crawler = new ClickmapCrawler();
   private elAndhandlers: [HTMLElement, MouseEventHandler][] = [];
   private log = new Log(this.constructor.name);
 
-  conduct(deployableFeatures: FeatureInstanceArr) {
+  deploy(deployableFeatures: FeatureInstanceArr) {
     const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
     for (const f of targetFeatures) {
       for (const [crawlerFnName, handler] of Object.entries(f.clickmaps)) {
@@ -38,7 +38,7 @@ export class ClickmapManager implements Conductor {
     }
   }
 
-  clear() {
+  cleanup() {
     for (const [el, h] of this.elAndhandlers) {
       el.removeEventListener("click", h);
     }

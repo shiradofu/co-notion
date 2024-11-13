@@ -1,30 +1,30 @@
 import type { FeatureInstanceArr } from "../features";
 import type { Nullable, Promisable } from "../utils/types";
-import type { Conductor } from "./types";
+import type { Deployer } from "./types";
 
 type CleanupFn = () => void;
 type FeatureClassName = string;
 
-export interface SelfConducted {
-  conductSelf(wasCleanedup: boolean): Promisable<Nullable<CleanupFn>>;
+export interface SelfDeployed {
+  deploySelf(wasCleanedup: boolean): Promisable<Nullable<CleanupFn>>;
 }
-const uniqueKey: keyof SelfConducted = "conductSelf";
+const uniqueKey: keyof SelfDeployed = "deploySelf";
 
-export class SelfConductor implements Conductor {
+export class SelfDeployer implements Deployer {
   private cleanupFns: Record<FeatureClassName, CleanupFn> = {};
 
-  async conduct(deployableFeatures: FeatureInstanceArr) {
+  async deploy(deployableFeatures: FeatureInstanceArr) {
     const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
 
     for (const f of targetFeatures) {
       const featureClass = f.constructor.name;
       const wasCleanedup = !this.cleanupFns[featureClass];
-      const fn = f.conductSelf(wasCleanedup);
+      const fn = f.deploySelf(wasCleanedup);
       if (fn) this.cleanupFns[f.constructor.name] = fn;
     }
   }
 
-  clear(newEnabledFeatures: FeatureInstanceArr) {
+  cleanup(newEnabledFeatures: FeatureInstanceArr) {
     const stillEnabled = new Set(
       newEnabledFeatures
         .map((f) => f.constructor.name)

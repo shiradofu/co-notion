@@ -1,19 +1,19 @@
 import type { FeatureInstanceArr } from "../features";
 import { el } from "../ui/el";
 import type { Arrayable, Promisable } from "../utils/types";
-import type { Conductor } from "./types";
+import type { Deployer } from "./types";
 
 type FeatureClassName = string;
 
-export interface withStyle {
+export interface WithStyle {
   css: Promisable<Arrayable<string>>;
 }
-const uniqueKey: keyof withStyle = "css";
+const uniqueKey: keyof WithStyle = "css";
 
-export class StyleAppender implements Conductor {
+export class StyleManager implements Deployer {
   private styleEls: Record<FeatureClassName, HTMLStyleElement> = {};
 
-  async conduct(deployableFeatures: FeatureInstanceArr) {
+  async deploy(deployableFeatures: FeatureInstanceArr) {
     const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
 
     for (const f of targetFeatures) {
@@ -28,7 +28,7 @@ export class StyleAppender implements Conductor {
     }
   }
 
-  clear(newEnabledFeatures: FeatureInstanceArr) {
+  cleanup(newEnabledFeatures: FeatureInstanceArr) {
     const stillEnabled = new Set(
       newEnabledFeatures
         .map((f) => f.constructor.name)

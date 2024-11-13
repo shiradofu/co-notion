@@ -1,7 +1,7 @@
 import { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
 import type { FeatureInstanceArr } from "../features/";
 import { BaseObserver } from "./BaseObserver";
-import type { Conductor } from "./types";
+import type { Deployer } from "./types";
 
 export interface TriggeredByOverlayMutation {
   onMutateOverlay: (
@@ -11,11 +11,11 @@ export interface TriggeredByOverlayMutation {
 }
 const uniqueKey: keyof TriggeredByOverlayMutation = "onMutateOverlay";
 
-export class OverlayObserver extends BaseObserver implements Conductor {
+export class OverlayObserver extends BaseObserver implements Deployer {
   private prevOverlaysCount = 0;
   private overlays?: OverlaysCrawler;
 
-  async conduct(deployableFeatures: FeatureInstanceArr) {
+  async deploy(deployableFeatures: FeatureInstanceArr) {
     const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
     if (targetFeatures.length === 0) return;
 

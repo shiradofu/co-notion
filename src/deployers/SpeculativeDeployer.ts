@@ -13,14 +13,14 @@ interface SpeculativeClass {
 }
 const uniqueKeyForClass: keyof SpeculativeClass = "speculativeNew";
 
-export class SpeculativeConductor {
+export class SpeculativeDeployer {
   private features: Partial<Record<FeatureName, Speculative>> = {};
   private cancelFns: Partial<Record<FeatureName, CancelFn>> = {};
 
-  static conduct(featureClasses: typeof FeatureClasses) {
-    const conductor = new SpeculativeConductor();
-    conductor.run(featureClasses);
-    return conductor;
+  static deploy(featureClasses: typeof FeatureClasses) {
+    const deployer = new SpeculativeDeployer();
+    deployer.run(featureClasses);
+    return deployer;
   }
 
   get(name: keyof typeof FeatureClasses): Speculative | undefined {

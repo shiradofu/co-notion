@@ -1,6 +1,6 @@
-import type { withStyle } from "../conductors/StyleAppender";
+import type { WithStyle } from "../deployers/StyleManager";
 
-export class RemovePlaceholderOnEmptyLine implements withStyle {
+export class RemovePlaceholderOnEmptyLine implements WithStyle {
   get css() {
     return `
 .notion-page-content

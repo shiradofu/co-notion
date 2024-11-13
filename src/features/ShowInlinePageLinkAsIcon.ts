@@ -1,7 +1,8 @@
 import type { FeatureConfig } from ".";
-import type { TriggeredByNavigation } from "../conductors/NavigationObserver";
-import type { RunBeforeConducted } from "../conductors/breforeConduct";
 import { AppCrawler } from "../crawlers/AppCrawler";
+import type { TriggeredByNavigation } from "../deployers/NavigationObserver";
+import type { WithStyle } from "../deployers/StyleManager";
+import type { RunBeforeDeployed } from "../deployers/breforeDeploy";
 import { i } from "../i18n";
 import { appBaseUrl } from "../utils/constants";
 import { Log } from "../utils/log";
@@ -15,7 +16,7 @@ export type IconPageLinkPathnames = Record<
 >;
 
 export class ShowInlinePageLinkAsIcon
-  implements RunBeforeConducted, TriggeredByNavigation
+  implements RunBeforeDeployed, WithStyle, TriggeredByNavigation
 {
   static param = "notion-utils_load-icons" as const;
   private ctx = ["feature", "showInlinePageLinkAsIcon"] as const;
@@ -84,7 +85,7 @@ export class ShowInlinePageLinkAsIcon
     });
   }
 
-  async beforeConducted() {
+  async beforeDeployed() {
     await this.deleteUnlisted();
   }
 
