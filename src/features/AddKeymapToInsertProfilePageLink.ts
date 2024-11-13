@@ -1,5 +1,5 @@
+import type { FeatureConfig } from ".";
 import type { TriggeredByKeymap } from "../conductors/KeymapManager";
-import type { FeatureConfig } from "../config/feature";
 import { AppCrawler } from "../crawlers/AppCrawler";
 import { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
 import { createCrawlerFn } from "../crawlers/create";

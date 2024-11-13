@@ -1,4 +1,4 @@
-import type { FeatureConfig } from "../config/feature";
+import type { FeatureConfig } from "../features";
 import type { IconPageLinkPathnames } from "../features/ShowInlinePageLinkAsIcon";
 import type { AvailableLang } from "../i18n";
 

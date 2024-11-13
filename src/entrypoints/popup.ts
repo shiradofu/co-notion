@@ -1,4 +1,4 @@
-import { type FeatureConfig, getDefaultFeatureConfig } from "../config/feature";
+import { type FeatureConfig, getDefaultFeatureConfig } from "../features";
 import { setLang } from "../i18n";
 import { ConfigFormSubmission, ConfigList } from "../ui/components";
 import { el } from "../ui/el";

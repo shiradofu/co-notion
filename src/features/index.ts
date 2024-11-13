@@ -1,5 +1,5 @@
 import type { SpeculativeConductor } from "../conductors/SpeculativeConductor";
-import type { FeatureConfig } from "../config/feature";
+import type { Assert, Equals } from "../utils/types";
 import { AddKeymapToInsertProfilePageLink } from "./AddKeymapToInsertProfilePageLink";
 import { CloseInputableDialogOnSingleEsc } from "./CloseInputableDialogOnSingleEsc";
 import { FixFavicon } from "./FixFavicon";
@@ -16,6 +16,33 @@ export const FeatureClasses = {
   showInlinePageLinkAsIcon: ShowInlinePageLinkAsIcon,
   fixFavicon: FixFavicon,
 } as const;
+
+function c<T extends Record<string | number, unknown>>(config: T) {
+  return { isEnabled: false, ...config };
+}
+
+export const getDefaultFeatureConfig = () => ({
+  setDefaultTeamspaceOnSearchOpen: c({
+    isEnabledOnCmdOrCtrlP: false,
+    isEnabledOnCmdOrCtrlK: false,
+    isEnabledOnClick: false,
+  }),
+  closeInputableDialogOnSingleEsc: c({}),
+  preventSearchModalFromRestoringPrevCond: c({}),
+  addKeymapToInsertProfilePageLink: c({
+    profilePageTitle: "",
+    keymap: "Cmd/Ctrl+I",
+  }),
+  showInlinePageLinkAsIcon: c({
+    iconSourceUrls: "",
+  }),
+  fixFavicon: c({}),
+});
+
+export type FeatureConfig = ReturnType<typeof getDefaultFeatureConfig>;
+
+// type checking to prevent unused config remaining
+type _ = Assert<Equals<keyof FeatureConfig, keyof Features>>;
 
 export type Features = {
   -readonly [key in keyof typeof FeatureClasses]?: InstanceType<

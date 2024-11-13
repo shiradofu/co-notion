@@ -1,7 +1,7 @@
+import type { FeatureConfig } from ".";
 import type { TriggeredByClick } from "../conductors/ClickmapManager";
 import type { TriggeredByKeymap } from "../conductors/KeymapManager";
 import type { TriggeredByOverlayMutation } from "../conductors/OverlayObserver";
-import type { FeatureConfig } from "../config/feature";
 import { AppCrawler } from "../crawlers/AppCrawler";
 import type { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
 import { SearchModalCrawler } from "../crawlers/SearchModalCrawler";

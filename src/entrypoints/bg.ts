@@ -1,4 +1,4 @@
-import { getDefaultFeatureConfig } from "../config/feature";
+import { getDefaultFeatureConfig } from "../features";
 import { merge } from "../utils/merge";
 import { Storage } from "../utils/storage";
 

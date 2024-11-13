@@ -1,6 +1,6 @@
+import type { FeatureConfig } from ".";
 import type { TriggeredByNavigation } from "../conductors/NavigationObserver";
 import type { RunBeforeConducted } from "../conductors/breforeConduct";
-import type { FeatureConfig } from "../config/feature";
 import { AppCrawler } from "../crawlers/AppCrawler";
 import { i } from "../i18n";
 import { appBaseUrl } from "../utils/constants";
