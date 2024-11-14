@@ -49,11 +49,11 @@ class FeatureConfigForm {
   // new elements have no class, so cannnot render more than once.
   private renderTitleOnce() {
     const title = el("title", { children: [`${extName} config`] });
-    this.render("title", title);
+    this.render(title, "title");
 
     const titleTextClass = "ConfigTitle__Text";
     const titleText = el("span", { children: [extName] });
-    this.render(titleTextClass, titleText);
+    this.render(titleText, titleTextClass);
   }
 
   private renderForm() {
@@ -66,19 +66,19 @@ class FeatureConfigForm {
         ConfigFormSubmission({ isSuccess: this.isSubmissionSuccess }),
       ],
     });
-    this.render(formClass, form);
+    this.render(form, formClass);
   }
 
   private renderSubmission() {
     this.render(
-      "ConfigFormSubmission",
       ConfigFormSubmission({
         isSuccess: this.isSubmissionSuccess,
       }),
+      "ConfigFormSubmission",
     );
   }
 
-  private render(targetClass: string, element: HTMLElement) {
+  private render(element: HTMLElement, targetClass: string) {
     const target = document.querySelector<HTMLElement>(`.${targetClass}`);
     if (!target) throw new Error(`${targetClass} not found`);
     target.replaceWith(element);
