@@ -24,6 +24,9 @@ export const enUS = {
     removePlaceholderOnEmptyLine: {
       isEnabled: "Remove placeholder on empty line",
     },
+    showPropertiesInSingleLine: {
+      isEnabled: "Show page properties in single line",
+    },
     fixFavicon: {
       isEnabled: "Always shows the same icon on Notion tabs",
     },

@@ -25,6 +25,9 @@ export const jaJP = {
     removePlaceholderOnEmptyLine: {
       isEnabled: "空行に表示されるプレースホルダを非表示",
     },
+    showPropertiesInSingleLine: {
+      isEnabled: "ページのプロパティを1行で表示",
+    },
     fixFavicon: {
       isEnabled: "タブに表示するアイコンを常に同じにする",
     },

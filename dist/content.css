@@ -5,3 +5,46 @@
     content: " " !important;
   }
 }
+
+.ShowPropertiesInSingleLine {
+  .whenContentEditable
+    .layout-content:not(:has(.notion-page-content)):has(
+      [role="table"][aria-label]
+    ) {
+    padding: 0 !important;
+    overflow-y: auto;
+
+    * {
+      display: inline-flex !important;
+      align-items: center !important;
+      width: fit-content !important;
+      white-space: nowrap !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      gap: 10px !important;
+
+      [role="row"] {
+        padding-right: 10px !important;
+        border-right: 1px solid #404040 !important;
+      }
+
+      [role="button"],
+      [role="cell"] * {
+        gap: 1px !important;
+      }
+
+      position: static !important; /* for quickActionContainer */
+      [role="button"]:has(.quickActionContainer),
+      .quickActionContainer {
+        gap: 5px !important;
+      }
+      div:has(> .quickActionContainer) {
+        order: 1;
+      }
+
+      .dragHandle {
+        display: none !important;
+      }
+    }
+  }
+}

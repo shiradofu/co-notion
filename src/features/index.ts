@@ -15,6 +15,7 @@ export const FeatureClasses = {
   showInlinePageLinkAsIcon: ShowInlinePageLinkAsIcon,
   addKeymapToInsertProfilePageLink: AddKeymapToInsertProfilePageLink,
   removePlaceholderOnEmptyLine: class RemovePlaceholderOnEmptyLine extends S {},
+  showPropertiesInSingleLine: class ShowPropertiesInSingleLine extends S {},
   fixFavicon: FixFavicon,
   closeInputableDialogOnSingleEsc: CloseInputableDialogOnSingleEsc,
 } as const;
@@ -39,6 +40,7 @@ export const getDefaultFeatureConfig = () => ({
     keymap: "Cmd/Ctrl+I",
   }),
   removePlaceholderOnEmptyLine: c({}),
+  showPropertiesInSingleLine: c({}),
   fixFavicon: c({}),
   closeInputableDialogOnSingleEsc: c({}),
 });
