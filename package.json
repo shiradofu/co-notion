@@ -1,7 +1,7 @@
 {
   "name": "co-notion",
   "displayName": "co-notion",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "scripts": {
     "build": "tsc && NODE_ENV=production tsx scripts/build.ts",
