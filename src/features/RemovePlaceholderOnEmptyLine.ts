@@ -6,7 +6,7 @@ export class RemovePlaceholderOnEmptyLine implements WithStyle {
 .notion-page-content
 .notion-text-block
 [placeholder]:not([placeholder=" "])::after {
-  content: "" !important;
+  content: " " !important;
 }
     `;
   }
