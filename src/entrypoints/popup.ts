@@ -1,4 +1,4 @@
-import { type FeatureConfig, getDefaultFeatureConfig } from "../features";
+import { getDefaultFeatureConfig } from "../features";
 import { setLang } from "../i18n";
 import { ConfigFormSubmission, ConfigList } from "../ui/components";
 import { el } from "../ui/el";
@@ -9,14 +9,10 @@ import { type Obj, getObjValueByCtx } from "../utils/obj";
 import { Storage } from "../utils/storage";
 
 class FeatureConfigForm {
-  private config: FeatureConfig;
+  private config = getDefaultFeatureConfig();
   private _submissionStatus?: boolean;
   private submissionStatusTimer?: NodeJS.Timeout;
   private log = new Log(this.constructor.name);
-
-  constructor() {
-    this.config = getDefaultFeatureConfig();
-  }
 
   get isSubmissionSuccess() {
     return this._submissionStatus;

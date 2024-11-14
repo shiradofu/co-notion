@@ -1,6 +1,6 @@
-import type { FeatureInstanceArr } from "../features";
+import type { FeatureInstanceArrRO } from "../features";
 
 export interface Deployer {
-  deploy(deployableFeatures: FeatureInstanceArr): void;
-  cleanup(newDeployableFeatures: FeatureInstanceArr): void;
+  deploy(deployableFeatures: FeatureInstanceArrRO): void;
+  cleanup(newDeployableFeatures: FeatureInstanceArrRO): void;
 }

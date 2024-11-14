@@ -1,4 +1,4 @@
-import type { FeatureInstanceArr } from "../features";
+import type { FeatureInstanceArrRO } from "../features";
 import type { Nullable, Promisable } from "../utils/types";
 import type { Deployer } from "./types";
 
@@ -13,7 +13,7 @@ const uniqueKey: keyof SelfDeployed = "deploySelf";
 export class SelfDeployer implements Deployer {
   private cleanupFns: Record<FeatureClassName, CleanupFn> = {};
 
-  async deploy(deployableFeatures: FeatureInstanceArr) {
+  async deploy(deployableFeatures: FeatureInstanceArrRO) {
     const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
 
     for (const f of targetFeatures) {
@@ -24,7 +24,7 @@ export class SelfDeployer implements Deployer {
     }
   }
 
-  cleanup(newEnabledFeatures: FeatureInstanceArr) {
+  cleanup(newEnabledFeatures: FeatureInstanceArrRO) {
     const stillEnabled = new Set(
       newEnabledFeatures
         .map((f) => f.constructor.name)

@@ -22,3 +22,9 @@ export type Primitive = boolean | string | number;
 export type Arrayable<T> = T | T[];
 export type Promisable<T> = T | Promise<T>;
 export type Nullable<T> = T | null | undefined;
+
+export type DeepReadonly<T> = T extends object
+  ? {
+      readonly [P in keyof T]: DeepReadonly<T[P]>;
+    }
+  : T;

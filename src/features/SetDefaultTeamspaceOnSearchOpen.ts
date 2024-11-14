@@ -1,4 +1,4 @@
-import type { FeatureConfig } from ".";
+import type { FeatureConfigRO } from ".";
 import { AppCrawler } from "../crawlers/AppCrawler";
 import type { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
 import { SearchModalCrawler } from "../crawlers/SearchModalCrawler";
@@ -16,7 +16,7 @@ export class SetDefaultTeamspaceOnSearchOpen
   private log = new Log(this.constructor.name);
 
   constructor(
-    private config: FeatureConfig["setDefaultTeamspaceOnSearchOpen"],
+    private config: FeatureConfigRO["setDefaultTeamspaceOnSearchOpen"],
   ) {}
 
   keymaps = {

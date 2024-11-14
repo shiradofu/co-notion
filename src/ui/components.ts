@@ -1,4 +1,4 @@
-import type { FeatureConfig } from "../features";
+import type { FeatureConfigRO } from "../features";
 import { ShowInlinePageLinkAsIcon } from "../features/ShowInlinePageLinkAsIcon";
 import { i } from "../i18n";
 import { appBaseUrl } from "../utils/constants";
@@ -112,7 +112,7 @@ function ConfigItemTree({
 export function ConfigList({
   config,
   onChangeInput,
-}: { config: FeatureConfig; onChangeInput: (e: Event) => void }) {
+}: { config: FeatureConfigRO; onChangeInput: (e: Event) => void }) {
   return el("ul", {
     classes: ["ConfigListRoot"],
     children: Object.entries(config).map(([k, v]) => {

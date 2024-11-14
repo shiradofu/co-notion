@@ -1,5 +1,5 @@
 import { ClickmapCrawler } from "../crawlers/ClickmapCrawler";
-import type { FeatureInstanceArr } from "../features";
+import type { FeatureInstanceArrRO } from "../features";
 import { Log } from "../utils/log";
 import type { Deployer } from "./types";
 
@@ -15,7 +15,7 @@ export class ClickmapManager implements Deployer {
   private elAndhandlers: [HTMLElement, MouseEventHandler][] = [];
   private log = new Log(this.constructor.name);
 
-  deploy(deployableFeatures: FeatureInstanceArr) {
+  deploy(deployableFeatures: FeatureInstanceArrRO) {
     const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
     for (const f of targetFeatures) {
       for (const [crawlerFnName, handler] of Object.entries(f.clickmaps)) {

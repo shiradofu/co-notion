@@ -1,4 +1,4 @@
-import type { FeatureConfig } from ".";
+import type { FeatureConfigRO } from ".";
 import { AppCrawler } from "../crawlers/AppCrawler";
 import type { TriggeredByNavigation } from "../deployers/NavigationObserver";
 import type { WithStyle } from "../deployers/StyleManager";
@@ -22,7 +22,7 @@ export class ShowInlinePageLinkAsIcon
   private ctx = ["feature", "showInlinePageLinkAsIcon"] as const;
   private sources: { url: string; name?: string }[] = [];
 
-  constructor(config: FeatureConfig["showInlinePageLinkAsIcon"]) {
+  constructor(config: FeatureConfigRO["showInlinePageLinkAsIcon"]) {
     this.sources = ShowInlinePageLinkAsIcon.parseIconSourceUrlsStr(
       config.iconSourceUrls,
     );

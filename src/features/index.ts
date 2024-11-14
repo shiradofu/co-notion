@@ -1,5 +1,5 @@
 import type { SpeculativeDeployer } from "../deployers/SpeculativeDeployer";
-import type { Assert, Equals } from "../utils/types";
+import type { Assert, DeepReadonly, Equals } from "../utils/types";
 import { AddKeymapToInsertProfilePageLink } from "./AddKeymapToInsertProfilePageLink";
 import { CloseInputableDialogOnSingleEsc } from "./CloseInputableDialogOnSingleEsc";
 import { FixFavicon } from "./FixFavicon";
@@ -44,22 +44,20 @@ export const getDefaultFeatureConfig = () => ({
 });
 
 export type FeatureConfig = ReturnType<typeof getDefaultFeatureConfig>;
+export type FeatureConfigRO = DeepReadonly<FeatureConfig>;
 
 // type checking to prevent unused config remaining
-type _ = Assert<Equals<keyof FeatureConfig, keyof Features>>;
+type _ = Assert<Equals<keyof FeatureConfig, keyof typeof FeatureClasses>>;
 
-export type Features = {
-  -readonly [key in keyof typeof FeatureClasses]?: InstanceType<
-    (typeof FeatureClasses)[key]
-  >;
-};
-
-export type FeatureInstanceArr = InstanceType<
+type FeatureInstanceArr = InstanceType<
+  (typeof FeatureClasses)[keyof typeof FeatureClasses]
+>[];
+export type FeatureInstanceArrRO = readonly InstanceType<
   (typeof FeatureClasses)[keyof typeof FeatureClasses]
 >[];
 
 export function buildFeatures(
-  featureConfig: FeatureConfig,
+  featureConfig: FeatureConfigRO,
   speculativeDeployer: SpeculativeDeployer,
 ) {
   const deployable: FeatureInstanceArr = [];
@@ -81,5 +79,5 @@ export function buildFeatures(
     }
   }
 
-  return deployable;
+  return deployable as FeatureInstanceArrRO;
 }

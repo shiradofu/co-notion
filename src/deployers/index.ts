@@ -1,4 +1,4 @@
-import type { FeatureInstanceArr } from "../features";
+import type { FeatureInstanceArrRO } from "../features";
 import { ClickmapManager } from "./ClickmapManager";
 import { KeymapManager } from "./KeymapManager";
 import { NavigationObserver } from "./NavigationObserver";
@@ -16,7 +16,7 @@ const deployers = [
   new SelfDeployer(),
 ] as const;
 
-export async function deploy(deployableFeatures: FeatureInstanceArr) {
+export async function deploy(deployableFeatures: FeatureInstanceArrRO) {
   await beforeDeploy(deployableFeatures);
 
   for (const d of deployers) {

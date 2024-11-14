@@ -1,4 +1,4 @@
-import type { FeatureInstanceArr } from "../features";
+import type { FeatureInstanceArrRO } from "../features";
 import { el } from "../ui/el";
 import type { Arrayable, Promisable } from "../utils/types";
 import type { Deployer } from "./types";
@@ -13,7 +13,7 @@ const uniqueKey: keyof WithStyle = "css";
 export class StyleManager implements Deployer {
   private styleEls: Record<FeatureClassName, HTMLStyleElement> = {};
 
-  async deploy(deployableFeatures: FeatureInstanceArr) {
+  async deploy(deployableFeatures: FeatureInstanceArrRO) {
     const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
 
     for (const f of targetFeatures) {
@@ -28,7 +28,7 @@ export class StyleManager implements Deployer {
     }
   }
 
-  cleanup(newEnabledFeatures: FeatureInstanceArr) {
+  cleanup(newEnabledFeatures: FeatureInstanceArrRO) {
     const stillEnabled = new Set(
       newEnabledFeatures
         .map((f) => f.constructor.name)

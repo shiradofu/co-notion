@@ -1,4 +1,4 @@
-import type { FeatureInstanceArr } from "../features";
+import type { FeatureInstanceArrRO } from "../features";
 import {
   type KeyboardEventHandler,
   createKeyboadEventHandler,
@@ -15,7 +15,7 @@ export class KeymapManager implements Deployer {
   private handlers: KeyboardEventHandler[] = [];
   private log = new Log(this.constructor.name);
 
-  deploy(deployableFeatures: FeatureInstanceArr) {
+  deploy(deployableFeatures: FeatureInstanceArrRO) {
     const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
     for (const f of targetFeatures) {
       for (const [keyCombo, baseHandler] of Object.entries(f.keymaps)) {

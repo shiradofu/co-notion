@@ -1,5 +1,5 @@
 import { createCrawlerFn } from "../crawlers/create";
-import type { FeatureInstanceArr } from "../features";
+import type { FeatureInstanceArrRO } from "../features";
 import {
   MutationObserved,
   MutationObservedRoot,
@@ -16,7 +16,7 @@ const uniqueKey: keyof TriggeredByNavigation = "onNavigate";
 export class NavigationObserver extends BaseObserver implements Deployer {
   private url?: string;
 
-  async deploy(deployableFeatures: FeatureInstanceArr) {
+  async deploy(deployableFeatures: FeatureInstanceArrRO) {
     const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
     if (targetFeatures.length === 0) return;
 

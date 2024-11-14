@@ -1,4 +1,4 @@
-import type { FeatureConfig } from ".";
+import type { FeatureConfigRO } from ".";
 import { AppCrawler } from "../crawlers/AppCrawler";
 import { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
 import { createCrawlerFn } from "../crawlers/create";
@@ -9,7 +9,7 @@ export class AddKeymapToInsertProfilePageLink implements TriggeredByKeymap {
   private processing = false;
 
   constructor(
-    private config: FeatureConfig["addKeymapToInsertProfilePageLink"],
+    private config: FeatureConfigRO["addKeymapToInsertProfilePageLink"],
   ) {}
 
   keymaps = {

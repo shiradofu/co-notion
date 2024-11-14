@@ -1,5 +1,5 @@
 import { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
-import type { FeatureInstanceArr } from "../features/";
+import type { FeatureInstanceArrRO } from "../features/";
 import { BaseObserver } from "./BaseObserver";
 import type { Deployer } from "./types";
 
@@ -15,7 +15,7 @@ export class OverlayObserver extends BaseObserver implements Deployer {
   private prevOverlaysCount = 0;
   private overlays?: OverlaysCrawler;
 
-  async deploy(deployableFeatures: FeatureInstanceArr) {
+  async deploy(deployableFeatures: FeatureInstanceArrRO) {
     const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
     if (targetFeatures.length === 0) return;
 
