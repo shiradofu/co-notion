@@ -4,7 +4,7 @@ import type { TriggeredByNavigation } from "../deployers/NavigationObserver";
 import type { WithStyle } from "../deployers/StyleManager";
 import type { RunBeforeDeployed } from "../deployers/breforeDeploy";
 import { i } from "../i18n";
-import { appBaseUrl } from "../utils/constants";
+import { appBaseUrl, extName } from "../utils/constants";
 import { Log } from "../utils/log";
 import { Storage } from "../utils/storage";
 
@@ -18,7 +18,7 @@ export type IconPageLinkPathnames = Record<
 export class ShowInlinePageLinkAsIcon
   implements RunBeforeDeployed, WithStyle, TriggeredByNavigation
 {
-  static param = "notion-utils_load-icons" as const;
+  static param = `${extName}_load-icons` as const;
   private ctx = ["feature", "showInlinePageLinkAsIcon"] as const;
   private sources: { url: string; name?: string }[] = [];
 

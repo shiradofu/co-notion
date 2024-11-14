@@ -1,6 +1,6 @@
 {
-  "name": "notion-utils",
-  "displayName": "notion-utils",
+  "name": "co-notion",
+  "displayName": "co-notion",
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
@@ -10,12 +10,12 @@
     "fmt": "biome format --write",
     "test": "tsc && tsx --test",
     "clean": "rm -rf dist/*.js",
-    "zip": "npm run build && zip -r ext.zip dist -x 'dist/.*'"
+    "zip": "rm -f ext.zip && npm run build && zip -r ext.zip dist -x 'dist/.*'"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "description": "Set of utils to enhance Notion",
+  "description": "Set of utils to enhance collabolation on Notion",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/chrome": "^0.0.279",

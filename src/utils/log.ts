@@ -1,6 +1,7 @@
+import { extName } from "./constants";
 import type { AsyncMethod, Method, SyncMethod } from "./types";
 
-const LOG_PREFIX = "[notion-utils]";
+const LOG_PREFIX = `[${extName}]`;
 
 export class Log {
   constructor(private ctx: string) {}

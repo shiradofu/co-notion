@@ -2,6 +2,7 @@ import { type FeatureConfig, getDefaultFeatureConfig } from "../features";
 import { setLang } from "../i18n";
 import { ConfigFormSubmission, ConfigList } from "../ui/components";
 import { el } from "../ui/el";
+import { extName } from "../utils/constants";
 import { Log } from "../utils/log";
 import { forceMerge } from "../utils/merge";
 import { type Obj, getObjValueByCtx } from "../utils/obj";
@@ -41,7 +42,18 @@ class FeatureConfigForm {
     // the order we defined.
     forceMerge(this.config, await Storage.sync.get("featureConfig"));
     await setLang();
+    this.renderTitleOnce();
     this.renderForm();
+  }
+
+  // new elements have no class, so cannnot render more than once.
+  private renderTitleOnce() {
+    const title = el("title", { children: [`${extName} config`] });
+    this.render("title", title);
+
+    const titleTextClass = "ConfigTitle__Text";
+    const titleText = el("span", { children: [extName] });
+    this.render(titleTextClass, titleText);
   }
 
   private renderForm() {
