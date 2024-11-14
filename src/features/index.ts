@@ -4,9 +4,9 @@ import { AddKeymapToInsertProfilePageLink } from "./AddKeymapToInsertProfilePage
 import { CloseInputableDialogOnSingleEsc } from "./CloseInputableDialogOnSingleEsc";
 import { FixFavicon } from "./FixFavicon";
 import { PreventSearchModalFromRestoringPrevCond } from "./PreventSearchModalFromRestoringPrevCond";
-import { RemovePlaceholderOnEmptyLine } from "./RemovePlaceholderOnEmptyLine";
 import { SetDefaultTeamspaceOnSearchOpen } from "./SetDefaultTeamspaceOnSearchOpen";
 import { ShowInlinePageLinkAsIcon } from "./ShowInlinePageLinkAsIcon";
+import { S } from "./StaticStyle";
 
 export const FeatureClasses = {
   setDefaultTeamspaceOnSearchOpen: SetDefaultTeamspaceOnSearchOpen,
@@ -14,7 +14,7 @@ export const FeatureClasses = {
     PreventSearchModalFromRestoringPrevCond,
   showInlinePageLinkAsIcon: ShowInlinePageLinkAsIcon,
   addKeymapToInsertProfilePageLink: AddKeymapToInsertProfilePageLink,
-  removePlaceholderOnEmptyLine: RemovePlaceholderOnEmptyLine,
+  removePlaceholderOnEmptyLine: class RemovePlaceholderOnEmptyLine extends S {},
   fixFavicon: FixFavicon,
   closeInputableDialogOnSingleEsc: CloseInputableDialogOnSingleEsc,
 } as const;

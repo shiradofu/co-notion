@@ -11,6 +11,11 @@ export class AppCrawler {
     "failed to get lang",
   );
 
+  getAppRoot = createCrawlerFn(
+    () => document.getElementById("notion-app"),
+    "notion-app not found",
+  );
+
   getOverlayContainer = createCrawlerFn(
     () => document.querySelector<HTMLElement>(".notion-overlay-container"),
     "overlay container not found",

@@ -1,7 +1,7 @@
 import type { FeatureConfigRO } from ".";
 import { AppCrawler } from "../crawlers/AppCrawler";
+import type { WithDynamicStyle } from "../deployers/DynamicStyleManager";
 import type { TriggeredByNavigation } from "../deployers/NavigationObserver";
-import type { WithStyle } from "../deployers/StyleManager";
 import type { RunBeforeDeployed } from "../deployers/breforeDeploy";
 import { i } from "../i18n";
 import { appBaseUrl, extName } from "../utils/constants";
@@ -16,7 +16,7 @@ export type IconPageLinkPathnames = Record<
 >;
 
 export class ShowInlinePageLinkAsIcon
-  implements RunBeforeDeployed, WithStyle, TriggeredByNavigation
+  implements RunBeforeDeployed, WithDynamicStyle, TriggeredByNavigation
 {
   static param = `${extName}_load-icons` as const;
   private ctx = ["feature", "showInlinePageLinkAsIcon"] as const;

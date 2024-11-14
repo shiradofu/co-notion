@@ -1,16 +1,16 @@
 import type { FeatureInstanceArrRO } from "../features";
 import { el } from "../ui/el";
-import type { Arrayable, Promisable } from "../utils/types";
+import type { Promisable } from "../utils/types";
 import type { Deployer } from "./types";
 
 type FeatureClassName = string;
 
-export interface WithStyle {
-  css: Promisable<Arrayable<string>>;
+export interface WithDynamicStyle {
+  css: Promisable<string>;
 }
-const uniqueKey: keyof WithStyle = "css";
+const uniqueKey: keyof WithDynamicStyle = "css";
 
-export class StyleManager implements Deployer {
+export class DynamicStyleManager implements Deployer {
   private styleEls: Record<FeatureClassName, HTMLStyleElement> = {};
 
   async deploy(deployableFeatures: FeatureInstanceArrRO) {

@@ -32,6 +32,7 @@ async function runEsbuild(entryPoints: string[]) {
     outdir: "dist",
     minify: false,
     bundle: true,
+    keepNames: true,
     define: {
       "process.env.NODE_ENV": `"${process.env.NODE_ENV}"`,
     },

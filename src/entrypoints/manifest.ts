@@ -24,6 +24,7 @@ export function defineManifest(): Manifest.WebExtensionManifest {
       {
         matches: ["https://www.notion.so/*"],
         js: ["./content.js"],
+        css: ["./content.css"],
       },
     ],
     permissions,

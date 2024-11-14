@@ -1,16 +1,18 @@
 import type { FeatureInstanceArrRO } from "../features";
 import { ClickmapManager } from "./ClickmapManager";
+import { DynamicStyleManager } from "./DynamicStyleManager";
 import { KeymapManager } from "./KeymapManager";
 import { NavigationObserver } from "./NavigationObserver";
 import { OverlayObserver } from "./OverlayObserver";
 import { SelfDeployer } from "./SelfDeployer";
-import { StyleManager } from "./StyleManager";
+import { StaticStyleManager } from "./StaticStyleManager";
 import { beforeDeploy } from "./breforeDeploy";
 
 const deployers = [
   new ClickmapManager(),
   new KeymapManager(),
-  new StyleManager(),
+  new StaticStyleManager(),
+  new DynamicStyleManager(),
   new OverlayObserver(),
   new NavigationObserver(),
   new SelfDeployer(),
