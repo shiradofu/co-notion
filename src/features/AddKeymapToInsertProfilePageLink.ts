@@ -34,18 +34,21 @@ export class AddKeymapToInsertProfilePageLink implements TriggeredByKeymap {
     if (!focusedEl || !focusedEl.isContentEditable) return;
 
     document.execCommand("insertText", false, "[");
-    setTimeout(() => {
-      document.execCommand(
-        "insertText",
-        false,
-        `[${this.config.profilePageTitle}`,
-      );
-    }, 10);
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        document.execCommand(
+          "insertText",
+          false,
+          `[${this.config.profilePageTitle}`,
+        );
+        resolve(true);
+      }, 10),
+    );
 
     const app = new AppCrawler();
     const overlaysEl = app.getOverlayContainer("must");
     const overlays = new OverlaysCrawler(overlaysEl);
-    overlays.ensureCount("must", { args: [1], wait: "short" });
+    await overlays.ensureCount("must", { args: [1], wait: "short" });
 
     const target = await createCrawlerFn(() => {
       const items = overlaysEl.querySelectorAll<HTMLElement>("[role=menuitem]");
