@@ -14,8 +14,8 @@ export const FeatureClasses = {
     PreventSearchModalFromRestoringPrevCond,
   showInlinePageLinkAsIcon: ShowInlinePageLinkAsIcon,
   addKeymapToInsertProfilePageLink: AddKeymapToInsertProfilePageLink,
-  fixFavicon: FixFavicon,
   removePlaceholderOnEmptyLine: RemovePlaceholderOnEmptyLine,
+  fixFavicon: FixFavicon,
   closeInputableDialogOnSingleEsc: CloseInputableDialogOnSingleEsc,
 } as const;
 
@@ -38,8 +38,8 @@ export const getDefaultFeatureConfig = () => ({
     profilePageTitle: "",
     keymap: "Cmd/Ctrl+I",
   }),
-  fixFavicon: c({}),
   removePlaceholderOnEmptyLine: c({}),
+  fixFavicon: c({}),
   closeInputableDialogOnSingleEsc: c({}),
 });
 

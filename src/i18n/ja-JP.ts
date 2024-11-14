@@ -9,27 +9,27 @@ export const jaJP = {
       useInPageFilterIfImGuest:
         "自分がゲストのときは「ページ内」フィルタを使う",
     },
-    closeInputableDialogOnSingleEsc: {
-      isEnabled: "文字入力可能なウィンドウを Esc 一回で閉じる",
-    },
     preventSearchModalFromRestoringPrevCond: {
       isEnabled: "前回の検索条件を復元しない",
-    },
-    addKeymapToInsertProfilePageLink: {
-      isEnabled: "プロフィールページへのリンクをショートカットで挿入",
-      profilePageTitle: "プロフィールページ名",
-      keymap: "キーボードショートカット",
     },
     showInlinePageLinkAsIcon: {
       isEnabled: "文中のページリンクをアイコンとして表示",
       iconSourceUrls: "アイコン表示したいページを含んだページ・DBのURL",
       reload: (target: string) => `「${target}」を読込`,
     },
+    addKeymapToInsertProfilePageLink: {
+      isEnabled: "プロフィールページへのリンクをショートカットで挿入",
+      profilePageTitle: "プロフィールページ名",
+      keymap: "キーボードショートカット",
+    },
     removePlaceholderOnEmptyLine: {
       isEnabled: "空行に表示されるプレースホルダを非表示",
     },
     fixFavicon: {
       isEnabled: "タブに表示するアイコンを常に同じにする",
+    },
+    closeInputableDialogOnSingleEsc: {
+      isEnabled: "文字入力可能なウィンドウを Esc 一回で閉じる",
     },
   },
   feature: {

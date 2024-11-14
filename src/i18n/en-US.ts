@@ -8,27 +8,27 @@ export const enUS = {
       isEnabledOnClick: "by clicking 'Search' on the sidebar",
       useInPageFilterIfImGuest: "Use 'In' filter if I'm a guest",
     },
-    closeInputableDialogOnSingleEsc: {
-      isEnabled: "Close inputable dialog on single Esc",
-    },
     preventSearchModalFromRestoringPrevCond: {
       isEnabled: "Prevent search modal from restoring prev conditions",
-    },
-    addKeymapToInsertProfilePageLink: {
-      isEnabled: "Add keymap to insert profile page link",
-      profilePageTitle: "profile page title",
-      keymap: "keymap",
     },
     showInlinePageLinkAsIcon: {
       isEnabled: "Show in-line page links as icons",
       iconSourceUrls: "URLs of pages/DBs containing icon pages",
       reload: (target: string) => `load "${target}"`,
     },
+    addKeymapToInsertProfilePageLink: {
+      isEnabled: "Add keymap to insert profile page link",
+      profilePageTitle: "profile page title",
+      keymap: "keymap",
+    },
     removePlaceholderOnEmptyLine: {
       isEnabled: "Remove placeholder on empty line",
     },
     fixFavicon: {
       isEnabled: "Always shows the same icon on Notion tabs",
+    },
+    closeInputableDialogOnSingleEsc: {
+      isEnabled: "Close inputable dialog on single Esc",
     },
   },
   feature: {
