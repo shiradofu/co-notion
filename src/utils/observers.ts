@@ -67,6 +67,7 @@ export class ObserverChain {
 
     const observer = new Observer(([record]) => {
       const currentMutated = record.target;
+      console.log(record);
       if (!(currentMutated instanceof HTMLElement)) return;
       if (current.fn) current.fn(currentMutated, "onMutate");
       if (observeChildrenIn) {
@@ -81,17 +82,33 @@ export class ObserverChain {
         if (!root) continue;
         observer.observe(root, current.config);
       }
-      return;
+      return rootEls;
     }
 
-    this.observeRecursive(reversedArr.slice(1), async (el: HTMLElement) => {
-      const currentEls = [await current.query(el)].flat();
+    const startObserving = async (parentEl: HTMLElement) => {
+      const currentEls = [await current.query(parentEl)].flat();
       for (const currentEl of currentEls) {
         if (!currentEl) continue;
         if (current.fn) current.fn(currentEl, "onObserve");
         observer.observe(currentEl, current.config);
       }
-    });
+      return currentEls.filter((c): c is HTMLElement => !!c);
+    };
+
+    const parentEls = await this.observeRecursive(
+      reversedArr.slice(1),
+      startObserving,
+    );
+    if (!parentEls) return [];
+
+    const currentEls: HTMLElement[] = [];
+    for (const p of parentEls) {
+      if (!p) continue;
+      const cs = await startObserving(p);
+      currentEls.push(...cs);
+    }
+
+    return currentEls;
   }
 
   private async runRecursive(arr: Observed[], parent?: HTMLElement) {
