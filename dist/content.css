@@ -7,6 +7,11 @@
 }
 
 .ShowPropertiesInSingleLine {
+  --border-color: #37352f17;
+  @media (prefers-color-scheme: dark) {
+    --border-color: hsla(0, 0%, 100%, 0.094);
+  }
+
   .whenContentEditable
     .layout-content:not(:has(.notion-page-content)):has(
       [role="table"][aria-label]
@@ -14,7 +19,8 @@
     padding: 0 !important;
     overflow-y: auto;
 
-    * {
+    /* not(...) prevents empty checkboxes from disappearing */
+    *:not(:has(> * > input[type="checkbox"]) *) {
       display: inline-flex !important;
       align-items: center !important;
       width: fit-content !important;
@@ -25,7 +31,7 @@
 
       [role="row"] {
         padding-right: 10px !important;
-        border-right: 1px solid #404040 !important;
+        border-right: 1px solid var(--border-color) !important;
       }
 
       [role="button"],
