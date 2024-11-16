@@ -28,6 +28,9 @@ export const jaJP = {
     showPropertiesInSingleLine: {
       isEnabled: "ページのプロパティを1行で表示",
     },
+    removeSidebarClosingFeatureFromBorder: {
+      isEnabled: "サイドバーが右端クリックで閉じるのを無効化",
+    },
     fixFavicon: {
       isEnabled: "タブに表示するアイコンを常に同じにする",
     },

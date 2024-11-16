@@ -16,6 +16,7 @@ export const FeatureClasses = {
   addKeymapToInsertProfilePageLink: AddKeymapToInsertProfilePageLink,
   removePlaceholderOnEmptyLine: class RemovePlaceholderOnEmptyLine extends S {},
   showPropertiesInSingleLine: class ShowPropertiesInSingleLine extends S {},
+  removeSidebarClosingFeatureFromBorder: class RemoveSidebarClosingFeatureFromBorder extends S {},
   fixFavicon: FixFavicon,
   closeInputableDialogOnSingleEsc: CloseInputableDialogOnSingleEsc,
 } as const;
@@ -41,6 +42,7 @@ export const getDefaultFeatureConfig = () => ({
   }),
   removePlaceholderOnEmptyLine: c({}),
   showPropertiesInSingleLine: c({}),
+  removeSidebarClosingFeatureFromBorder: c({}),
   fixFavicon: c({}),
   closeInputableDialogOnSingleEsc: c({}),
 });

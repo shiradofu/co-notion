@@ -27,6 +27,9 @@ export const enUS = {
     showPropertiesInSingleLine: {
       isEnabled: "Show page properties in single line",
     },
+    removeSidebarClosingFeatureFromBorder: {
+      isEnabled: "Remove sidebar closing feature from the right border",
+    },
     fixFavicon: {
       isEnabled: "Always shows the same icon on Notion tabs",
     },

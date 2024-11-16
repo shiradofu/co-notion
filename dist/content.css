@@ -6,6 +6,12 @@
   }
 }
 
+.RemoveSidebarClosingFeatureFromBorder {
+  .notion-sidebar > *:last-child {
+    pointer-events: none !important;
+  }
+}
+
 .ShowPropertiesInSingleLine {
   --border-color: #37352f17;
   @media (prefers-color-scheme: dark) {
