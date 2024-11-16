@@ -7,8 +7,8 @@
 }
 
 .RemoveSidebarClosingFeatureFromBorder {
-  .notion-sidebar > *:last-child {
-    pointer-events: none !important;
+  .notion-sidebar > :last-child {
+    display: none;
   }
 }
 
