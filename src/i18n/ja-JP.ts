@@ -25,6 +25,9 @@ export const jaJP = {
     removePlaceholderOnEmptyLine: {
       isEnabled: "空行に表示されるプレースホルダを非表示",
     },
+    addIndentationLinesToIndentedItems: {
+      isEnabled: "箇条書きなどの階層がわかりやすいように線を表示",
+    },
     showPropertiesInSingleLine: {
       isEnabled: "ページのプロパティを1行で表示",
     },

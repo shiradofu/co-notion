@@ -24,6 +24,9 @@ export const enUS = {
     removePlaceholderOnEmptyLine: {
       isEnabled: "Remove placeholder on empty line",
     },
+    addIndentationLinesToIndentedItems: {
+      isEnabled: "Show indentation lines",
+    },
     showPropertiesInSingleLine: {
       isEnabled: "Show page properties in single line",
     },

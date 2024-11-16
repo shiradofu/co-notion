@@ -6,6 +6,31 @@
   }
 }
 
+.AddIndentationLinesToIndentedItems {
+  :is(.notion-text-block, .notion-bulleted_list-block, .notion-to_do-block) {
+    --AddIndentationLinesToIndentedItems-color: rgba(55, 53, 47, 0.16);
+    @media (prefers-color-scheme: dark) {
+      --AddIndentationLinesToIndentedItems-color: rgba(255, 255, 255, 0.13);
+    }
+
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      height: calc(100% - 2.2em);
+      top: 2em;
+      left: 0.83em;
+      width: 1px;
+      background-color: var(--AddIndentationLinesToIndentedItems-color);
+    }
+
+    &.notion-text-block::before {
+      left: 0.4em;
+    }
+  }
+}
+
 .RemoveSidebarClosingFeatureFromBorder {
   .notion-sidebar > :last-child {
     display: none;
@@ -13,11 +38,6 @@
 }
 
 .ShowPropertiesInSingleLine {
-  --border-color: #37352f17;
-  @media (prefers-color-scheme: dark) {
-    --border-color: hsla(0, 0%, 100%, 0.094);
-  }
-
   .whenContentEditable
     .layout-content:not(:has(.notion-page-content)):has(
       [role="table"][aria-label]
@@ -36,8 +56,12 @@
       gap: 10px !important;
 
       [role="row"] {
+        --ShowPropertiesInSingleLine-border-color: #37352f17;
+        @media (prefers-color-scheme: dark) {
+          --ShowPropertiesInSingleLine-border-color: hsla(0, 0%, 100%, 0.094);
+        }
         padding-right: 10px !important;
-        border-right: 1px solid var(--border-color) !important;
+        border-right: 1px solid var(--ShowPropertiesInSingleLine-border-color) !important;
       }
 
       [role="button"],
