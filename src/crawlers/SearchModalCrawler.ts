@@ -1,6 +1,6 @@
 import { createCrawlerFn } from "./create";
 
-const name = "SearchModal";
+const prefix = "SearchModal";
 
 export class SearchModalCrawler {
   constructor(private modalEl: HTMLElement) {}
@@ -18,13 +18,13 @@ export class SearchModalCrawler {
 
   getTextInput = createCrawlerFn(
     () => this.modalEl.querySelector<HTMLInputElement>('input[type="text"]'),
-    "text input not found",
+    `${prefix}: text input not found`,
   );
 
   getFilterBar = createCrawlerFn(
     () =>
       this.modalEl.querySelector<HTMLElement>(".notion-scroller.horizontal"),
-    `${name}: filter bar not found`,
+    `${prefix}: filter bar not found`,
   );
 
   getFilterBarToggle = createCrawlerFn(
@@ -32,13 +32,13 @@ export class SearchModalCrawler {
       this.modalEl.querySelector<HTMLElement>(
         "[role=button][aria-label~=toggle]",
       ),
-    `${name}: filter bar toggle button not found`,
+    `${prefix}: filter bar toggle button not found`,
   );
 
   getClearInputButton = createCrawlerFn(
     () =>
       this.modalEl.querySelector<HTMLElement>("[role=button]:has(.clearInput)"),
-    "clear input button not found",
+    `${prefix}: clear input button not found`,
   );
 
   getFilterButton = createCrawlerFn(
@@ -49,13 +49,13 @@ export class SearchModalCrawler {
           this.modalEl,
         )
         .iterateNext() as HTMLElement | null,
-    (label) => `${name}: filter button (${label}) not found`,
+    (label) => `${prefix}: filter button (${label}) not found`,
   );
 
   getFilterItems = createCrawlerFn(
     (overlayEl: Element) =>
       overlayEl.querySelectorAll<HTMLElement>('[role="menuitem"]'),
-    "filter items not found",
+    `${prefix}: filter items not found`,
     { isSuccessFn: (result) => result && result.length > 0 },
   );
 
@@ -64,6 +64,6 @@ export class SearchModalCrawler {
       this.modalEl.querySelector<HTMLElement>(
         "section:has(> .search-results-list)",
       )?.firstElementChild as HTMLElement | null | undefined,
-    "search result container not found",
+    `${prefix}: search result container not found`,
   );
 }

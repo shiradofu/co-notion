@@ -16,6 +16,11 @@ export class AppCrawler {
     "notion-app not found",
   );
 
+  getAppContainer = createCrawlerFn(
+    () => document.querySelector<HTMLElement>(".notion-cursor-listener"),
+    "failed to get app container (notion-cursor-listener)",
+  );
+
   getOverlayContainer = createCrawlerFn(
     () => document.querySelector<HTMLElement>(".notion-overlay-container"),
     "overlay container not found",

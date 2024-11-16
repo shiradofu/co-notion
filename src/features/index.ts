@@ -6,7 +6,7 @@ import { FixFavicon } from "./FixFavicon";
 import { PreventSearchModalFromRestoringPrevCond } from "./PreventSearchModalFromRestoringPrevCond";
 import { SetDefaultTeamspaceOnSearchOpen } from "./SetDefaultTeamspaceOnSearchOpen";
 import { ShowInlinePageLinkAsIcon } from "./ShowInlinePageLinkAsIcon";
-import { S } from "./StaticStyle";
+import { StaticStyle as S } from "./StaticStyle";
 
 export const FeatureClasses = {
   setDefaultTeamspaceOnSearchOpen: SetDefaultTeamspaceOnSearchOpen,

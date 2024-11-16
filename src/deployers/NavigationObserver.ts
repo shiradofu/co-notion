@@ -1,3 +1,4 @@
+import { AppCrawler } from "../crawlers/AppCrawler";
 import { createCrawlerFn } from "../crawlers/create";
 import type { FeatureInstanceArrRO } from "../features";
 import { Log } from "../utils/log";
@@ -24,12 +25,7 @@ export class NavigationObserver extends BaseObserver implements Deployer {
 
     this.observer = new ObserverChain(
       new MutationObservedRoot(
-        () =>
-          createCrawlerFn(
-            () =>
-              document.querySelector<HTMLElement>(".notion-cursor-listener"),
-            "failed to get notion-cursor-listener",
-          )({ wait: "long" }),
+        () => new AppCrawler().getAppContainer({ wait: "long" }),
         { childList: true },
         () => this.isNavigated() && this.run(targetFeatures),
       ),

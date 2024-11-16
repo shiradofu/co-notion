@@ -67,7 +67,6 @@ export class ObserverChain {
 
     const observer = new Observer(([record]) => {
       const currentMutated = record.target;
-      console.log(record);
       if (!(currentMutated instanceof HTMLElement)) return;
       if (current.fn) current.fn(currentMutated, "onMutate");
       if (observeChildrenIn) {
