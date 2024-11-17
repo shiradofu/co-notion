@@ -47,6 +47,9 @@ export const enUS = {
     closeInputableDialogOnSingleEsc: {
       isEnabled: "Close inputable dialog on single Esc",
     },
+    removeNotionAI: {
+      isEnabled: "Hide Notion AI",
+    },
   },
   feature: {
     showInlinePageLinkAsIcon: {

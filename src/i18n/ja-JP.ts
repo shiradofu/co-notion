@@ -48,6 +48,9 @@ export const jaJP = {
     closeInputableDialogOnSingleEsc: {
       isEnabled: "文字入力可能なウィンドウを Esc 一回で閉じる",
     },
+    removeNotionAI: {
+      isEnabled: "Notion AI を非表示",
+    },
   },
   feature: {
     showInlinePageLinkAsIcon: {

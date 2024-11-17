@@ -6,6 +6,7 @@ import { AddKeymapsToAlignSelectedImage } from "./AddKeymapsToAlignSelectedImage
 import { CloseInputableDialogOnSingleEsc } from "./CloseInputableDialogOnSingleEsc";
 import { FixFavicon } from "./FixFavicon";
 import { PreventSearchModalFromRestoringPrevCond } from "./PreventSearchModalFromRestoringPrevCond";
+import { RemoveNotionAI } from "./RemoveNotionAI";
 import { SetDefaultTeamspaceOnSearchOpen } from "./SetDefaultTeamspaceOnSearchOpen";
 import { ShowInlinePageLinkAsIcon } from "./ShowInlinePageLinkAsIcon";
 import { StaticStyle as S } from "./StaticStyle";
@@ -24,6 +25,7 @@ export const FeatureClasses = {
   removeSidebarClosingFeatureFromBorder: class RemoveSidebarClosingFeatureFromBorder extends S {},
   fixFavicon: FixFavicon,
   closeInputableDialogOnSingleEsc: CloseInputableDialogOnSingleEsc,
+  removeNotionAI: RemoveNotionAI,
 } as const;
 
 function c<T extends Record<string | number, unknown>>(config: T) {
@@ -53,6 +55,7 @@ export const getDefaultFeatureConfig = () => ({
   removeSidebarClosingFeatureFromBorder: c({}),
   fixFavicon: c({}),
   closeInputableDialogOnSingleEsc: c({}),
+  removeNotionAI: c({}),
 });
 
 export type FeatureConfig = ReturnType<typeof getDefaultFeatureConfig>;
