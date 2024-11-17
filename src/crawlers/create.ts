@@ -1,3 +1,5 @@
+import type { TupleN } from "../utils/types";
+
 export type Auxiliary = "must" | "may";
 
 const INTERVAL_AND_TIMEOUT = {
@@ -14,7 +16,9 @@ type CrawlerFnOptsBase<R> = {
 
 type CrawlerFnOpts<T extends unknown[], R> = T extends []
   ? CrawlerFnOptsBase<R>
-  : CrawlerFnOptsBase<R> & { args: T };
+  : TupleN<undefined, T["length"]> extends T
+    ? CrawlerFnOptsBase<R> & { args?: T }
+    : CrawlerFnOptsBase<R> & { args: T };
 
 type CrawlerFnOptsWithWait<T extends unknown[], R> = CrawlerFnOpts<T, R> & {
   wait: WaitDuration;
@@ -22,9 +26,13 @@ type CrawlerFnOptsWithWait<T extends unknown[], R> = CrawlerFnOpts<T, R> & {
 };
 
 export type CrawlerFn = ReturnType<typeof createCrawlerFn>;
-export function createCrawlerFn<T extends unknown[], R>(
+export function createCrawlerFn<
+  E extends unknown[],
+  T extends [...E, ...unknown[]],
+  R,
+>(
   fn: (...args: T) => R,
-  baseErrMsg: string | ((...args: T) => string),
+  baseErrMsg: string | ((...args: E) => string),
   baseOpts?: {
     isSuccessFn?: (result: R) => boolean;
     shouldFinishFn?: (result: R) => boolean;
@@ -59,7 +67,10 @@ export function createCrawlerFn<T extends unknown[], R>(
       opts?.errMsg === false
         ? false
         : `${
-            typeof baseErrMsg === "string" ? baseErrMsg : baseErrMsg(...args)
+            typeof baseErrMsg === "string"
+              ? baseErrMsg
+              : // biome-ignore lint: suspicious/noExplicitAny
+                baseErrMsg(...(args as any))
           }${opts?.errMsg ? opts.errMsg : ""}`;
 
     let result:

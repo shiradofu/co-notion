@@ -28,3 +28,9 @@ export type DeepReadonly<T> = T extends object
       readonly [P in keyof T]: DeepReadonly<T[P]>;
     }
   : T;
+
+export type TupleN<
+  T,
+  N extends number,
+  R extends unknown[] = [],
+> = R["length"] extends N ? R : TupleN<T, N, [...R, T]>;

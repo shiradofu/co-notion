@@ -49,7 +49,7 @@ export class SearchModalCrawler {
           this.modalEl,
         )
         .iterateNext() as HTMLElement | null,
-    (label) => `${prefix}: filter button (${label}) not found`,
+    (label: string) => `${prefix}: filter button (${label}) not found`,
   );
 
   getFilterItems = createCrawlerFn(
