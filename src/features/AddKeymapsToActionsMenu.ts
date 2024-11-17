@@ -1,5 +1,5 @@
 import { AppCrawler } from "../crawlers/AppCrawler";
-import type { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
+import { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
 import { createCrawlerFn } from "../crawlers/create";
 import type { TriggeredByKeymap } from "../deployers/KeymapManager";
 import type { TriggeredByOverlayMutation } from "../deployers/OverlayObserver";
@@ -37,12 +37,21 @@ export class AddKeymapsToActionsMenu
 
   readonly keymaps = {
     "Cmd/Ctrl+;": () => {
+      const b = Object.values(this.buttons).at(0);
+      if (b) {
+        OverlaysCrawler.closeFrontmost();
+        return;
+      }
+
       for (const container of [this.app.getPeekRenderer(), document]) {
         if (!container) continue;
         const button = container.querySelector<HTMLElement>(
           ".notion-topbar-more-button",
         );
-        button?.click();
+        if (button) {
+          button.click();
+          return;
+        }
       }
       this.log.dbg("actions button not found");
     },
@@ -54,11 +63,12 @@ export class AddKeymapsToActionsMenu
   };
 
   async onMutateOverlay(overlays: OverlaysCrawler) {
-    const b = Object.values(this.buttons)[0];
+    const b = Object.values(this.buttons).at(0);
     if (b && !b.isConnected) {
       this.buttons = {};
       return;
     }
+    if (!overlays.checkCount(1)) return;
 
     const frontmost = overlays.getFrontmost();
     if (!frontmost) return;

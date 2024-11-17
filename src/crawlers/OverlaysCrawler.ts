@@ -25,6 +25,12 @@ export class OverlaysCrawler {
     "failed to get frontmost overlay's background",
   );
 
+  static closeFrontmost = createCrawlerFn(() => {
+    const bg = document.elementFromPoint(0, 0) as HTMLElement | null;
+    bg?.click();
+    return bg ? true : null;
+  }, "failed to click overlay background to close");
+
   closeFrontmost = createCrawlerFn(() => {
     const bg = document.elementFromPoint(0, 0) as HTMLElement | null;
     bg?.click();
