@@ -2,6 +2,7 @@ import type { SpeculativeDeployer } from "../deployers/SpeculativeDeployer";
 import type { Assert, DeepReadonly, Equals } from "../utils/types";
 import { AddKeymapToInsertProfilePageLink } from "./AddKeymapToInsertProfilePageLink";
 import { AddKeymapsToActionsMenu } from "./AddKeymapsToActionsMenu";
+import { AddKeymapsToAlignSelectedImage } from "./AddKeymapsToAlignSelectedImage";
 import { CloseInputableDialogOnSingleEsc } from "./CloseInputableDialogOnSingleEsc";
 import { FixFavicon } from "./FixFavicon";
 import { PreventSearchModalFromRestoringPrevCond } from "./PreventSearchModalFromRestoringPrevCond";
@@ -16,6 +17,7 @@ export const FeatureClasses = {
   showInlinePageLinkAsIcon: ShowInlinePageLinkAsIcon,
   addKeymapToInsertProfilePageLink: AddKeymapToInsertProfilePageLink,
   addKeymapsToActionsMenu: AddKeymapsToActionsMenu,
+  addKeymapsToAlignSelectedImage: AddKeymapsToAlignSelectedImage,
   removePlaceholderOnEmptyLine: class RemovePlaceholderOnEmptyLine extends S {},
   addIndentationLinesToIndentedItems: class AddIndentationLinesToIndentedItems extends S {},
   showPropertiesInSingleLine: class ShowPropertiesInSingleLine extends S {},
@@ -44,6 +46,7 @@ export const getDefaultFeatureConfig = () => ({
     keymap: "Cmd/Ctrl+I",
   }),
   addKeymapsToActionsMenu: c({}),
+  addKeymapsToAlignSelectedImage: c({}),
   removePlaceholderOnEmptyLine: c({}),
   addIndentationLinesToIndentedItems: c({}),
   showPropertiesInSingleLine: c({}),

@@ -27,6 +27,9 @@ export const jaJP = {
     addKeymapsToActionsMenu: {
       isEnabled: `アクションメニューにショートカットを追加 (${IS_MACOS ? "Cmd" : "Ctrl"}+;)`,
     },
+    addKeymapsToAlignSelectedImage: {
+      isEnabled: "選択中の画像の揃え指定にショートカットを追加",
+    },
     removePlaceholderOnEmptyLine: {
       isEnabled: "空行に表示されるプレースホルダを非表示",
     },

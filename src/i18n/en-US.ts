@@ -26,6 +26,9 @@ export const enUS = {
     addKeymapsToActionsMenu: {
       isEnabled: `Add keymaps to actions menu (${IS_MACOS ? "Cmd" : "Ctrl"}+;)`,
     },
+    addKeymapsToAlignSelectedImage: {
+      isEnabled: "Add keymaps to align selected image",
+    },
     removePlaceholderOnEmptyLine: {
       isEnabled: "Remove placeholder on empty line",
     },
