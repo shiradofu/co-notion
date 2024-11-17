@@ -26,6 +26,11 @@ export class AppCrawler {
     "overlay container not found",
   );
 
+  getPeekRenderer = createCrawlerFn(
+    () => document.querySelector<HTMLElement>(".notion-peek-renderer"),
+    "peek renderer not found",
+  );
+
   getCurrentTeamspaceName = createCrawlerFn(
     () =>
       document.querySelector<HTMLElement>("header .notion-record-icon + *")

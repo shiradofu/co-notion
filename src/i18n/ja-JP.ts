@@ -1,3 +1,5 @@
+import { IS_MACOS } from "../utils/os";
+
 export const jaJP = {
   configUI: {
     submit: "設定を保存",
@@ -21,6 +23,9 @@ export const jaJP = {
       isEnabled: "プロフィールページへのリンクをショートカットで挿入",
       profilePageTitle: "プロフィールページ名",
       keymap: "キーボードショートカット",
+    },
+    addKeymapsToActionsMenu: {
+      isEnabled: `アクションメニューにショートカットを追加 (${IS_MACOS ? "Cmd" : "Ctrl"}+;)`,
     },
     removePlaceholderOnEmptyLine: {
       isEnabled: "空行に表示されるプレースホルダを非表示",

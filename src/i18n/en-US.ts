@@ -1,3 +1,5 @@
+import { IS_MACOS } from "../utils/os";
+
 export const enUS = {
   configUI: {
     submit: "Save changes",
@@ -20,6 +22,9 @@ export const enUS = {
       isEnabled: "Add keymap to insert profile page link",
       profilePageTitle: "profile page title",
       keymap: "keymap",
+    },
+    addKeymapsToActionsMenu: {
+      isEnabled: `Add keymaps to actions menu (${IS_MACOS ? "Cmd" : "Ctrl"}+;)`,
     },
     removePlaceholderOnEmptyLine: {
       isEnabled: "Remove placeholder on empty line",
