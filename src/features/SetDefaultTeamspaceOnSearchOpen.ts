@@ -34,28 +34,24 @@ export class SetDefaultTeamspaceOnSearchOpen
     },
   };
 
+  @Log.thrownInMethodSync
   onMutateOverlay(overlays: OverlaysCrawler, overlaysCountDiff: number) {
     if (overlaysCountDiff > 0 && this.checkTriggered()) {
-      overlays.ensureCount("may", { args: [1] });
-      this.run(overlays);
-    }
-  }
+      const frontmost = overlays.ensureCount("may", { args: [1] });
+      const modal = SearchModalCrawler.fromOverlayEl("may", {
+        args: [frontmost],
+      });
 
-  @Log.thrownInMethodAsync
-  private async run(overlays: OverlaysCrawler) {
-    const modal = SearchModalCrawler.fromOverlayEl("may", {
-      args: [overlays.getFrontmost("may")],
-    });
-
-    const isGuest = !this.app.getTeamspaceTreeContainer();
-    if (isGuest) {
-      if (this.config.useInPageFilterIfImGuest) {
-        this.setInPageFilter(overlays, modal);
+      const isGuest = !this.app.getTeamspaceTreeContainer();
+      if (isGuest) {
+        if (this.config.useInPageFilterIfImGuest) {
+          this.setInPageFilter(overlays, modal);
+        }
+        return;
       }
-      return;
-    }
 
-    this.setTeamspaceFilter(overlays, modal);
+      this.setTeamspaceFilter(overlays, modal);
+    }
   }
 
   @Log.thrownInMethodAsync
@@ -131,10 +127,13 @@ export class SetDefaultTeamspaceOnSearchOpen
     targetName: string,
   ) {
     filterBtn.click();
-    await overlays.ensureCount("must", { args: [2], wait: "short" });
+    const frontmost = await overlays.ensureCount("must", {
+      args: [2, { transparent: true }],
+      wait: "short",
+    });
 
     const filterItems = await modal.getFilterItems("must", {
-      args: [overlays.getFrontmost("must")],
+      args: [frontmost],
       wait: "short",
     });
 

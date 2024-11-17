@@ -30,9 +30,10 @@ export class RemoveNotionAI
 
   @Log.thrownInMethodSync
   onMutateOverlay(overlays: OverlaysCrawler, overlaysCountDiff: number) {
-    if (overlays.checkCount(1) && overlaysCountDiff > 0) {
+    if (overlaysCountDiff > 0) {
+      const frontmost = overlays.ensureCount("may", { args: [1] });
       const searchModal = SearchModalCrawler.fromOverlayEl("may", {
-        args: [overlays.getFrontmost("may")],
+        args: [frontmost],
       });
       this.removeFromSearchResultItems(searchModal);
     }

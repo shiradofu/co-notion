@@ -42,15 +42,16 @@ export class AddKeymapsToAlignSelectedImage implements TriggeredByKeymap {
     openPlacementSelectorButton.click();
 
     const overlays = new OverlaysCrawler(this.app.getOverlayContainer("must"));
-    const target = await createCrawlerFn(
-      () =>
-        overlays
-          .getFrontmost()
-          ?.querySelector<HTMLElement>(
-            `[role=dialog] [role=button]:has(.align${dir})`,
-          ),
-      "placement selector not found",
-    )("must", { wait: "short" });
+    const frontmost = await overlays.ensureCount("must", {
+      args: [1, { transparent: true }],
+      wait: "short",
+    });
+
+    const target = await createCrawlerFn(() => {
+      return frontmost.querySelector<HTMLElement>(
+        `[role=dialog] [role=button]:has(.align${dir})`,
+      );
+    }, "placement selector not found")("must", { wait: "short" });
 
     target.click();
   }

@@ -11,13 +11,16 @@ export class OverlaysCrawler {
   checkCount = (count: number) => this.count === count;
 
   ensureCount = createCrawlerFn(
-    this.checkCount,
-    (count) => `overlay count is not ${count}`,
-  );
-
-  getFrontmost = createCrawlerFn(
-    () => this.containerEl.lastElementChild,
-    "no overlay found",
+    (
+      count: number | "any",
+      opts: { transparent: boolean } = { transparent: false },
+    ) => {
+      if (count !== "any" && !this.checkCount(count)) return null;
+      const frontmost = this.containerEl.lastElementChild as HTMLElement | null;
+      if (frontmost && opts.transparent) frontmost.style.opacity = "0";
+      return frontmost;
+    },
+    (count: number | "any") => `overlay count is not ${count}`,
   );
 
   getFrontmostBg = createCrawlerFn(
@@ -25,15 +28,19 @@ export class OverlaysCrawler {
     "failed to get frontmost overlay's background",
   );
 
-  static closeFrontmost = createCrawlerFn(() => {
+  private static _closeFrontmost = () => {
     const bg = document.elementFromPoint(0, 0) as HTMLElement | null;
     bg?.click();
     return bg ? true : null;
-  }, "failed to click overlay background to close");
+  };
 
-  closeFrontmost = createCrawlerFn(() => {
-    const bg = document.elementFromPoint(0, 0) as HTMLElement | null;
-    bg?.click();
-    return bg ? true : null;
-  }, "failed to click overlay background to close");
+  static closeFrontmost = createCrawlerFn(
+    OverlaysCrawler._closeFrontmost,
+    "failed to click overlay background to close",
+  );
+
+  closeFrontmost = createCrawlerFn(
+    OverlaysCrawler._closeFrontmost,
+    "failed to click overlay background to close",
+  );
 }

@@ -27,11 +27,13 @@ export class CloseInputableDialogOnSingleEsc
 
   @Log.thrownInMethodAsync
   private async run(overlays: OverlaysCrawler) {
-    const overlay = overlays.getFrontmost("may");
+    const frontmost = overlays.ensureCount("may", {
+      args: ["any"],
+    });
 
     const input = await createCrawlerFn(
       () =>
-        overlay.querySelector(
+        frontmost.querySelector(
           ":is(.notion-peek-renderer [role=textbox], input)",
         ),
       "it's ok if not found",

@@ -48,10 +48,13 @@ export class AddKeymapToInsertProfilePageLink implements TriggeredByKeymap {
     const app = new AppCrawler();
     const overlaysEl = app.getOverlayContainer("must");
     const overlays = new OverlaysCrawler(overlaysEl);
-    await overlays.ensureCount("must", { args: [1], wait: "short" });
+    const frontmost = await overlays.ensureCount("must", {
+      args: [1, { transparent: true }],
+      wait: "short",
+    });
 
     const target = await createCrawlerFn(() => {
-      const items = overlaysEl.querySelectorAll<HTMLElement>("[role=menuitem]");
+      const items = frontmost.querySelectorAll<HTMLElement>("[role=menuitem]");
       for (const item of items) {
         if (item.textContent?.startsWith(this.config.profilePageTitle)) {
           return item;

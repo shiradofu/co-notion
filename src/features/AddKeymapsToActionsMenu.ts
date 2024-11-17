@@ -62,24 +62,22 @@ export class AddKeymapsToActionsMenu
     [this.buttonNameToKey.lockPage]: this.createKeyboadEventHandler("lockPage"),
   };
 
+  @Log.thrownInMethodAsync
   async onMutateOverlay(overlays: OverlaysCrawler) {
     const b = Object.values(this.buttons).at(0);
     if (b && !b.isConnected) {
       this.buttons = {};
       return;
     }
-    if (!overlays.checkCount(1)) return;
 
-    const frontmost = overlays.getFrontmost();
-    if (!frontmost) return;
+    const frontmost = overlays.ensureCount("may", { args: [1] });
 
     const items = await createCrawlerFn(
       () => {
         if (!frontmost.isConnected) return false;
-        const items = frontmost.querySelectorAll<HTMLElement>(
+        return frontmost.querySelectorAll<HTMLElement>(
           "[role=menuitem]:has([role=switch]):has(svg)",
         );
-        return items;
       },
       "actions menu not found",
       { shouldFinishFn: (result) => result === false || result.length > 0 },
