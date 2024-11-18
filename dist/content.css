@@ -102,6 +102,7 @@
 .RemoveNotionAI {
   .notion-ai-button,
   .notion-sidebar a[href="/chat"],
+  [role="option"]:has([alt="Notion AI Face"]),
   [role="menuitem"]:has([alt="Notion AI Face"]),
   [role="menuitem"]:has([alt="Notion AI face"]),
   .notion-text-action-menu
