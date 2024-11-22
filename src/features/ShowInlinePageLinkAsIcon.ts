@@ -56,7 +56,7 @@ export class ShowInlinePageLinkAsIcon
     const iconSize = "1.5em";
 
     return Storage.local.get("iconPageLinkPathnames").then((saved) => {
-      return `main a${inlineLinkClasses.join("")}:is(${Array.from(
+      return `:is(main, .whenContentEditable) a${inlineLinkClasses.join("")}:is(${Array.from(
         new Set(Object.values(saved).flat()),
       )
         .map((pathname) => `[href^="${pathname}"]`)
