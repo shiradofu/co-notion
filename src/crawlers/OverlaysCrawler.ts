@@ -8,19 +8,28 @@ export class OverlaysCrawler {
     return this.containerEl.childElementCount - 1;
   }
 
+  private get frontmost() {
+    return this.containerEl.lastElementChild as HTMLElement | null;
+  }
+
+  getFrontmost = createCrawlerFn(
+    () => this.frontmost,
+    "failed to get frontmost overlay",
+  );
+
   checkCount = (count: number) => this.count === count;
 
   ensureCount = createCrawlerFn(
     (
-      count: number | "any",
+      count: number,
       opts: { transparent: boolean } = { transparent: false },
     ) => {
-      if (count !== "any" && !this.checkCount(count)) return null;
-      const frontmost = this.containerEl.lastElementChild as HTMLElement | null;
+      if (!this.checkCount(count)) return null;
+      const frontmost = this.frontmost;
       if (frontmost && opts.transparent) frontmost.style.opacity = "0";
       return frontmost;
     },
-    (count: number | "any") => `overlay count is not ${count}`,
+    (count: number) => `overlay count is not ${count}`,
   );
 
   getFrontmostBg = createCrawlerFn(

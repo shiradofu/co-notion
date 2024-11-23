@@ -17,33 +17,36 @@ import {
 export class PreventSearchModalFromRestoringPrevCond
   implements TriggeredByOverlayMutation
 {
+  private modalEl?: HTMLElement;
   private escListener?: KeyboardEventHandler;
   private log = new Log(this.constructor.name);
 
   @Log.thrownInMethodSync
   onMutateOverlay(overlays: OverlaysCrawler, overlaysCountDiff: number) {
-    if (overlays.checkCount(0)) return this.removeEscListener();
-    if (overlaysCountDiff > 0) {
-      const frontmost = overlays.ensureCount("may", { args: [1] });
-      const searchModal = SearchModalCrawler.fromOverlayEl("may", {
-        args: [frontmost],
-      });
-      this.addEscListenerToBody(overlays, searchModal);
-      this.addClickListenerToSearchModalBg(overlays, searchModal);
-      this.addEnterListenerToSearchModal(overlays, searchModal);
-      this.observeSearchResultItemsToAddClickListener(searchModal);
+    if (overlaysCountDiff <= 0) {
+      if (!this.modalEl?.isConnected) {
+        this.removeEscListener();
+        this.modalEl = undefined;
+      }
+      return;
     }
+
+    const frontmost = overlays.getFrontmost("may");
+    const searchModal = SearchModalCrawler.fromOverlayEl("may", {
+      args: [frontmost],
+    });
+    this.modalEl = searchModal.getModal();
+
+    this.addEscListenerToBody(searchModal);
+    this.addClickListenerToSearchModalBg(overlays, searchModal);
+    this.addEnterListenerToSearchModal(searchModal);
+    this.observeSearchResultItemsToAddClickListener(searchModal);
   }
 
   @Log.thrownInMethodSync
-  private addEscListenerToBody(
-    overlays: OverlaysCrawler,
-    searchModal: SearchModalCrawler,
-  ) {
-    if (this.escListener) this.removeEscListener();
-
+  private addEscListenerToBody(searchModal: SearchModalCrawler) {
     this.escListener = createKeyboadEventHandler("Escape", () => {
-      if (overlays.checkCount(1)) {
+      if (this.modalEl?.isConnected) {
         this.clearSearchModalInput(searchModal, "Esc");
       }
     });
@@ -63,20 +66,15 @@ export class PreventSearchModalFromRestoringPrevCond
   }
 
   @Log.thrownInMethodSync
-  private addEnterListenerToSearchModal(
-    overlays: OverlaysCrawler,
-    searchModal: SearchModalCrawler,
-  ) {
-    const modalEl = searchModal.getModal();
-
+  private addEnterListenerToSearchModal(searchModal: SearchModalCrawler) {
     const enterListener = createKeyboadEventHandler("Enter", (e) => {
-      if (!e.isComposing && overlays.checkCount(1)) {
+      if (!e.isComposing && this.modalEl?.isConnected) {
         this.clearSearchModalInput(searchModal, "Enter");
       }
     });
     if (!enterListener) throw new Error("failed to create Enter listener");
 
-    modalEl.addEventListener("keydown", enterListener);
+    this.modalEl?.addEventListener("keydown", enterListener);
   }
 
   @Log.thrownInMethodAsync

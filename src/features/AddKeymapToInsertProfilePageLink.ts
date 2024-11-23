@@ -16,6 +16,7 @@ export class AddKeymapToInsertProfilePageLink implements TriggeredByKeymap {
     [this.config.keymap]: (e: KeyboardEvent) => {
       e.stopPropagation();
       this.run().finally(() => {
+        // FIXME:
         this.processing = false;
       });
     },
@@ -25,6 +26,11 @@ export class AddKeymapToInsertProfilePageLink implements TriggeredByKeymap {
   private async run() {
     if (this.processing) return;
     this.processing = true;
+
+    const app = new AppCrawler();
+    const overlaysEl = app.getOverlayContainer("must");
+    const overlays = new OverlaysCrawler(overlaysEl);
+    const overlaysCount = overlays.count;
 
     const currentNode = getSelection()?.anchorNode;
     const focusedEl =
@@ -45,11 +51,8 @@ export class AddKeymapToInsertProfilePageLink implements TriggeredByKeymap {
       }, 10),
     );
 
-    const app = new AppCrawler();
-    const overlaysEl = app.getOverlayContainer("must");
-    const overlays = new OverlaysCrawler(overlaysEl);
     const frontmost = await overlays.ensureCount("must", {
-      args: [1, { transparent: true }],
+      args: [overlaysCount + 1, { transparent: true }],
       wait: "short",
     });
 

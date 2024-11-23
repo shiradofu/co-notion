@@ -37,7 +37,7 @@ export class SetDefaultTeamspaceOnSearchOpen
   @Log.thrownInMethodSync
   onMutateOverlay(overlays: OverlaysCrawler, overlaysCountDiff: number) {
     if (overlaysCountDiff > 0 && this.checkTriggered()) {
-      const frontmost = overlays.ensureCount("may", { args: [1] });
+      const frontmost = overlays.getFrontmost("may");
       const modal = SearchModalCrawler.fromOverlayEl("may", {
         args: [frontmost],
       });
@@ -126,9 +126,10 @@ export class SetDefaultTeamspaceOnSearchOpen
     filterBtn: HTMLElement,
     targetName: string,
   ) {
+    const overlaysCount = overlays.count;
     filterBtn.click();
     const frontmost = await overlays.ensureCount("must", {
-      args: [2, { transparent: true }],
+      args: [overlaysCount + 1, { transparent: true }],
       wait: "short",
     });
 

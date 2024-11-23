@@ -27,9 +27,7 @@ export class CloseInputableDialogOnSingleEsc
 
   @Log.thrownInMethodAsync
   private async run(overlays: OverlaysCrawler) {
-    const frontmost = overlays.ensureCount("may", {
-      args: ["any"],
-    });
+    const frontmost = overlays.getFrontmost("may");
 
     const input = await createCrawlerFn(
       () =>

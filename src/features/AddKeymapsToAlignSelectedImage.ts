@@ -39,11 +39,13 @@ export class AddKeymapsToAlignSelectedImage implements TriggeredByKeymap {
     );
     if (isAlreadySet) return;
 
+    const overlays = new OverlaysCrawler(this.app.getOverlayContainer("must"));
+    const overlaysCount = overlays.count;
+
     openPlacementSelectorButton.click();
 
-    const overlays = new OverlaysCrawler(this.app.getOverlayContainer("must"));
     const frontmost = await overlays.ensureCount("must", {
-      args: [1, { transparent: true }],
+      args: [overlaysCount + 1, { transparent: true }],
       wait: "short",
     });
 

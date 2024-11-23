@@ -63,14 +63,15 @@ export class AddKeymapsToActionsMenu
   };
 
   @Log.thrownInMethodAsync
-  async onMutateOverlay(overlays: OverlaysCrawler) {
+  async onMutateOverlay(overlays: OverlaysCrawler, overlaysCountDiff: number) {
     const b = Object.values(this.buttons).at(0);
     if (b && !b.isConnected) {
       this.buttons = {};
       return;
     }
 
-    const frontmost = overlays.ensureCount("may", { args: [1] });
+    if (overlaysCountDiff <= 0) return;
+    const frontmost = overlays.getFrontmost("may");
 
     const items = await createCrawlerFn(
       () => {
