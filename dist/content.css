@@ -91,6 +91,10 @@
       [role="button"],
       [role="cell"] * {
         gap: 1px !important;
+
+        span:not(:has(*)) {
+          padding: 0.5em !important;
+        }
       }
 
       position: static !important; /* for quickActionContainer */
