@@ -30,6 +30,7 @@ export const FeatureClasses = {
   // editor style
   removePlaceholderOnEmptyLine: class RemovePlaceholderOnEmptyLine extends S {},
   addIndentationLinesToIndentedItems: class AddIndentationLinesToIndentedItems extends S {},
+  removeArrowFromMentionLink: class RemoveArrowFromMentionLink extends S {},
   showPropertiesInSingleLine: class ShowPropertiesInSingleLine extends S {},
   // misc
   fixFavicon: FixFavicon,
@@ -68,6 +69,7 @@ export const getDefaultFeatureConfig = () => ({
   removeHoverMenuFromBoardView: c({}),
   removePlaceholderOnEmptyLine: c({}),
   addIndentationLinesToIndentedItems: c({}),
+  removeArrowFromMentionLink: c({}),
   showPropertiesInSingleLine: c({}),
   fixFavicon: c({}),
   removeSidebarClosingFeatureFromBorder: c({}),

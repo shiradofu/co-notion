@@ -47,6 +47,9 @@ export const enUS = {
     addIndentationLinesToIndentedItems: {
       isEnabled: "Show indentation lines",
     },
+    removeArrowFromMentionLink: {
+      isEnabled: "Remove arrow icons from mention-type links",
+    },
     showPropertiesInSingleLine: {
       isEnabled: "Show page properties in single line",
     },

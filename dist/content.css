@@ -142,6 +142,17 @@
   }
 }
 
+.RemoveArrowFromMentionLink {
+  .notion-page-mention-token
+    :has(> :is([role="img"], [role="graphics-symbol"])) {
+    margin-right: 0.2em !important;
+  }
+
+  .pageLinkIndicator {
+    display: none !important;
+  }
+}
+
 .RemoveSidebarClosingFeatureFromBorder {
   .notion-sidebar > :last-child {
     display: none;

@@ -49,6 +49,9 @@ export const jaJP = {
     addIndentationLinesToIndentedItems: {
       isEnabled: "箇条書きなどの階層がわかりやすいように線を表示",
     },
+    removeArrowFromMentionLink: {
+      isEnabled: "メンションリンクの矢印を非表示",
+    },
     showPropertiesInSingleLine: {
       isEnabled: "ページのプロパティを1行で表示",
     },
