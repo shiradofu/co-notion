@@ -56,6 +56,12 @@ ul {
   padding: 0;
 }
 
+dialog {
+  padding: 0;
+  color: var(--main-text);
+  background: var(--main-bg);
+}
+
 :has(dialog[open]) {
   overflow: hidden;
 }
@@ -218,21 +224,21 @@ ul {
 }
 
 .Modal {
-  color: var(--main-text);
-  background: var(--main-bg);
   border: 2px solid var(--main-border);
   border-radius: var(--border-radius);
-  padding: 30px;
-  background: var(--main-bg);
-  cursor: auto;
   max-width: 80vw;
   max-height: 90vh;
   overflow-y: auto;
   outline: none;
+  cursor: auto;
 
   &::backdrop {
     cursor: pointer;
     background: var(--modal-bg);
+  }
+
+  .Modal__Content {
+    padding: 30px;
   }
 
   h1 {

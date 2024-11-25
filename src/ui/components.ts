@@ -25,7 +25,7 @@ function showHelpModal(ctx: string[]) {
 function Modal({ children, classes, ...rest }: ElAttrsWithChildren<"dialog">) {
   const dialog = el("dialog", {
     ...rest,
-    children: [el("div", { children })],
+    children: [el("div", { classes: ["Modal__Content"], children })],
     classes: ["Modal", ...(classes ?? [])],
   });
 
