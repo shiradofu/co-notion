@@ -1,3 +1,90 @@
+.AlwaysShowsDatabaseMenubar {
+  :has(> .notion-collection-view-item-add) {
+    opacity: 1 !important;
+
+    .notion-collection-view-item-add {
+      --AlwaysShowsDatabaseMenubar-color: rgba(55, 53, 47, 0.45);
+      --AlwaysShowsDatabaseMenubar-border: rgb(233, 233, 231);
+      --AlwaysShowsDatabaseMenubar-hover-bg: rgba(55, 53, 47, 0.06);
+      @media (prefers-color-scheme: dark) {
+        --AlwaysShowsDatabaseMenubar-color: rgba(255, 255, 255, 0.443);
+        --AlwaysShowsDatabaseMenubar-border: rgb(47, 47, 47);
+        --AlwaysShowsDatabaseMenubar-hover-bg: rgba(255, 255, 255, 0.055);
+      }
+
+      svg {
+        fill: var(--AlwaysShowsDatabaseMenubar-color) !important;
+      }
+
+      border: 1px solid var(--AlwaysShowsDatabaseMenubar-border) !important;
+
+      > * {
+        background: none !important;
+        color: var(--AlwaysShowsDatabaseMenubar-color) !important;
+        border-color: var(--AlwaysShowsDatabaseMenubar-border) !important;
+
+        &:hover {
+          background: var(--AlwaysShowsDatabaseMenubar-hover-bg) !important;
+        }
+      }
+    }
+  }
+}
+
+.notion-gallery-view a[href^="/"] {
+  .MakeGalleryPreivewFontSizeAllTheSame & {
+    > :first-child :has(> [contenteditable]) * {
+      font-size: 0.75rem !important;
+      width: fit-content !important;
+    }
+  }
+
+  .PlaceGalleryPreviewAtTheBottom & {
+    > :nth-child(1) {
+      order: 1;
+    }
+
+    max-height: 13rem !important;
+    > :is(:nth-child(n + 2)) {
+      flex-shrink: 0;
+    }
+    > :nth-child(1) {
+      flex-grow: 1;
+      > :first-child {
+        height: 100%;
+        > * {
+          height: 100% !important;
+
+          img:only-child[src^="/"] {
+            height: 100% !important;
+          }
+        }
+      }
+    }
+  }
+
+  .RestrictGalleryTitleLength & {
+    > :nth-child(2) {
+      max-height: 6rem;
+      overflow: hidden;
+    }
+  }
+
+  .RemoveHoverMenuFromGalleryView & {
+    > :first-child > :last-child {
+      display: none !important;
+    }
+  }
+}
+
+.notion-board-view a[href^="/"] {
+  .RemoveHoverMenuFromBoardView & {
+    > :first-child > :last-child {
+      display: none !important;
+    }
+  }
+}
+
 .AddKeymapsToActionsMenu {
   .AddKeymapsToActionsMenu__text {
     --AddKeymapsToActionsMenu__text-color: rgba(55, 53, 47, 0.5);

@@ -23,6 +23,24 @@ export const enUS = {
       profilePageTitle: "profile page title",
       keymap: "keymap",
     },
+    alwaysShowsDatabaseMenubar: {
+      isEnabled: "Always shows database menu bars",
+    },
+    makeGalleryPreivewFontSizeAllTheSame: {
+      isEnabled: "Make gallery preivew font size all the same",
+    },
+    placeGalleryPreviewAtTheBottom: {
+      isEnabled: "Place gallery preview at the bottom",
+    },
+    restrictGalleryTitleLength: {
+      isEnabled: "Restrict gallery title length",
+    },
+    removeHoverMenuFromGalleryView: {
+      isEnabled: "Remove buttons shown on mouse over from gallery view",
+    },
+    removeHoverMenuFromBoardView: {
+      isEnabled: "Remove buttons shown on mouse over from board view",
+    },
     addKeymapsToActionsMenu: {
       isEnabled: `Add keymaps to actions menu (${IS_MACOS ? "Cmd" : "Ctrl"}+;)`,
     },

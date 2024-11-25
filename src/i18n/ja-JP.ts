@@ -24,6 +24,25 @@ export const jaJP = {
       profilePageTitle: "プロフィールページ名",
       keymap: "キーボードショートカット",
     },
+    alwaysShowsDatabaseMenubar: {
+      isEnabled: "データベースのメニューバーを常に表示",
+    },
+    makeGalleryPreivewFontSizeAllTheSame: {
+      isEnabled: "ギャラリービューのプレビューのフォントサイズを揃える",
+    },
+    placeGalleryPreviewAtTheBottom: {
+      isEnabled: "ギャラリービューのプレビューを下に配置",
+    },
+    restrictGalleryTitleLength: {
+      isEnabled: "ギャラリービューのタイトルの長さを制限",
+    },
+    removeHoverMenuFromGalleryView: {
+      isEnabled:
+        "ギャラリービューでカーソルを合わせたときに出てくるボタンを非表示",
+    },
+    removeHoverMenuFromBoardView: {
+      isEnabled: "ボードビューでカーソルを合わせたときに出てくるボタンを非表示",
+    },
     addKeymapsToActionsMenu: {
       isEnabled: `アクションメニューにショートカットを追加 (${IS_MACOS ? "Cmd" : "Ctrl"}+;)`,
     },
