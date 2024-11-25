@@ -11,27 +11,34 @@ import { SetDefaultTeamspaceOnSearchOpen } from "./SetDefaultTeamspaceOnSearchOp
 import { ShowInlinePageLinkAsIcon } from "./ShowInlinePageLinkAsIcon";
 import { StaticStyle as S } from "./StaticStyle";
 
+// for classes extends S(taticStyle), see dist/content.css
 export const FeatureClasses = {
+  // search
   setDefaultTeamspaceOnSearchOpen: SetDefaultTeamspaceOnSearchOpen,
   preventSearchModalFromRestoringPrevCond:
     PreventSearchModalFromRestoringPrevCond,
+  // profile image icon
   showInlinePageLinkAsIcon: ShowInlinePageLinkAsIcon,
   addKeymapToInsertProfilePageLink: AddKeymapToInsertProfilePageLink,
+  // database style
   alwaysShowsDatabaseMenubar: class AlwaysShowsDatabaseMenubar extends S {},
   makeGalleryPreivewFontSizeAllTheSame: class MakeGalleryPreivewFontSizeAllTheSame extends S {},
   placeGalleryPreviewAtTheBottom: class PlaceGalleryPreviewAtTheBottom extends S {},
   restrictGalleryTitleLength: class RestrictGalleryTitleLength extends S {},
   removeHoverMenuFromGalleryView: class RemoveHoverMenuFromGalleryView extends S {},
   removeHoverMenuFromBoardView: class RemoveHoverMenuFromBoardView extends S {},
-  addKeymapsToActionsMenu: AddKeymapsToActionsMenu,
-  addKeymapsToAlignSelectedImage: AddKeymapsToAlignSelectedImage,
+  // editor style
   removePlaceholderOnEmptyLine: class RemovePlaceholderOnEmptyLine extends S {},
   addIndentationLinesToIndentedItems: class AddIndentationLinesToIndentedItems extends S {},
   showPropertiesInSingleLine: class ShowPropertiesInSingleLine extends S {},
-  removeSidebarClosingFeatureFromBorder: class RemoveSidebarClosingFeatureFromBorder extends S {},
+  // misc
   fixFavicon: FixFavicon,
-  closeInputableDialogOnSingleEsc: CloseInputableDialogOnSingleEsc,
+  removeSidebarClosingFeatureFromBorder: class RemoveSidebarClosingFeatureFromBorder extends S {},
   removeNotionAI: RemoveNotionAI,
+  // keyboard shortcuts
+  addKeymapsToActionsMenu: AddKeymapsToActionsMenu,
+  addKeymapsToAlignSelectedImage: AddKeymapsToAlignSelectedImage,
+  closeInputableDialogOnSingleEsc: CloseInputableDialogOnSingleEsc,
 } as const;
 
 function c<T extends Record<string | number, unknown>>(config: T) {
@@ -59,15 +66,15 @@ export const getDefaultFeatureConfig = () => ({
   restrictGalleryTitleLength: c({}),
   removeHoverMenuFromGalleryView: c({}),
   removeHoverMenuFromBoardView: c({}),
-  addKeymapsToActionsMenu: c({}),
-  addKeymapsToAlignSelectedImage: c({}),
   removePlaceholderOnEmptyLine: c({}),
   addIndentationLinesToIndentedItems: c({}),
   showPropertiesInSingleLine: c({}),
-  removeSidebarClosingFeatureFromBorder: c({}),
   fixFavicon: c({}),
-  closeInputableDialogOnSingleEsc: c({}),
+  removeSidebarClosingFeatureFromBorder: c({}),
   removeNotionAI: c({}),
+  addKeymapsToActionsMenu: c({}),
+  addKeymapsToAlignSelectedImage: c({}),
+  closeInputableDialogOnSingleEsc: c({}),
 });
 
 export type FeatureConfig = ReturnType<typeof getDefaultFeatureConfig>;

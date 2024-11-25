@@ -41,12 +41,6 @@ export const enUS = {
     removeHoverMenuFromBoardView: {
       isEnabled: "Remove buttons shown on mouse over from board view",
     },
-    addKeymapsToActionsMenu: {
-      isEnabled: `Add keymaps to actions menu (${IS_MACOS ? "Cmd" : "Ctrl"}+;)`,
-    },
-    addKeymapsToAlignSelectedImage: {
-      isEnabled: "Add keymaps to align selected image",
-    },
     removePlaceholderOnEmptyLine: {
       isEnabled: "Remove placeholder on empty line",
     },
@@ -56,17 +50,23 @@ export const enUS = {
     showPropertiesInSingleLine: {
       isEnabled: "Show page properties in single line",
     },
-    removeSidebarClosingFeatureFromBorder: {
-      isEnabled: "Remove sidebar closing feature from the right border",
-    },
     fixFavicon: {
       isEnabled: "Always shows the same icon on Notion tabs",
     },
-    closeInputableDialogOnSingleEsc: {
-      isEnabled: "Close inputable dialog on single Esc",
+    removeSidebarClosingFeatureFromBorder: {
+      isEnabled: "Remove sidebar closing feature from the right border",
     },
     removeNotionAI: {
       isEnabled: "Hide Notion AI",
+    },
+    addKeymapsToActionsMenu: {
+      isEnabled: `Add keymaps to actions menu (${IS_MACOS ? "Cmd" : "Ctrl"}+;)`,
+    },
+    addKeymapsToAlignSelectedImage: {
+      isEnabled: "Add keymaps to align selected image",
+    },
+    closeInputableDialogOnSingleEsc: {
+      isEnabled: "Close inputable dialog on single Esc",
     },
   },
   feature: {

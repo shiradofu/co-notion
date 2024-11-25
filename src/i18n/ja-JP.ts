@@ -43,12 +43,6 @@ export const jaJP = {
     removeHoverMenuFromBoardView: {
       isEnabled: "ボードビューでカーソルを合わせたときに出てくるボタンを非表示",
     },
-    addKeymapsToActionsMenu: {
-      isEnabled: `アクションメニューにショートカットを追加 (${IS_MACOS ? "Cmd" : "Ctrl"}+;)`,
-    },
-    addKeymapsToAlignSelectedImage: {
-      isEnabled: "選択中の画像の揃え指定にショートカットを追加",
-    },
     removePlaceholderOnEmptyLine: {
       isEnabled: "空行に表示されるプレースホルダを非表示",
     },
@@ -58,17 +52,23 @@ export const jaJP = {
     showPropertiesInSingleLine: {
       isEnabled: "ページのプロパティを1行で表示",
     },
-    removeSidebarClosingFeatureFromBorder: {
-      isEnabled: "サイドバーが右端クリックで閉じるのを無効化",
-    },
     fixFavicon: {
       isEnabled: "タブに表示するアイコンを常に同じにする",
     },
-    closeInputableDialogOnSingleEsc: {
-      isEnabled: "文字入力可能なウィンドウを Esc 一回で閉じる",
+    removeSidebarClosingFeatureFromBorder: {
+      isEnabled: "サイドバーが右端クリックで閉じるのを無効化",
     },
     removeNotionAI: {
       isEnabled: "Notion AI を非表示",
+    },
+    addKeymapsToActionsMenu: {
+      isEnabled: `アクションメニューにショートカットを追加 (${IS_MACOS ? "Cmd" : "Ctrl"}+;)`,
+    },
+    addKeymapsToAlignSelectedImage: {
+      isEnabled: "選択中の画像の揃え指定にショートカットを追加",
+    },
+    closeInputableDialogOnSingleEsc: {
+      isEnabled: "文字入力可能なウィンドウを Esc 一回で閉じる",
     },
   },
   feature: {
