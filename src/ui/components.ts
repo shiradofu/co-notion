@@ -4,10 +4,81 @@ import { i } from "../i18n";
 import { appBaseUrl } from "../utils/constants";
 import type { Obj } from "../utils/obj";
 import type { Primitive } from "../utils/types";
-import { type Child, type Children, el } from "./el";
+import { type Child, type Children, type ElAttrsWithChildren, el } from "./el";
 
 function ctxToId(ctx: string[]) {
   return ctx.join(".");
+}
+
+function ctxToHelpModalId(ctx: string[]) {
+  return `HelpModal.${ctxToId(ctx)}`;
+}
+
+function showHelpModal(ctx: string[]) {
+  const modal = document.getElementById(ctxToHelpModalId(ctx));
+  if (!(modal instanceof HTMLDialogElement)) {
+    throw new Error(`invalid modal: ${ctx}`);
+  }
+  modal.showModal();
+}
+
+function Modal({ children, classes, ...rest }: ElAttrsWithChildren<"dialog">) {
+  const dialog = el("dialog", {
+    ...rest,
+    children: [el("div", { children })],
+    classes: ["Modal", ...(classes ?? [])],
+  });
+
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+
+  return dialog;
+}
+
+function renderHelpModalContent(ctx: string[]) {
+  return i(["configUI", ...ctx, "helpModal"])
+    .trim()
+    .split("\n")
+    .map((line) => line.trim())
+    .map((line) =>
+      line.startsWith("![img]")
+        ? el("img", { src: `./assets/${line.slice(6)}` })
+        : line.startsWith("# ")
+          ? el("h1", { children: [line.slice(2)] })
+          : line.startsWith("## ")
+            ? el("h2", { children: [line.slice(3)] })
+            : el("p", { children: [line] }),
+    );
+}
+
+function HelpModal({ ctx }: { ctx: string[] }) {
+  return Modal({
+    id: ctxToHelpModalId(ctx),
+    children: renderHelpModalContent(ctx),
+  });
+}
+
+function QuestionMark({ onClick }: { onClick: () => void }) {
+  return el("div", {
+    children: ["?"],
+    classes: ["ConfigLabel__Q"],
+    onClick,
+  });
+}
+
+function ConfigLabel({ ctx, htmlFor }: { ctx: string[]; htmlFor: string }) {
+  const labelStr = i(["configUI", ...ctx]);
+  const q =
+    ctx.at(-1) === "isEnabled" &&
+    QuestionMark({
+      onClick: () => showHelpModal(ctx.slice(0, -1)),
+    });
+
+  return el("div", {
+    classes: ["ConfigLabel"],
+    children: [el("label", { htmlFor, children: [labelStr] }), q],
+  });
 }
 
 function ConfigItem({
@@ -25,24 +96,18 @@ function ConfigItem({
   extra?: Child;
   children?: Children;
 }) {
-  const labelStr = i(["configUI", ...ctx]);
   const inputId = ctxToId(ctx);
+  const isIsEnabled = ctx.at(-1) === "isEnabled";
 
   return el("li", {
-    classes: [
-      "ConfigListSubgrid",
-      ctx.at(-1) === "isEnabled" && "ConfigItem--isEnabled",
-    ],
+    classes: ["ConfigListSubgrid", isIsEnabled && "ConfigItem--isEnabled"],
     children: [
-      el("label", {
+      el("div", {
         classes: ["ConfigItemBody", "ConfigListSubgrid"],
-        htmlFor: inputId,
         children: [
-          extra
-            ? el("div", {
-                children: [el("div", { children: [labelStr] }), extra],
-              })
-            : el("div", { children: [labelStr] }),
+          el("div", {
+            children: [ConfigLabel({ ctx, htmlFor: inputId }), extra],
+          }),
           el(textarea ? "textarea" : "input", {
             id: inputId,
             classes: [ctx.at(-1) === "keymap" && "font-monospace"],
@@ -52,6 +117,7 @@ function ConfigItem({
         ],
       }),
       ...(children ?? []),
+      isIsEnabled && HelpModal({ ctx: ctx.slice(0, -1) }),
     ],
   });
 }

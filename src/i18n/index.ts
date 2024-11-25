@@ -56,12 +56,12 @@ export function i<A extends unknown[]>(
   const table = tables[lang] ?? tables.ja;
 
   let translated = getObjValueByCtx(table, ctx);
-  if (!translated && lang !== "ja") {
+  if (translated === undefined && lang !== "ja") {
     translated = getObjValueByCtx(tables.ja, ctx);
   }
 
   if (
-    !translated ||
+    translated === undefined ||
     (args.length === 0 && typeof translated !== "string") ||
     (args.length > 0 && typeof translated !== "function")
   ) {

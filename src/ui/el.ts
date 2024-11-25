@@ -4,6 +4,7 @@ type Primitive = boolean | string | number;
 type ElAttrs<T extends TagName, E = HTMLElementTagNameMap[T]> = {
   id?: string;
   classes?: (string | false | undefined)[];
+  onClick?: (e: Event) => void;
   onChange?: (e: Event) => void;
   onSubmit?: (e: Event) => void;
   type?: E extends HTMLButtonElement ? E["type"] : never;
@@ -14,11 +15,13 @@ type ElAttrs<T extends TagName, E = HTMLElementTagNameMap[T]> = {
     : E extends HTMLInputElement
       ? Primitive | undefined
       : never;
+  src?: E extends HTMLImageElement ? string : never;
+  loading?: E extends HTMLImageElement ? E["loading"] : never;
 };
 
 export type Child = HTMLElement | string | false | undefined;
 export type Children = Child[];
-type ElAttrsWithChildren<T extends TagName> = ElAttrs<T> & {
+export type ElAttrsWithChildren<T extends TagName> = ElAttrs<T> & {
   children?: Children;
 };
 
@@ -30,6 +33,7 @@ function addAttrs<T extends TagName>(
   if (attrs.classes) {
     e.classList.add(...attrs.classes.filter((c): c is string => !!c));
   }
+  if (attrs.onClick) e.addEventListener("click", attrs.onClick);
   if (attrs.onChange) e.addEventListener("change", attrs.onChange);
   if (attrs.onSubmit) e.addEventListener("submit", attrs.onSubmit);
 
@@ -64,6 +68,11 @@ function addAttrs<T extends TagName>(
     if (attrs.value && typeof attrs.value === "string") {
       e.value = attrs.value;
     }
+  }
+
+  if (e instanceof HTMLImageElement) {
+    if (attrs.src) e.src = attrs.src;
+    e.loading = attrs.loading ?? "lazy";
   }
 }
 
