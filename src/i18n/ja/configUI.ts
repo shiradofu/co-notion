@@ -282,11 +282,6 @@ const removeNotionAI = {
   `,
 };
 
-const addKeymapsToActionsMenu = {
-  isEnabled: "アクションメニューにショートカットを追加",
-  helpModal: "機能削除予定",
-};
-
 const addKeymapsToAlignSelectedImage = {
   isEnabled: "選択中の画像のそろえ指定にショートカットを追加",
   helpModal: `
@@ -329,7 +324,6 @@ export const configUI = {
   fixFavicon,
   removeSidebarClosingFeatureFromBorder,
   removeNotionAI,
-  addKeymapsToActionsMenu,
   addKeymapsToAlignSelectedImage,
   closeInputableDialogOnSingleEsc,
 };

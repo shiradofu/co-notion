@@ -1,5 +1,3 @@
-import { IS_MACOS } from "../utils/os";
-
 export const enUS = {
   configUI: {
     submit: "Save changes",
@@ -61,9 +59,6 @@ export const enUS = {
     },
     removeNotionAI: {
       isEnabled: "Hide Notion AI",
-    },
-    addKeymapsToActionsMenu: {
-      isEnabled: `Add keymaps to actions menu (${IS_MACOS ? "Cmd" : "Ctrl"}+;)`,
     },
     addKeymapsToAlignSelectedImage: {
       isEnabled: "Add keymaps to align selected image",

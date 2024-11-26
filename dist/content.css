@@ -90,20 +90,6 @@
   }
 }
 
-.AddKeymapsToActionsMenu {
-  .AddKeymapsToActionsMenu__text {
-    --AddKeymapsToActionsMenu__text-color: rgba(55, 53, 47, 0.5);
-    @media (prefers-color-scheme: dark) {
-      --AddKeymapsToActionsMenu__text-color: rgba(255, 255, 255, 0.282);
-    }
-
-    color: var(--AddKeymapsToActionsMenu__text-color);
-    font-size: 12px;
-    white-space: nowrap;
-    margin-right: 1em;
-  }
-}
-
 .RemovePlaceholderOnEmptyLine {
   .notion-page-content
     .notion-text-block

@@ -1,7 +1,6 @@
 import type { SpeculativeDeployer } from "../deployers/SpeculativeDeployer";
 import type { Assert, DeepReadonly, Equals } from "../utils/types";
 import { AddKeymapToInsertProfilePageLink } from "./AddKeymapToInsertProfilePageLink";
-import { AddKeymapsToActionsMenu } from "./AddKeymapsToActionsMenu";
 import { AddKeymapsToAlignSelectedImage } from "./AddKeymapsToAlignSelectedImage";
 import { CloseInputableDialogOnSingleEsc } from "./CloseInputableDialogOnSingleEsc";
 import { FixFavicon } from "./FixFavicon";
@@ -37,7 +36,6 @@ export const FeatureClasses = {
   removeSidebarClosingFeatureFromBorder: class RemoveSidebarClosingFeatureFromBorder extends S {},
   removeNotionAI: RemoveNotionAI,
   // keyboard shortcuts
-  addKeymapsToActionsMenu: AddKeymapsToActionsMenu,
   addKeymapsToAlignSelectedImage: AddKeymapsToAlignSelectedImage,
   closeInputableDialogOnSingleEsc: CloseInputableDialogOnSingleEsc,
 } as const;
@@ -74,7 +72,6 @@ export const getDefaultFeatureConfig = () => ({
   fixFavicon: c({}),
   removeSidebarClosingFeatureFromBorder: c({}),
   removeNotionAI: c({}),
-  addKeymapsToActionsMenu: c({}),
   addKeymapsToAlignSelectedImage: c({}),
   closeInputableDialogOnSingleEsc: c({}),
 });
