@@ -1,6 +1,6 @@
 import type { Obj } from "./obj";
 
-function isSameType<T>(x: unknown, y: T): x is T {
+export function isSameType<T>(x: unknown, y: T): x is T {
   return (
     typeof x === typeof y &&
     (x === null) === (y === null) &&

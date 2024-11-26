@@ -1,6 +1,12 @@
 import { getDefaultFeatureConfig } from "../features";
+import { applyRecommended } from "../features/recommended";
 import { setLang } from "../i18n";
-import { ConfigFormSubmission, ConfigList } from "../ui/components";
+import {
+  ConfigFormFooter,
+  ConfigFormSubmission,
+  ConfigList,
+  UseRecommended,
+} from "../ui/components";
 import { el } from "../ui/el";
 import { extName } from "../utils/constants";
 import { Log } from "../utils/log";
@@ -59,7 +65,17 @@ class FeatureConfigForm {
       onSubmit: this.onSubmitForm,
       children: [
         ConfigList({ config: this.config, onChangeInput: this.onChangeInput }),
-        ConfigFormSubmission({ isSuccess: this.isSubmissionSuccess }),
+        ConfigFormFooter({
+          children: [
+            UseRecommended({
+              onClick: () => {
+                applyRecommended(this.config);
+                this.renderForm();
+              },
+            }),
+            ConfigFormSubmission({ isSuccess: this.isSubmissionSuccess }),
+          ],
+        }),
       ],
     });
     this.render(form, formClass);

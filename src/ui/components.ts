@@ -36,9 +36,9 @@ function Modal({ children, classes, ...rest }: ElAttrsWithChildren<"dialog">) {
   return dialog;
 }
 
-function renderHelpModalContent(ctx: string[]) {
+function renderHelpModalContent(ctx: string[], ctxForTitle = "isEnabled") {
   return (
-    `# ${i(["configUI", ...ctx, "isEnabled"])}
+    `# ${i(["configUI", ...ctx, ctxForTitle])}
 
     ${i(["configUI", ...ctx, "helpModal"])}`
       .trim()
@@ -57,10 +57,13 @@ function renderHelpModalContent(ctx: string[]) {
   );
 }
 
-function HelpModal({ ctx }: { ctx: string[] }) {
+function HelpModal({
+  ctx,
+  ctxForTitle,
+}: { ctx: string[]; ctxForTitle?: string }) {
   return Modal({
     id: ctxToHelpModalId(ctx),
-    children: renderHelpModalContent(ctx),
+    children: renderHelpModalContent(ctx, ctxForTitle),
   });
 }
 
@@ -192,6 +195,28 @@ export function ConfigList({
   });
 }
 
+export function UseRecommended({ onClick }: { onClick: () => void }) {
+  const ctx = ["useRecommended"];
+
+  return el("div", {
+    classes: ["UseRecommended"],
+    children: [
+      el("button", {
+        classes: ["UseRecommended__Button"],
+        children: [i(["configUI", ...ctx, "label"])],
+        onClick: (e) => {
+          e.preventDefault();
+          onClick();
+        },
+      }),
+      QuestionMark({
+        onClick: () => showHelpModal(ctx),
+      }),
+      HelpModal({ ctx, ctxForTitle: "label" }),
+    ],
+  });
+}
+
 export function ConfigFormSubmission({ isSuccess }: { isSuccess?: boolean }) {
   return el("div", {
     classes: ["ConfigFormSubmission"],
@@ -212,6 +237,15 @@ export function ConfigFormSubmission({ isSuccess }: { isSuccess?: boolean }) {
         children: [i(["configUI", "submit"])],
       }),
     ],
+  });
+}
+
+export function ConfigFormFooter({
+  children,
+}: { children: [NonNullable<Child>, NonNullable<Child>] }) {
+  return el("footer", {
+    classes: ["ConfigFormFooter"],
+    children,
   });
 }
 

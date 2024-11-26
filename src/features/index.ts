@@ -39,7 +39,7 @@ export const FeatureClasses = {
   closeInputableDialogOnSingleEsc: CloseInputableDialogOnSingleEsc,
 } as const;
 
-function c<T extends Record<string | number, unknown>>(config: T) {
+export function c<T extends Record<string | number, unknown>>(config: T) {
   return { isEnabled: false, ...config };
 }
 

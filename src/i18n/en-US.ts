@@ -1,6 +1,7 @@
 export const enUS = {
   configUI: {
     submit: "Save changes",
+    useRecommended: "Use recommended config",
     setDefaultTeamspaceOnSearchOpen: {
       isEnabled: "Set the default teamspace when search modal is opened",
       isEnabledOnCmdOrCtrlP: "by Cmd/Ctrl+P",
