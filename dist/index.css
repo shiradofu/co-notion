@@ -62,10 +62,6 @@ dialog {
   background: var(--main-bg);
 }
 
-:has(dialog[open]) {
-  overflow: hidden;
-}
-
 .PopupRoot {
   padding: 30px;
   padding-bottom: 0;
