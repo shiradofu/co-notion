@@ -233,11 +233,6 @@ const addIndentationLinesToIndentedItems = {
   `,
 };
 
-const removeArrowFromMentionLink = {
-  isEnabled: "メンションリンクの矢印を非表示",
-  helpModal: "機能削除予定",
-};
-
 const showPropertiesInSingleLine = {
   isEnabled: "ページのプロパティを1行で表示",
   helpModal: `
@@ -319,7 +314,6 @@ export const configUI = {
   removeHoverMenuFromBoardView,
   removePlaceholderOnEmptyLine,
   addIndentationLinesToIndentedItems,
-  removeArrowFromMentionLink,
   showPropertiesInSingleLine,
   fixFavicon,
   removeSidebarClosingFeatureFromBorder,
