@@ -37,19 +37,24 @@ function Modal({ children, classes, ...rest }: ElAttrsWithChildren<"dialog">) {
 }
 
 function renderHelpModalContent(ctx: string[]) {
-  return i(["configUI", ...ctx, "helpModal"])
-    .trim()
-    .split("\n")
-    .map((line) => line.trim())
-    .map((line) =>
-      line.startsWith("![img]")
-        ? el("img", { src: `./assets/${line.slice(6)}` })
-        : line.startsWith("# ")
-          ? el("h1", { children: [line.slice(2)] })
-          : line.startsWith("## ")
-            ? el("h2", { children: [line.slice(3)] })
-            : el("p", { children: [line] }),
-    );
+  return (
+    `# ${i(["configUI", ...ctx, "isEnabled"])}
+
+    ${i(["configUI", ...ctx, "helpModal"])}`
+      .trim()
+      .split("\n\n")
+      // TODO: add option to select replacing all with "" or " "
+      .map((paragraph) => paragraph.trim().replaceAll(/\n\s+/g, ""))
+      .map((line) =>
+        line.startsWith("![img] ")
+          ? el("img", { src: `./assets/${line.slice(7)}` })
+          : line.startsWith("# ")
+            ? el("h1", { children: [line.slice(2)] })
+            : line.startsWith("## ")
+              ? el("h2", { children: [line.slice(3)] })
+              : el("p", { children: [line] }),
+      )
+  );
 }
 
 function HelpModal({ ctx }: { ctx: string[] }) {
