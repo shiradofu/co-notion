@@ -31,7 +31,7 @@
   }
 }
 
-.notion-gallery-view a[href^="/"] {
+.notion-gallery-view .notion-collection-item > a[href^="/"] {
   .MakeGalleryPreivewFontSizeAllTheSame & {
     > :first-child :has(> [contenteditable]) * {
       font-size: 0.75rem !important;
@@ -44,7 +44,8 @@
       order: 1;
     }
 
-    max-height: 13rem !important;
+    height: 12rem !important;
+
     > :is(:nth-child(n + 2)) {
       flex-shrink: 0;
     }
