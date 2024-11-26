@@ -40,7 +40,7 @@
   }
 
   .PlaceGalleryPreviewAtTheBottom & {
-    > :nth-child(1) {
+    > :first-child {
       order: 1;
     }
 
@@ -49,12 +49,16 @@
     > :is(:nth-child(n + 2)) {
       flex-shrink: 0;
     }
-    > :nth-child(1) {
+
+    > :first-child {
       flex-grow: 1;
+
       > :first-child {
         height: 100%;
+
         > * {
           height: 100% !important;
+          padding-top: 4px !important;
 
           img:only-child[src^="/"] {
             height: 100% !important;
