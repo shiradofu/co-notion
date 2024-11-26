@@ -118,7 +118,11 @@
     --AddIndentationLinesToIndentedItems-color: rgba(255, 255, 255, 0.13);
   }
 
-  :is(.notion-bulleted_list-block, .notion-to_do-block) {
+  :is(
+      .notion-bulleted_list-block,
+      .notion-to_do-block,
+      .notion-numbered_list-block
+    ) {
     position: relative;
 
     &::before {
