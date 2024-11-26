@@ -32,7 +32,6 @@ export const FeatureClasses = {
   showPropertiesInSingleLine: class ShowPropertiesInSingleLine extends S {},
   // misc
   fixFavicon: FixFavicon,
-  removeSidebarClosingFeatureFromBorder: class RemoveSidebarClosingFeatureFromBorder extends S {},
   removeNotionAI: RemoveNotionAI,
   // keyboard shortcuts
   addKeymapsToAlignSelectedImage: AddKeymapsToAlignSelectedImage,
@@ -68,7 +67,6 @@ export const getDefaultFeatureConfig = () => ({
   addIndentationLinesToIndentedItems: c({}),
   showPropertiesInSingleLine: c({}),
   fixFavicon: c({}),
-  removeSidebarClosingFeatureFromBorder: c({}),
   removeNotionAI: c({}),
   addKeymapsToAlignSelectedImage: c({}),
   closeInputableDialogOnSingleEsc: c({}),

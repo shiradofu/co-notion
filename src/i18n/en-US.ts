@@ -51,9 +51,6 @@ export const enUS = {
     fixFavicon: {
       isEnabled: "Always shows the same icon on Notion tabs",
     },
-    removeSidebarClosingFeatureFromBorder: {
-      isEnabled: "Remove sidebar closing feature from the right border",
-    },
     removeNotionAI: {
       isEnabled: "Hide Notion AI",
     },

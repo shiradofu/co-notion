@@ -137,12 +137,6 @@
   }
 }
 
-.RemoveSidebarClosingFeatureFromBorder {
-  .notion-sidebar > :last-child {
-    display: none;
-  }
-}
-
 .ShowPropertiesInSingleLine {
   .whenContentEditable
     .layout-content:not(:has(.notion-page-content)):has(

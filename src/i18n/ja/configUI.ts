@@ -260,11 +260,6 @@ const fixFavicon = {
   `,
 };
 
-const removeSidebarClosingFeatureFromBorder = {
-  isEnabled: "サイドバーが右端クリックで閉じるのを無効化",
-  helpModal: "機能削除予定",
-};
-
 const removeNotionAI = {
   isEnabled: "Notion AI を非表示",
   helpModal: `
@@ -316,7 +311,6 @@ export const configUI = {
   addIndentationLinesToIndentedItems,
   showPropertiesInSingleLine,
   fixFavicon,
-  removeSidebarClosingFeatureFromBorder,
   removeNotionAI,
   addKeymapsToAlignSelectedImage,
   closeInputableDialogOnSingleEsc,
