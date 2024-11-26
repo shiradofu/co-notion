@@ -24,6 +24,10 @@ export const enUS = {
     alwaysShowsDatabaseMenubar: {
       isEnabled: "Always shows database menu bars",
     },
+    addPinnedIndicatorToGallery: {
+      isEnabled: "Add pinned indicator to gallery view items",
+      hideCheckbox: "Hide checkbox property",
+    },
     makeGalleryPreivewFontSizeAllTheSame: {
       isEnabled: "Make gallery preivew font size all the same",
     },

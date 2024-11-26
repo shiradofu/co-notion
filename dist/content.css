@@ -32,6 +32,40 @@
 }
 
 .notion-gallery-view .notion-collection-item > a[href^="/"] {
+  .AddPinnedIndicatorToGallery-hideCheckbox & {
+    > :nth-child(2) + :has(input[type="checkbox"]) {
+      display: none !important;
+    }
+  }
+
+  .AddPinnedIndicatorToGallery & {
+    > :nth-child(2):has(+ * input[checked]) {
+      --size: 1rem;
+      --color: rgba(55, 53, 47, 0.2);
+      @media (prefers-color-scheme: dark) {
+        --color: rgba(255, 255, 255, 0.15);
+      }
+
+      overflow: hidden; /* for titles at the bottom */
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 3rem;
+        aspect-ratio: 1 / 1;
+        border-top: 3px solid var(--color);
+        transform: rotate(45deg);
+      }
+
+      &::before {
+        right: 0.6rem;
+      }
+    }
+  }
+
   .MakeGalleryPreivewFontSizeAllTheSame & {
     > :first-child :has(> [contenteditable]) * {
       font-size: 0.75rem !important;

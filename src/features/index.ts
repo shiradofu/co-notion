@@ -21,6 +21,7 @@ export const FeatureClasses = {
   addKeymapToInsertProfilePageLink: AddKeymapToInsertProfilePageLink,
   // database style
   alwaysShowsDatabaseMenubar: class AlwaysShowsDatabaseMenubar extends S {},
+  addPinnedIndicatorToGallery: class AddPinnedIndicatorToGallery extends S {},
   makeGalleryPreivewFontSizeAllTheSame: class MakeGalleryPreivewFontSizeAllTheSame extends S {},
   placeGalleryPreviewAtTheBottom: class PlaceGalleryPreviewAtTheBottom extends S {},
   restrictGalleryTitleLength: class RestrictGalleryTitleLength extends S {},
@@ -58,6 +59,9 @@ export const getDefaultFeatureConfig = () => ({
     keymap: "Cmd/Ctrl+I",
   }),
   alwaysShowsDatabaseMenubar: c({}),
+  addPinnedIndicatorToGallery: c({
+    hideCheckbox: false,
+  }),
   makeGalleryPreivewFontSizeAllTheSame: c({}),
   placeGalleryPreviewAtTheBottom: c({}),
   restrictGalleryTitleLength: c({}),

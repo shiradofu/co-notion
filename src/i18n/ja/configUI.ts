@@ -139,6 +139,23 @@ const alwaysShowsDatabaseMenubar = {
   `,
 };
 
+const addPinnedIndicatorToGallery = {
+  isEnabled: "ギャラリービューにピン留め表示を追加",
+  hideCheckbox: "チェックボックスを非表示",
+  helpModal: `
+  ギャラリービューに📌のような名前のチェックボックスのプロパティを作成し、
+  それを並び替えに利用してピン留め機能を再現していることを前提とした機能です。
+
+  ギャラリービューにチェックボックスのプロパティを表示し、かつそのプロパティが
+  プロパティの中で一番上に配置されている場合に、チェックの入ったページに
+  ピン留めされていることが分かるマーク(タイトル右上に薄い二重線)を表示します。
+
+  (下の画像は「チェックボックスを非表示」もオンにした状態です)
+
+  ![img] AddPinnedIndicatorToGallery-example.webp
+  `,
+};
+
 const makeGalleryPreivewFontSizeAllTheSame = {
   isEnabled: "ギャラリービューのプレビューのフォントサイズを揃える",
   helpModal: `
@@ -301,6 +318,7 @@ export const configUI = {
   preventSearchModalFromRestoringPrevCond,
   showInlinePageLinkAsIcon,
   addKeymapToInsertProfilePageLink,
+  addPinnedIndicatorToGallery,
   alwaysShowsDatabaseMenubar,
   makeGalleryPreivewFontSizeAllTheSame,
   placeGalleryPreviewAtTheBottom,

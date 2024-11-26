@@ -3,10 +3,12 @@ import type { FeatureInstanceArrRO } from "../features";
 import { Log } from "../utils/log";
 import type { Deployer } from "./types";
 
+type EnabledOptionName = string;
+
 export interface WithStaticStyle {
-  hasStaticStyle: true;
+  staticStyleOpts: EnabledOptionName[];
 }
-const uniqueKey: keyof WithStaticStyle = "hasStaticStyle";
+const uniqueKey: keyof WithStaticStyle = "staticStyleOpts";
 
 export class StaticStyleManager implements Deployer {
   private app = new AppCrawler();
@@ -16,7 +18,8 @@ export class StaticStyleManager implements Deployer {
   async deploy(deployableFeatures: FeatureInstanceArrRO) {
     const targetFeatures = deployableFeatures.filter((f) => uniqueKey in f);
     const appRoot = await this.app.getAppRoot("must", { wait: "long" });
-    this.classNames = targetFeatures.map((f) => f.constructor.name);
+
+    this.classNames = targetFeatures.flatMap(this.featureToClassNames);
     appRoot.classList.add(...this.classNames);
   }
 
@@ -25,7 +28,7 @@ export class StaticStyleManager implements Deployer {
     const enabled = new Set(
       newDeployableFeatures
         .filter((f) => uniqueKey in f)
-        .map((f) => f.constructor.name),
+        .flatMap(this.featureToClassNames),
     );
 
     const notEnabledAnymore = this.classNames.filter((c) => !enabled.has(c));
@@ -35,4 +38,9 @@ export class StaticStyleManager implements Deployer {
     appRoot.classList.remove(...notEnabledAnymore);
     this.classNames = [];
   }
+
+  private featureToClassNames = (f: WithStaticStyle) => [
+    f.constructor.name,
+    ...f.staticStyleOpts.map((optName) => `${f.constructor.name}-${optName}`),
+  ];
 }
