@@ -52,7 +52,9 @@ function renderHelpModalContent(ctx: string[], ctxForTitle = "isEnabled") {
             ? el("h1", { children: [line.slice(2)] })
             : line.startsWith("## ")
               ? el("h2", { children: [line.slice(3)] })
-              : el("p", { children: [line] }),
+              : el("p", {
+                  children: line.split("<br/>").flatMap((l) => [l, el("br")]),
+                }),
       )
   );
 }
