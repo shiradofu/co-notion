@@ -1,7 +1,7 @@
 import type { SpeculativeDeployer } from "../deployers/SpeculativeDeployer";
-import type { Assert, DeepReadonly, Equals } from "../utils/types";
+import type { DeepReadonly } from "../utils/types";
 import { AddKeymapToInsertProfilePageLink } from "./AddKeymapToInsertProfilePageLink";
-import { AddKeymapsToAlignSelectedImage } from "./AddKeymapsToAlignSelectedImage";
+import { AddKeymapsToAlignImage } from "./AddKeymapsToAlignImage";
 import { CloseInputableDialogOnSingleEsc } from "./CloseInputableDialogOnSingleEsc";
 import { FixFavicon } from "./FixFavicon";
 import { PreventSearchModalFromRestoringPrevCond } from "./PreventSearchModalFromRestoringPrevCond";
@@ -35,7 +35,7 @@ export const FeatureClasses = {
   fixFavicon: FixFavicon,
   removeNotionAI: RemoveNotionAI,
   // keyboard shortcuts
-  addKeymapsToAlignSelectedImage: AddKeymapsToAlignSelectedImage,
+  addKeymapsToAlignImage: AddKeymapsToAlignImage,
   closeInputableDialogOnSingleEsc: CloseInputableDialogOnSingleEsc,
 } as const;
 
@@ -43,44 +43,42 @@ export function c<T extends Record<string | number, unknown>>(config: T) {
   return { isEnabled: false, ...config };
 }
 
-export const getDefaultFeatureConfig = () => ({
-  setDefaultTeamspaceOnSearchOpen: c({
-    isEnabledOnCmdOrCtrlP: false,
-    isEnabledOnCmdOrCtrlK: false,
-    isEnabledOnClick: false,
-    useInPageFilterIfImGuest: false,
-  }),
-  preventSearchModalFromRestoringPrevCond: c({}),
-  showInlinePageLinkAsIcon: c({
-    iconSourceUrls: "",
-  }),
-  addKeymapToInsertProfilePageLink: c({
-    profilePageTitle: "",
-    keymap: "Cmd/Ctrl+I",
-  }),
-  alwaysShowsDatabaseMenubar: c({}),
-  addPinnedIndicatorToGallery: c({
-    hideCheckbox: false,
-  }),
-  makeGalleryPreivewFontSizeAllTheSame: c({}),
-  placeGalleryPreviewAtTheBottom: c({}),
-  restrictGalleryTitleLength: c({}),
-  removeHoverMenuFromGalleryView: c({}),
-  removeHoverMenuFromBoardView: c({}),
-  removePlaceholderOnEmptyLine: c({}),
-  addIndentationLinesToIndentedItems: c({}),
-  showPropertiesInSingleLine: c({}),
-  fixFavicon: c({}),
-  removeNotionAI: c({}),
-  addKeymapsToAlignSelectedImage: c({}),
-  closeInputableDialogOnSingleEsc: c({}),
-});
+export const getDefaultFeatureConfig = () =>
+  ({
+    setDefaultTeamspaceOnSearchOpen: c({
+      isEnabledOnCmdOrCtrlP: false,
+      isEnabledOnCmdOrCtrlK: false,
+      isEnabledOnClick: false,
+      useInPageFilterIfImGuest: false,
+    }),
+    preventSearchModalFromRestoringPrevCond: c({}),
+    showInlinePageLinkAsIcon: c({
+      iconSourceUrls: "",
+    }),
+    addKeymapToInsertProfilePageLink: c({
+      profilePageTitle: "",
+      keymap: "Cmd/Ctrl+I",
+    }),
+    alwaysShowsDatabaseMenubar: c({}),
+    addPinnedIndicatorToGallery: c({
+      hideCheckbox: false,
+    }),
+    makeGalleryPreivewFontSizeAllTheSame: c({}),
+    placeGalleryPreviewAtTheBottom: c({}),
+    restrictGalleryTitleLength: c({}),
+    removeHoverMenuFromGalleryView: c({}),
+    removeHoverMenuFromBoardView: c({}),
+    removePlaceholderOnEmptyLine: c({}),
+    addIndentationLinesToIndentedItems: c({}),
+    showPropertiesInSingleLine: c({}),
+    fixFavicon: c({}),
+    removeNotionAI: c({}),
+    addKeymapsToAlignImage: c({}),
+    closeInputableDialogOnSingleEsc: c({}),
+  }) satisfies { [K in keyof typeof FeatureClasses]: unknown };
 
 export type FeatureConfig = ReturnType<typeof getDefaultFeatureConfig>;
 export type FeatureConfigRO = DeepReadonly<FeatureConfig>;
-
-// type checking to prevent unused config remaining
-type _ = Assert<Equals<keyof FeatureConfig, keyof typeof FeatureClasses>>;
 
 type FeatureInstanceArr = InstanceType<
   (typeof FeatureClasses)[keyof typeof FeatureClasses]

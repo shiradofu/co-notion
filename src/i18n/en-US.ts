@@ -59,8 +59,8 @@ export const enUS = {
     removeNotionAI: {
       isEnabled: "Hide Notion AI",
     },
-    addKeymapsToAlignSelectedImage: {
-      isEnabled: "Add keymaps to align selected image",
+    addKeymapsToAlignImage: {
+      isEnabled: "Add keymaps to align image",
     },
     closeInputableDialogOnSingleEsc: {
       isEnabled: "Close inputable dialog on single Esc",

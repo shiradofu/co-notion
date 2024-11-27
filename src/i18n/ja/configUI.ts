@@ -1,4 +1,6 @@
+import type { FeatureConfig } from "../../features";
 import { CMD_OR_CTRL } from "../../utils/os";
+import type { DeepT } from "../../utils/types";
 import { notionTerms as t } from "./notionTerms";
 
 const submit = "設定を保存";
@@ -336,12 +338,20 @@ const removeNotionAI = {
   `,
 };
 
-const addKeymapsToAlignSelectedImage = {
-  isEnabled: "選択中の画像のそろえ指定にショートカットを追加",
+const addKeymapsToAlignImage = {
+  isEnabled: "選択中の画像の整列指定にショートカットを追加",
   helpModal: `
-  ページ内にアップロードした画像を選択した状態(画像がうっすら青くなった状態)
-  で、「L・C・R」キーのいずれかを押すと、それぞれ左、中央、右にそろえることが
-  できます。
+  文字入力中ではなく、かつ
+
+  画像のオプションが表示されている状態
+  (マウスカーソルが乗っている状態)
+
+  または
+
+  画像を選択した状態
+  (画像がうっすら青くなった状態)
+
+  で「L・C・R」キーのいずれかを押すと、それぞれ左、中央、右にそろえることができます。
 
   ## 注意
 
@@ -359,7 +369,13 @@ const closeInputableDialogOnSingleEsc = {
   `,
 };
 
-export const configUI = {
+export const configUI: DeepT<
+  { [K in keyof FeatureConfig]: FeatureConfig[K] & { helpModal: string } } & {
+    submit: typeof submit;
+    useRecommended: typeof useRecommended;
+  },
+  string
+> = {
   submit,
   useRecommended,
   setDefaultTeamspaceOnSearchOpen,
@@ -378,6 +394,6 @@ export const configUI = {
   showPropertiesInSingleLine,
   fixFavicon,
   removeNotionAI,
-  addKeymapsToAlignSelectedImage,
+  addKeymapsToAlignImage,
   closeInputableDialogOnSingleEsc,
 };

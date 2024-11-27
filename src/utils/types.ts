@@ -1,10 +1,3 @@
-export type Assert<T extends true> = T;
-export type Equals<X, Y> = (<T>() => T extends X ? 1 : 2) extends <
-  T,
->() => T extends Y ? 1 : 2
-  ? true
-  : false;
-
 export type Method<T, A extends unknown[], R> = (this: T, ...args: A) => R;
 export type AsyncMethod<T, A extends unknown[], R> = (
   this: T,
@@ -26,6 +19,12 @@ export type Nullable<T> = T | null | undefined;
 export type DeepReadonly<T> = T extends object
   ? {
       readonly [P in keyof T]: DeepReadonly<T[P]>;
+    }
+  : T;
+
+export type DeepT<R, T = unknown> = R extends object
+  ? {
+      [P in keyof R]: DeepT<R[P], T>;
     }
   : T;
 
