@@ -356,11 +356,6 @@ const addKeymapsToAlignImage = {
   ![img] addKeymapsToAlignImage-selected.webp
 
   で「L・C・R」キーのいずれかを押すと、それぞれ画像を左、中央、右にそろえることができます。
-
-  ## 注意
-
-  現状、幅が小さすぎる画像(マウスカーソルを上に載せると「...」しか表示されないもの)
-  については対応していません。
   `,
 };
 
