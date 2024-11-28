@@ -351,6 +351,19 @@ const removeNotionAI = {
   `,
 };
 
+const addKeymapsToCreateNewItemInDB = {
+  isEnabled: "データベースに新しいページを作成するショートカットを追加",
+  helpModal: `
+  ${CMD_OR_CTRL}+O (オー) で、現在表示されているデータベース、もしくは
+  現在表示されているページが所属しているデータベースに新しいページを作成
+  します。
+
+  データベース内のページを編集していて、内容の一部を新しいページに
+  切り出したい、と思ったときなどに、ショートカット一つで新しいページを
+  作成できて便利です。
+  `,
+};
+
 const addKeymapsToAlignImage = {
   isEnabled: "選択中の画像の整列指定にショートカットを追加",
   helpModal: `
@@ -407,6 +420,7 @@ export const configUI: DeepT<
   alwaysShowSyncedBlockBorder,
   fixFavicon,
   removeNotionAI,
+  addKeymapsToCreateNewItemInDB,
   addKeymapsToAlignImage,
   closeInputableDialogOnSingleEsc,
 };

@@ -277,3 +277,25 @@
     display: none !important;
   }
 }
+
+.AddKeymapsToCreateNewItemInDB__Loading {
+  --AddKeymapsToCreateNewItemInDB__Loading-bg: white;
+  @media (prefers-color-scheme: dark) {
+    --AddKeymapsToCreateNewItemInDB__Loading-bg: rgb(25, 25, 25);
+  }
+
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--AddKeymapsToCreateNewItemInDB__Loading-bg);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > img {
+    width: 30px;
+    height: 30px;
+  }
+}

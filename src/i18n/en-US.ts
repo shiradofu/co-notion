@@ -63,6 +63,9 @@ export const enUS = {
     removeNotionAI: {
       isEnabled: "Hide Notion AI",
     },
+    addKeymapsToCreateNewItemInDB: {
+      isEnabled: "Add keymaps to create a new item in database",
+    },
     addKeymapsToAlignImage: {
       isEnabled: "Add keymaps to align image",
     },
@@ -74,6 +77,9 @@ export const enUS = {
     showInlinePageLinkAsIcon: {
       crawlSuccess: (n: number) => `${n} ${n === 1 ? "page" : "pages"} loaded!`,
       crawlFailure: "No pages found",
+    },
+    addKeymapsToCreateNewItemInDB: {
+      creationFailed: "Failed to create new page.",
     },
   },
   notionTerms: {

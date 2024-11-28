@@ -2,6 +2,7 @@ import type { SpeculativeDeployer } from "../deployers/SpeculativeDeployer";
 import type { DeepReadonly } from "../utils/types";
 import { AddKeymapToInsertProfilePageLink } from "./AddKeymapToInsertProfilePageLink";
 import { AddKeymapsToAlignImage } from "./AddKeymapsToAlignImage";
+import { AddKeymapsToCreateNewItemInDB } from "./AddKeymapsToGoUp";
 import { CloseInputableDialogOnSingleEsc } from "./CloseInputableDialogOnSingleEsc";
 import { FixFavicon } from "./FixFavicon";
 import { PreventSearchModalFromRestoringPrevCond } from "./PreventSearchModalFromRestoringPrevCond";
@@ -37,6 +38,7 @@ export const FeatureClasses = {
   removeNotionAI: RemoveNotionAI,
   // keyboard shortcuts
   addKeymapsToAlignImage: AddKeymapsToAlignImage,
+  addKeymapsToCreateNewItemInDB: AddKeymapsToCreateNewItemInDB,
   closeInputableDialogOnSingleEsc: CloseInputableDialogOnSingleEsc,
 } as const;
 
@@ -77,6 +79,7 @@ export const getDefaultFeatureConfig = () =>
     }),
     fixFavicon: c({}),
     removeNotionAI: c({}),
+    addKeymapsToCreateNewItemInDB: c({}),
     addKeymapsToAlignImage: c({}),
     closeInputableDialogOnSingleEsc: c({}),
   }) satisfies { [K in keyof typeof FeatureClasses]: unknown };

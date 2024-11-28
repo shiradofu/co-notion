@@ -46,6 +46,7 @@ const recommendedConfig: FeatureConfigRO = {
   fixFavicon: t({}),
   removeNotionAI: c({}),
   addKeymapsToAlignImage: c({}),
+  addKeymapsToCreateNewItemInDB: c({}),
   closeInputableDialogOnSingleEsc: c({}),
 };
 

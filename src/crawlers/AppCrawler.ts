@@ -31,6 +31,14 @@ export class AppCrawler {
     "peek renderer not found",
   );
 
+  getBreadcrumb = createCrawlerFn(
+    () =>
+      document.querySelector<HTMLEmbedElement>(
+        "header .shadow-cursor-breadcrumb",
+      ),
+    "breadcrumb not found",
+  );
+
   getCurrentTeamspaceName = createCrawlerFn(
     () =>
       document.querySelector<HTMLElement>("header .notion-record-icon + *")
