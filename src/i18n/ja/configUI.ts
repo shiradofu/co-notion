@@ -52,8 +52,8 @@ const useRecommended = {
 
 const setDefaultTeamspaceOnSearchOpen = {
   isEnabled: "検索時に自動で現在のチームスペースを指定",
-  isEnabledOnCmdOrCtrlP: "Cmd/Ctrl+P で検索を開いたとき",
-  isEnabledOnCmdOrCtrlK: "Cmd/Ctrl+K で検索を開いたとき",
+  isEnabledOnCmdOrCtrlP: `${CMD_OR_CTRL}+P で検索を開いたとき`,
+  isEnabledOnCmdOrCtrlK: `${CMD_OR_CTRL}+K で検索を開いたとき`,
   isEnabledOnClick: "サイドバーの「検索」をクリックして開いたとき",
   useInPageFilterIfImGuest: `自分がゲストのときは「${t.searchModal.filterBar.In}」フィルタを使う`,
   helpModal: `

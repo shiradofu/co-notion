@@ -1,11 +1,13 @@
+import { CMD_OR_CTRL } from "../utils/os";
+
 export const enUS = {
   configUI: {
     submit: "Save changes",
     useRecommended: "Use recommended config",
     setDefaultTeamspaceOnSearchOpen: {
       isEnabled: "Set the default teamspace when search modal is opened",
-      isEnabledOnCmdOrCtrlP: "by Cmd/Ctrl+P",
-      isEnabledOnCmdOrCtrlK: "by Cmd/Ctrl+K",
+      isEnabledOnCmdOrCtrlP: `by ${CMD_OR_CTRL}+P`,
+      isEnabledOnCmdOrCtrlK: `by ${CMD_OR_CTRL}+K`,
       isEnabledOnClick: "by clicking 'Search' on the sidebar",
       useInPageFilterIfImGuest: "Use 'In' filter if I'm a guest",
     },
