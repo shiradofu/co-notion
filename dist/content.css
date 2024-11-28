@@ -223,6 +223,45 @@
   }
 }
 
+#notion-app {
+  --AlwaysShowSyncedBlockBorder-container-color: rgb(227, 134, 118);
+  --AlwaysShowSyncedBlockBorder-reference-color: rgb(200, 200, 200);
+  @media (prefers-color-scheme: dark) {
+    --AlwaysShowSyncedBlockBorder-container-color: rgb(110, 54, 48);
+    --AlwaysShowSyncedBlockBorder-reference-color: rgb(100, 100, 100);
+  }
+
+  &.AlwaysShowSyncedBlockBorder-makeBorderMonochrome {
+    --AlwaysShowSyncedBlockBorder-container-color: rgb(100, 100, 100);
+    @media (prefers-color-scheme: dark) {
+      --AlwaysShowSyncedBlockBorder-container-color: rgb(200, 200, 200);
+    }
+  }
+
+  .notion-transclusion-block-halo {
+    display: none;
+  }
+
+  :is(
+      .notion-transclusion_container-block,
+      .notion-transclusion_reference-block
+    ):has(.notion-transclusion-block-component) {
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 8px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    &.notion-transclusion_container-block {
+      border-color: var(--AlwaysShowSyncedBlockBorder-container-color);
+    }
+
+    &.notion-transclusion_reference-block {
+      border-color: var(--AlwaysShowSyncedBlockBorder-reference-color);
+    }
+  }
+}
+
 .RemoveNotionAI {
   .notion-ai-button,
   .notion-sidebar a[href="/chat"],

@@ -53,8 +53,12 @@ export const enUS = {
     showPropertiesInSingleLine: {
       isEnabled: "Show page properties in single line",
     },
+    alwaysShowBorderForSyncedBlock: {
+      isEnabled: "Always show border for synced block",
+      makeBorderMonochrome: "make border monochrome",
+    },
     fixFavicon: {
-      isEnabled: "Always shows the same icon on Notion tabs",
+      isEnabled: "Always show the same icon on Notion tabs",
     },
     removeNotionAI: {
       isEnabled: "Hide Notion AI",

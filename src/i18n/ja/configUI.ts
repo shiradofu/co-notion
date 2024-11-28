@@ -317,6 +317,19 @@ const showPropertiesInSingleLine = {
   `,
 };
 
+const alwaysShowSyncedBlockBorder = {
+  isEnabled: "同期ブロックの境界線を常に表示",
+  makeBorderMonochrome: "境界線をモノクロにする",
+  helpModal: `
+  同期ブロックの境界線を非選択時にも表示するようにします。
+  同期元ブロックの境界線は赤、同期先ブロックの境界線はグレーで表示します。
+  「境界線をモノクロにする」をオンにすると、同期元ブロックの境界線は濃い
+  グレーになります。
+
+  ![img] alwaysShowSyncedBlockBorder-example.webp
+  `,
+};
+
 const fixFavicon = {
   isEnabled: "タブに表示するアイコンを常に同じにする",
   helpModal: `
@@ -391,6 +404,7 @@ export const configUI: DeepT<
   removePlaceholderOnEmptyLine,
   addIndentationLinesToIndentedItems,
   showPropertiesInSingleLine,
+  alwaysShowSyncedBlockBorder,
   fixFavicon,
   removeNotionAI,
   addKeymapsToAlignImage,

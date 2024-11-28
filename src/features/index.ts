@@ -31,6 +31,7 @@ export const FeatureClasses = {
   removePlaceholderOnEmptyLine: class RemovePlaceholderOnEmptyLine extends S {},
   addIndentationLinesToIndentedItems: class AddIndentationLinesToIndentedItems extends S {},
   showPropertiesInSingleLine: class ShowPropertiesInSingleLine extends S {},
+  alwaysShowSyncedBlockBorder: class AlwaysShowSyncedBlockBorder extends S {},
   // misc
   fixFavicon: FixFavicon,
   removeNotionAI: RemoveNotionAI,
@@ -71,6 +72,9 @@ export const getDefaultFeatureConfig = () =>
     removePlaceholderOnEmptyLine: c({}),
     addIndentationLinesToIndentedItems: c({}),
     showPropertiesInSingleLine: c({}),
+    alwaysShowSyncedBlockBorder: c({
+      makeBorderMonochrome: false,
+    }),
     fixFavicon: c({}),
     removeNotionAI: c({}),
     addKeymapsToAlignImage: c({}),

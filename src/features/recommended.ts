@@ -40,6 +40,9 @@ const recommendedConfig: FeatureConfigRO = {
   removePlaceholderOnEmptyLine: t({}),
   addIndentationLinesToIndentedItems: t({}),
   showPropertiesInSingleLine: t({}),
+  alwaysShowSyncedBlockBorder: t({
+    makeBorderMonochrome: false,
+  }),
   fixFavicon: t({}),
   removeNotionAI: c({}),
   addKeymapsToAlignImage: c({}),
