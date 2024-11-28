@@ -36,27 +36,27 @@ function Modal({ children, classes, ...rest }: ElAttrsWithChildren<"dialog">) {
   return dialog;
 }
 
+const spaceBetweenWords = i(["spaceBetweenWords"]);
 function renderHelpModalContent(ctx: string[], ctxForTitle = "isEnabled") {
-  return (
-    `# ${i(["configUI", ...ctx, ctxForTitle])}
+  return `# ${i(["configUI", ...ctx, ctxForTitle])}
 
     ${i(["configUI", ...ctx, "helpModal"])}`
-      .trim()
-      .split("\n\n")
-      // TODO: add option to select replacing all with "" or " "
-      .map((paragraph) => paragraph.trim().replaceAll(/\n\s+/g, ""))
-      .map((line) =>
-        line.startsWith("![img] ")
-          ? el("img", { src: `./assets/${line.slice(7)}` })
-          : line.startsWith("# ")
-            ? el("h1", { children: [line.slice(2)] })
-            : line.startsWith("## ")
-              ? el("h2", { children: [line.slice(3)] })
-              : el("p", {
-                  children: line.split("<br/>").flatMap((l) => [l, el("br")]),
-                }),
-      )
-  );
+    .trim()
+    .split("\n\n")
+    .map((paragraph) =>
+      paragraph.trim().replaceAll(/\n\s+/g, spaceBetweenWords),
+    )
+    .map((line) =>
+      line.startsWith("![img] ")
+        ? el("img", { src: `./assets/${line.slice(7)}` })
+        : line.startsWith("# ")
+          ? el("h1", { children: [line.slice(2)] })
+          : line.startsWith("## ")
+            ? el("h2", { children: [line.slice(3)] })
+            : el("p", {
+                children: line.split("<br/>").flatMap((l) => [l, el("br")]),
+              }),
+    );
 }
 
 function HelpModal({

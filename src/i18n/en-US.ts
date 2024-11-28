@@ -92,4 +92,5 @@ export const enUS = {
       },
     },
   },
+  spaceBetweenWords: " ",
 } as const;

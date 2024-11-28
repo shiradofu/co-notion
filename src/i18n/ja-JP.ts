@@ -6,4 +6,5 @@ export const jaJP = {
   configUI,
   feature,
   notionTerms: notionTerms,
+  spaceBetweenWords: "",
 } as const;
