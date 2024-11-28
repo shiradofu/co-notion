@@ -1,10 +1,12 @@
 import type { FeatureConfig } from "../../features";
+import { STORE_DESCRIPTION_END } from "../../utils/constants";
 import { CMD_OR_CTRL } from "../../utils/os";
 import type { DeepT } from "../../utils/types";
 import { notionTerms as t } from "./notionTerms";
 
 const submit = "設定を保存";
 
+// TODO: fix indentation of helpModal
 const useRecommended = {
   label: "おすすめ設定を使用",
   helpModal: `
@@ -62,6 +64,8 @@ const setDefaultTeamspaceOnSearchOpen = {
     をオンにしておくと、招待されたファイルでは「${t.searchModal.filterBar.In}」
     フィルタを使用します。
 
+    ${STORE_DESCRIPTION_END}
+
     ## 機能の背景
 
     Notion では、ワークスペース全体を検索できる検索窓
@@ -117,6 +121,8 @@ const showInlinePageLinkAsIcon = {
     画像を設定、DBのURLをこちらの機能に登録すると、DB内の自己紹介ファイルへの
     メンション(インラインリンク)がアイコンとして表示されます。
 
+    ${STORE_DESCRIPTION_END}
+
     ![img] showInlinePageLinkAsIcon-usecase.webp
 
     ## 使用方法
@@ -165,11 +171,14 @@ const addKeymapToInsertProfilePageLink = {
   自分のプロフィールページへのリンクを、ショートカットで簡単に作成できる
   ようにします。
 
+  ${STORE_DESCRIPTION_END}
+
   「プロフィールページ名」には、アイコンに自分のプロフィール画像が登録
   してあるプロフィールページのタイトルを入力してください。
 
-  デフォルトのショートカットは ${CMD_OR_CTRL}+I ですが、これはイタリック体の
-  切り替えのショートカットと同じなので、そちらをよく使う方は変更をお願いします。
+  デフォルトのショートカットは ${CMD_OR_CTRL}+I (アイ) ですが、これは
+  イタリック体の切り替えのショートカットと同じなので、そちらをよく使う
+  方は変更をお願いします。
 
   ## 注意
 
@@ -188,6 +197,8 @@ const alwaysShowsDatabaseMenubar = {
   常に表示すると「新規」の青色が少し目立ちすぎるので、他のメニューと同じ
   落ち着いた色にそろえています。
 
+  ${STORE_DESCRIPTION_END}
+
   ![img] alwaysShowsDatabaseMenubar-example.webp
   `,
 };
@@ -203,9 +214,9 @@ const addPinnedIndicatorToGallery = {
   プロパティの中で一番上に配置されている場合に、チェックの入ったページに
   ピン留めされていることが分かるマーク(タイトル右上に薄い二重線)を表示します。
 
-  ## 動作イメージ
+  ${STORE_DESCRIPTION_END}
 
-  こちらの画像は「チェックボックスを非表示」もオンにした状態です。
+  (画像は「チェックボックスを非表示」をオンにした状態です)
 
   ![img] AddPinnedIndicatorToGallery-example.webp
   `,
@@ -216,6 +227,8 @@ const makeGalleryPreivewFontSizeAllTheSame = {
   helpModal: `
   ギャラリービューのプレビュー部分で見出しが大きく表示されると見づらい
   場合、この機能でフォントサイズを小さくそろえることができます。
+
+  ${STORE_DESCRIPTION_END}
 
   ## Before
 
@@ -234,6 +247,8 @@ const placeGalleryPreviewAtTheBottom = {
   されるものが画像ではなく文字中心の場合は、こちらの方が見やすいかも
   しれません。
 
+  ${STORE_DESCRIPTION_END}
+
   ## Before
 
   ![img] placeGalleryPreviewAtTheBottom-before.webp
@@ -250,6 +265,8 @@ const restrictGalleryTitleLength = {
   ギャラリービューのタイトルは、デフォルトではどれだけ長くても全て表示
   されます。長すぎるタイトルは余計な余白を生み、全体の見た目を崩して
   しまうことがあるので、途中までしか表示しないようにします。
+
+  ${STORE_DESCRIPTION_END}
 
   ## Before
 
@@ -268,6 +285,8 @@ const removeHoverMenuFromGalleryView = {
   非表示にします。あまり使わないのに間違えて押してしまう、という方はぜひ
   ご利用ください。
 
+  ${STORE_DESCRIPTION_END}
+
   ![img] removeHoverMenuFromGalleryView-target.webp
   `,
 };
@@ -279,6 +298,8 @@ const removeHoverMenuFromBoardView = {
   非表示にします。使用頻度は高くないけれど間違って押す頻度は高い、という
   方は奮ってご活用ください。
 
+  ${STORE_DESCRIPTION_END}
+
   ![img] removeHoverMenuFromBoardView-target.webp
   `,
 };
@@ -288,6 +309,8 @@ const removePlaceholderOnEmptyLine = {
   helpModal: `
   何も記入していない行に表示される、薄いけれど微妙に主張の強い文字を非表示
   にします。
+
+  ${STORE_DESCRIPTION_END}
 
   ![img] removePlaceholderOnEmptyLine-target.webp
   `,
@@ -301,6 +324,8 @@ const addIndentationLinesToIndentedItems = {
 
   通常のテキスト、箇条書き、順序付きリスト、ToDoリストに対応しています。
 
+  ${STORE_DESCRIPTION_END}
+
   ![img] addIndentationLinesToIndentedItems-example.webp
   `,
 };
@@ -312,6 +337,8 @@ const showPropertiesInSingleLine = {
   これを防ぐためにプロパティを1行で表示させます。
   1行になったプロパティは横にスクロールでき、編集、追加なども可能です。
   (並び替えもできますが、少々やりづらいです)
+
+  ${STORE_DESCRIPTION_END}
 
   ## Before
 
@@ -331,6 +358,8 @@ const alwaysShowSyncedBlockBorder = {
   同期元ブロックの境界線は赤、同期先ブロックの境界線はグレーで表示します。
   「境界線をモノクロにする」をオンにすると、同期元ブロックの境界線は濃い
   グレーになります。
+
+  ${STORE_DESCRIPTION_END}
 
   ![img] alwaysShowSyncedBlockBorder-example.webp
   `,
@@ -378,16 +407,23 @@ const addKeymapsToAlignImage = {
   画像のオプションが表示されている状態<br/>
   (マウスカーソルが乗っている状態)
 
-  ![img] addKeymapsToAlignImage-hovered.webp
-
   または
 
   画像を選択した状態<br/>
   (画像がうっすら青くなった状態)
 
+  で「L・C・R」キーのいずれかを押すと、それぞれ画像を左、中央、右にそろえることができます。
+
+  ${STORE_DESCRIPTION_END}
+
+  ## 画像のオプションが表示されている状態
+
+  ![img] addKeymapsToAlignImage-hovered.webp
+
+  ## 画像を選択した状態
+
   ![img] addKeymapsToAlignImage-selected.webp
 
-  で「L・C・R」キーのいずれかを押すと、それぞれ画像を左、中央、右にそろえることができます。
   `,
 };
 

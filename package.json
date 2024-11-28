@@ -10,6 +10,7 @@
     "fmt": "biome format --write",
     "test": "tsc && tsx --test",
     "clean": "rm -rf dist/*.js",
+    "doc": "NODE_ENV=document tsx scripts/readme.ts",
     "zip": "rm -f ext.zip && npm run build && zip -r ext.zip dist -x 'dist/.*'"
   },
   "keywords": [],

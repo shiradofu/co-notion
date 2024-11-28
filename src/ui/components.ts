@@ -1,7 +1,7 @@
 import type { FeatureConfigRO } from "../features";
 import { ShowInlinePageLinkAsIcon } from "../features/ShowInlinePageLinkAsIcon";
 import { i } from "../i18n";
-import { appBaseUrl } from "../utils/constants";
+import { STORE_DESCRIPTION_END, appBaseUrl } from "../utils/constants";
 import type { Obj } from "../utils/obj";
 import type { Primitive } from "../utils/types";
 import { type Child, type Children, type ElAttrsWithChildren, el } from "./el";
@@ -43,8 +43,9 @@ function renderHelpModalContent(ctx: string[], ctxForTitle = "isEnabled") {
     ${i(["configUI", ...ctx, "helpModal"])}`
     .trim()
     .split("\n\n")
+    .filter((paragraph) => paragraph.trim() !== STORE_DESCRIPTION_END)
     .map((paragraph) =>
-      paragraph.trim().replaceAll(/\n\s+/g, spaceBetweenWords),
+      paragraph.trim().replaceAll(/\n\s*/g, spaceBetweenWords),
     )
     .map((line) =>
       line.startsWith("![img] ")
