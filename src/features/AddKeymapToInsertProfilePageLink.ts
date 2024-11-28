@@ -6,8 +6,6 @@ import type { TriggeredByKeymap } from "../deployers/KeymapManager";
 import { Log } from "../utils/log";
 
 export class AddKeymapToInsertProfilePageLink implements TriggeredByKeymap {
-  private processing = false;
-
   constructor(
     private config: FeatureConfigRO["addKeymapToInsertProfilePageLink"],
   ) {}
@@ -15,18 +13,12 @@ export class AddKeymapToInsertProfilePageLink implements TriggeredByKeymap {
   keymaps = {
     [this.config.keymap]: (e: KeyboardEvent) => {
       e.stopPropagation();
-      this.run().finally(() => {
-        // FIXME:
-        this.processing = false;
-      });
+      this.run();
     },
   };
 
   @Log.thrownInMethodAsync
   private async run() {
-    if (this.processing) return;
-    this.processing = true;
-
     const app = new AppCrawler();
     const overlaysEl = app.getOverlayContainer("must");
     const overlays = new OverlaysCrawler(overlaysEl);
@@ -52,7 +44,7 @@ export class AddKeymapToInsertProfilePageLink implements TriggeredByKeymap {
     );
 
     const frontmost = await overlays.ensureCount("must", {
-      args: [overlaysCount + 1, { transparent: true }],
+      args: [overlaysCount + 1, { transparent: false }],
       wait: "short",
     });
 

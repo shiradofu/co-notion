@@ -16,7 +16,6 @@ export class RemoveNotionAI
 {
   keymaps = {
     Space: (e: Event) => {
-      console.log(e);
       if (!document.activeElement?.classList.contains("whenContentEditable")) {
         return;
       }

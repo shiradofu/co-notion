@@ -4,7 +4,7 @@ export type Auxiliary = "must" | "may";
 
 const INTERVAL_AND_TIMEOUT = {
   long: [300, 30 * 1000], // initial loading
-  short: [10, 5 * 1000], // after clicking or so
+  short: [30, 5 * 1000], // after clicking or so
 } as const;
 
 type WaitDuration = keyof typeof INTERVAL_AND_TIMEOUT;
