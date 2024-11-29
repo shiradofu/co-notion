@@ -201,20 +201,16 @@ Notion はページを移動するごとに、タブに表示されるアイコ�
 画像のオプションが表示されている状態  
 (マウスカーソルが乗っている状態)
 
+<img src="./dist/assets/addKeymapsToAlignImage-hovered.webp" alt="img" width="600px" />
+
 または
 
 画像を選択した状態  
 (画像がうっすら青くなった状態)
 
-で「L・C・R」キーのいずれかを押すと、それぞれ画像を左、中央、右にそろえることができます。
-
-### 画像のオプションが表示されている状態
-
-<img src="./dist/assets/addKeymapsToAlignImage-hovered.webp" alt="img" width="600px" />
-
-### 画像を選択した状態
-
 <img src="./dist/assets/addKeymapsToAlignImage-selected.webp" alt="img" width="600px" />
+
+で「L・C・R」キーのいずれかを押すと、それぞれ画像を左、中央、右にそろえることができます。
 
 ## 文字入力可能なダイアログを Esc 一回で閉じる
 

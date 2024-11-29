@@ -21,7 +21,7 @@ function renderStoreDescription(
       paragraph.trim().replaceAll(/\n\s*/g, spaceBetweenWords),
     )
     .map((line) =>
-      ended
+      ended || line.startsWith("![img] ")
         ? ""
         : line === STORE_DESCRIPTION_END
           ? setEnded()
@@ -43,7 +43,6 @@ function renderMarkdown(
     const alt = matches.at(1);
     const imgFileName = matches.at(2);
     if (!alt || !imgFileName) throw new Error(`invalid img line: ${line}`);
-    // return `![${alt}](./dist/assets/${imgFileName})`;
     return `<img src="./dist/assets/${imgFileName}" alt="${alt}" width="600px" />`;
   };
 

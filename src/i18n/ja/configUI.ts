@@ -406,22 +406,16 @@ const addKeymapsToAlignImage = {
     画像のオプションが表示されている状態<br/>
     (マウスカーソルが乗っている状態)
 
+    ![img] addKeymapsToAlignImage-hovered.webp
+
     または
 
     画像を選択した状態<br/>
     (画像がうっすら青くなった状態)
 
-    で「L・C・R」キーのいずれかを押すと、それぞれ画像を左、中央、右にそろえることができます。
-
-    ${STORE_DESCRIPTION_END}
-
-    ## 画像のオプションが表示されている状態
-
-    ![img] addKeymapsToAlignImage-hovered.webp
-
-    ## 画像を選択した状態
-
     ![img] addKeymapsToAlignImage-selected.webp
+
+    で「L・C・R」キーのいずれかを押すと、それぞれ画像を左、中央、右にそろえることができます。
   `,
 };
 
