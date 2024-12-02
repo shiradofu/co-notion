@@ -157,7 +157,7 @@ export class AddKeymapsToCreateNewItemInDB implements TriggeredByKeymap {
     this.loading = document.body.appendChild(
       el("div", {
         classes: ["AddKeymapsToCreateNewItemInDB__Loading"],
-        children: [Loading],
+        children: [Loading()],
       }),
     );
   }
