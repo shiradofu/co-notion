@@ -1,5 +1,5 @@
-import type { FeatureConfigRO } from "../features";
 import { ShowInlinePageLinkAsIcon } from "../features/ShowInlinePageLinkAsIcon";
+import type { FeatureConfigRO } from "../features/config";
 import { i } from "../i18n";
 import { STORE_DESCRIPTION_END, appBaseUrl } from "../utils/constants";
 import type { Obj } from "../utils/obj";

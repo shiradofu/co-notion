@@ -1,11 +1,52 @@
-import {
-  type FeatureConfig,
-  type FeatureConfigRO,
-  c,
-  getDefaultFeatureConfig,
-} from ".";
+import type { FeatureClassMap } from ".";
 import { isSameType } from "../utils/merge";
 import type { Obj } from "../utils/obj";
+import type { DeepReadonly } from "../utils/types";
+
+export function c<T extends Record<string | number, unknown>>(config: T) {
+  return { isEnabled: false, ...config };
+}
+
+export const getDefaultFeatureConfig = () =>
+  ({
+    setDefaultTeamspaceOnSearchOpen: c({
+      isEnabledOnCmdOrCtrlP: false,
+      isEnabledOnCmdOrCtrlK: false,
+      isEnabledOnClick: false,
+      useInPageFilterIfImGuest: false,
+    }),
+    preventSearchModalFromRestoringPrevCond: c({}),
+    showInlinePageLinkAsIcon: c({
+      iconSourceUrls: "",
+    }),
+    addKeymapToInsertProfilePageLink: c({
+      profilePageTitle: "",
+      keymap: "Cmd/Ctrl+I",
+    }),
+    alwaysShowsDatabaseMenubar: c({}),
+    addPinnedIndicatorToGallery: c({
+      hideCheckbox: false,
+    }),
+    makeGalleryPreivewFontSizeAllTheSame: c({}),
+    placeGalleryPreviewAtTheBottom: c({}),
+    restrictGalleryTitleLength: c({}),
+    removeHoverMenuFromGalleryView: c({}),
+    removeHoverMenuFromBoardView: c({}),
+    removePlaceholderOnEmptyLine: c({}),
+    addIndentationLinesToIndentedItems: c({}),
+    showPropertiesInSingleLine: c({}),
+    alwaysShowSyncedBlockBorder: c({
+      makeBorderMonochrome: false,
+    }),
+    fixFavicon: c({}),
+    removeNotionAI: c({}),
+    addKeymapsToCreateNewItemInDB: c({}),
+    addKeymapsToAlignImage: c({}),
+    closeInputableDialogOnSingleEsc: c({}),
+  }) satisfies { [K in keyof FeatureClassMap]: unknown };
+
+export type FeatureConfig = ReturnType<typeof getDefaultFeatureConfig>;
+export type FeatureConfigRO = DeepReadonly<FeatureConfig>;
 
 function t<T extends Record<string | number, unknown>>(config: T) {
   return { isEnabled: true, ...config };

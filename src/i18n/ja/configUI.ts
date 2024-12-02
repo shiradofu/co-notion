@@ -1,4 +1,4 @@
-import type { FeatureConfig } from "../../features";
+import type { FeatureConfig } from "../../features/config";
 import { STORE_DESCRIPTION_END } from "../../utils/constants";
 import { CMD_OR_CTRL } from "../../utils/os";
 import type { DeepT } from "../../utils/types";

@@ -1,5 +1,4 @@
-import { getDefaultFeatureConfig } from "../features";
-import { applyRecommended } from "../features/recommended";
+import { applyRecommended, getDefaultFeatureConfig } from "../features/config";
 import { setLang } from "../i18n";
 import {
   ConfigFormFooter,

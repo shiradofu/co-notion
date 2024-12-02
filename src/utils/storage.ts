@@ -1,5 +1,8 @@
-import { type FeatureConfig, getDefaultFeatureConfig } from "../features";
 import type { IconPageLinkPathnames } from "../features/ShowInlinePageLinkAsIcon";
+import {
+  type FeatureConfig,
+  getDefaultFeatureConfig,
+} from "../features/config";
 import type { AvailableLang } from "../i18n";
 import { merge } from "./merge";
 

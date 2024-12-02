@@ -1,5 +1,4 @@
 import type { SpeculativeDeployer } from "../deployers/SpeculativeDeployer";
-import type { DeepReadonly } from "../utils/types";
 import { AddKeymapToInsertProfilePageLink } from "./AddKeymapToInsertProfilePageLink";
 import { AddKeymapsToAlignImage } from "./AddKeymapsToAlignImage";
 import { AddKeymapsToCreateNewItemInDB } from "./AddKeymapsToGoUp";
@@ -10,6 +9,7 @@ import { RemoveNotionAI } from "./RemoveNotionAI";
 import { SetDefaultTeamspaceOnSearchOpen } from "./SetDefaultTeamspaceOnSearchOpen";
 import { ShowInlinePageLinkAsIcon } from "./ShowInlinePageLinkAsIcon";
 import { StaticStyle as S } from "./StaticStyle";
+import type { FeatureConfigRO } from "./config";
 
 // for classes extends S(taticStyle), see dist/content.css
 export const FeatureClasses = {
@@ -42,50 +42,7 @@ export const FeatureClasses = {
   closeInputableDialogOnSingleEsc: CloseInputableDialogOnSingleEsc,
 } as const;
 
-export function c<T extends Record<string | number, unknown>>(config: T) {
-  return { isEnabled: false, ...config };
-}
-
-export const getDefaultFeatureConfig = () =>
-  ({
-    setDefaultTeamspaceOnSearchOpen: c({
-      isEnabledOnCmdOrCtrlP: false,
-      isEnabledOnCmdOrCtrlK: false,
-      isEnabledOnClick: false,
-      useInPageFilterIfImGuest: false,
-    }),
-    preventSearchModalFromRestoringPrevCond: c({}),
-    showInlinePageLinkAsIcon: c({
-      iconSourceUrls: "",
-    }),
-    addKeymapToInsertProfilePageLink: c({
-      profilePageTitle: "",
-      keymap: "Cmd/Ctrl+I",
-    }),
-    alwaysShowsDatabaseMenubar: c({}),
-    addPinnedIndicatorToGallery: c({
-      hideCheckbox: false,
-    }),
-    makeGalleryPreivewFontSizeAllTheSame: c({}),
-    placeGalleryPreviewAtTheBottom: c({}),
-    restrictGalleryTitleLength: c({}),
-    removeHoverMenuFromGalleryView: c({}),
-    removeHoverMenuFromBoardView: c({}),
-    removePlaceholderOnEmptyLine: c({}),
-    addIndentationLinesToIndentedItems: c({}),
-    showPropertiesInSingleLine: c({}),
-    alwaysShowSyncedBlockBorder: c({
-      makeBorderMonochrome: false,
-    }),
-    fixFavicon: c({}),
-    removeNotionAI: c({}),
-    addKeymapsToCreateNewItemInDB: c({}),
-    addKeymapsToAlignImage: c({}),
-    closeInputableDialogOnSingleEsc: c({}),
-  }) satisfies { [K in keyof typeof FeatureClasses]: unknown };
-
-export type FeatureConfig = ReturnType<typeof getDefaultFeatureConfig>;
-export type FeatureConfigRO = DeepReadonly<FeatureConfig>;
+export type FeatureClassMap = typeof FeatureClasses;
 
 type FeatureInstanceArr = InstanceType<
   (typeof FeatureClasses)[keyof typeof FeatureClasses]

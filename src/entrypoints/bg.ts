@@ -1,3 +1,4 @@
+import { FeatureClasses } from "../features";
 import { Storage } from "../utils/storage";
 
 if (process.env.NODE_ENV === "development") {
@@ -8,5 +9,6 @@ if (process.env.NODE_ENV === "development") {
 
 chrome.runtime.onInstalled.addListener(async ({ reason }) => {
   if (!["install", "update"].includes(reason)) return;
+  FeatureClasses;
   Storage.adaptToLatestInterface();
 });

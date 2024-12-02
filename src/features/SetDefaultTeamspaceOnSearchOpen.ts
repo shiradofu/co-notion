@@ -1,4 +1,3 @@
-import type { FeatureConfigRO } from ".";
 import { AppCrawler } from "../crawlers/AppCrawler";
 import type { OverlaysCrawler } from "../crawlers/OverlaysCrawler";
 import { SearchModalCrawler } from "../crawlers/SearchModalCrawler";
@@ -7,6 +6,7 @@ import type { TriggeredByKeymap } from "../deployers/KeymapManager";
 import type { TriggeredByOverlayMutation } from "../deployers/OverlayObserver";
 import { i } from "../i18n";
 import { Log } from "../utils/log";
+import type { FeatureConfigRO } from "./config";
 
 export class SetDefaultTeamspaceOnSearchOpen
   implements TriggeredByOverlayMutation, TriggeredByKeymap, TriggeredByClick

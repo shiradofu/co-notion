@@ -1,4 +1,3 @@
-import type { FeatureConfigRO } from ".";
 import { AppCrawler } from "../crawlers/AppCrawler";
 import type { WithDynamicStyle } from "../deployers/DynamicStyleManager";
 import type { TriggeredByNavigation } from "../deployers/NavigationObserver";
@@ -7,6 +6,7 @@ import { i } from "../i18n";
 import { appBaseUrl, extName } from "../utils/constants";
 import { Log } from "../utils/log";
 import { Storage } from "../utils/storage";
+import type { FeatureConfigRO } from "./config";
 
 type IconSourcePathname = string;
 type IconPageLinkPathname = string;
