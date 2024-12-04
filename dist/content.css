@@ -269,10 +269,14 @@
   [role="menuitem"]:has([alt="Notion AI Face"]),
   [role="menuitem"]:has([alt="Notion AI face"]),
   .notion-text-action-menu
-    [role="button"]:has(:is(.aiExplainThis, [alt="Notion AI Face"])),
+    [role="button"]:has(
+      :is(.aiExplainThis, .aiImproveWriting, [alt="Notion AI Face"])
+    ),
   .notion-text-action-menu
-    [role="button"]:has(:is(.aiExplainThis, [alt="Notion AI Face"]))
-    + * /* border line after ai section */,
+    [role="button"]:has(
+      :is(.aiExplainThis, .aiImproveWriting, [alt="Notion AI Face"])
+    )
+    + :empty /* border line after ai section */,
   .notion-image-block [role="button"][aria-label*="AI"] {
     display: none !important;
   }
