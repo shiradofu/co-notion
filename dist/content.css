@@ -183,6 +183,7 @@
     *:not(:has(> * > input[type="checkbox"]) *) {
       display: inline-flex !important;
       align-items: center !important;
+      flex-wrap: nowrap !important;
       width: fit-content !important;
       white-space: nowrap !important;
       margin: 0 !important;
