@@ -72,8 +72,8 @@ function HelpModal({
 
 function QuestionMark({ onClick }: { onClick: () => void }) {
   return el("div", {
-    children: ["?"],
-    classes: ["ConfigLabel__Q"],
+    children: [el("span", { children: ["?"] })],
+    classes: ["ConfigLabel__QuestionMark"],
     onClick,
   });
 }
