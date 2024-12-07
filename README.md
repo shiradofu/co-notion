@@ -146,6 +146,20 @@ Notion の機能の一つで、文中に他のページへのリンクを挿入�
 
 <img src="./dist/assets/removeHoverMenuFromBoardView-target.webp" alt="img" width="600px" />
 
+## カバー画像の表示領域を縮小
+
+ページ上部のカバー画像が表示される部分を縮小します。カバー画像とアイコン、タイトルを重ねて表示するような形になります。カバー画像を設定していないページではアイコンを縮小し、タイトルをアイコンの横に配置します。
+
+カバー画像の表示位置の変更時に縮小された表示領域のサイズを示す線を表示していますが、これはあくまで目安です。画像の上端・下端に近いところをカバー画像として使用するときは、目安の線と実際の表示が大きくずれることがあります。
+
+### Before
+
+<img src="./dist/assets/shrinkCoverImageArea-before.webp" alt="img" width="600px" />
+
+### After
+
+<img src="./dist/assets/shrinkCoverImageArea-after.webp" alt="img" width="600px" />
+
 ## 空行に表示されるプレースホルダを非表示
 
 何も記入していない行に表示される、薄いけれど微妙に主張の強い文字を非表示にします。

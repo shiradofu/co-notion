@@ -29,6 +29,7 @@ export const FeatureClasses = {
   removeHoverMenuFromGalleryView: class RemoveHoverMenuFromGalleryView extends S {},
   removeHoverMenuFromBoardView: class RemoveHoverMenuFromBoardView extends S {},
   // editor style
+  shrinkCoverImageArea: class ShrinkCoverImageArea extends S {},
   removePlaceholderOnEmptyLine: class RemovePlaceholderOnEmptyLine extends S {},
   addIndentationLinesToIndentedItems: class AddIndentationLinesToIndentedItems extends S {},
   showPropertiesInSingleLine: class ShowPropertiesInSingleLine extends S {},

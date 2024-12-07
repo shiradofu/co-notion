@@ -43,6 +43,9 @@ export const enUS = {
     removeHoverMenuFromGalleryView: {
       isEnabled: "Remove buttons shown on mouse over from gallery view",
     },
+    shrinkCoverImageArea: {
+      isEnabled: "Shrink cover image area",
+    },
     removeHoverMenuFromBoardView: {
       isEnabled: "Remove buttons shown on mouse over from board view",
     },

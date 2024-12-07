@@ -290,6 +290,30 @@ const removeHoverMenuFromGalleryView = {
   `,
 };
 
+const shrinkCoverImageArea = {
+  isEnabled: "カバー画像の表示領域を縮小",
+  helpModal: `
+    ページ上部のカバー画像が表示される部分を縮小します。カバー画像とアイコン、
+    タイトルを重ねて表示するような形になります。カバー画像を設定していない
+    ページではアイコンを縮小し、タイトルをアイコンの横に配置します。
+
+    ${STORE_DESCRIPTION_END}
+
+    カバー画像の表示位置の変更時に縮小された表示領域のサイズを示す線を表示
+    していますが、これはあくまで目安です。画像の上端・下端に近いところを
+    カバー画像として使用するときは、目安の線と実際の表示が大きくずれることが
+    あります。
+
+    ## Before
+
+    ![img] shrinkCoverImageArea-before.webp
+
+    ## After
+
+    ![img] shrinkCoverImageArea-after.webp
+  `,
+};
+
 const removeHoverMenuFromBoardView = {
   isEnabled: "ボードビューのホバーメニューを非表示",
   helpModal: `
@@ -448,6 +472,7 @@ export const configUI: DeepT<
   restrictGalleryTitleLength,
   removeHoverMenuFromGalleryView,
   removeHoverMenuFromBoardView,
+  shrinkCoverImageArea,
   removePlaceholderOnEmptyLine,
   addIndentationLinesToIndentedItems,
   showPropertiesInSingleLine,
