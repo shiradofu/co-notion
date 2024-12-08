@@ -39,14 +39,14 @@
   }
 
   .AddPinnedIndicatorToGallery & {
-    > :nth-child(2):has(+ * input[checked]) {
-      --size: 1rem;
-      --color: rgba(55, 53, 47, 0.2);
+    > :nth-child(2):has(+ * :is(input[checked], .roundedCheck)) {
+      --AddPinnedIndicatorToGallery-color: rgba(55, 53, 47, 0.2);
       @media (prefers-color-scheme: dark) {
-        --color: rgba(255, 255, 255, 0.15);
+        --AddPinnedIndicatorToGallery-color: rgba(255, 255, 255, 0.15);
       }
 
-      overflow: hidden; /* for titles at the bottom */
+      /* needed when titles are at the bottom */
+      overflow: hidden;
 
       &::before,
       &::after {
@@ -56,7 +56,7 @@
         right: 0;
         height: 3rem;
         aspect-ratio: 1 / 1;
-        border-top: 3px solid var(--color);
+        border-top: 3px solid var(--AddPinnedIndicatorToGallery-color);
         transform: rotate(45deg);
       }
 
