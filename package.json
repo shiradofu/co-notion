@@ -16,7 +16,7 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "description": "Set of utils to enhance collabolation on Notion",
+  "description": "Set of utils for Cosense-like Notion.",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/chrome": "^0.0.279",

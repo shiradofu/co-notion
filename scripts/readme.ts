@@ -90,7 +90,7 @@ async function write(
 async function writeStoreDescription() {
   await write(
     jaJP,
-    `Notion でのコラボレーションをよりスムーズにするためのツールです。
+    `Notion を Cosense のように使うためのツール集です。
 以下、機能一覧と簡単な説明です。
 
 画像付きのより詳しい説明はこちらをご覧ください。
