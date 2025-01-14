@@ -404,6 +404,10 @@
         }
       }
 
+      [role="cell"] :has(> a.notion-link-token):hover {
+        padding-right: 1.5em !important;
+      }
+
       position: static !important; /* for quickActionContainer */
       [role="button"]:has(.quickActionContainer),
       .quickActionContainer {
