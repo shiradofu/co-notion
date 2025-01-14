@@ -27,17 +27,21 @@ const buildAndReloadDebounced = debounce(
   },
 );
 
-chokidar.watch("src").on("all", async (event: string, path: string) => {
-  if (!["add", "change"].includes(event)) return;
-  if (path.endsWith("test.ts")) return;
-  console.log(event, path);
-  buildAndReloadDebounced();
-});
-
-chokidar.watch("dist").on("all", async (event, path) => {
-  if (!["add", "change"].includes(event)) return;
-  if (path.endsWith(".html") || path.endsWith(".css")) {
+chokidar
+  .watch("src", { ignoreInitial: true })
+  .on("all", async (event: string, path: string) => {
+    if (!["add", "change"].includes(event)) return;
+    if (path.endsWith("test.ts")) return;
     console.log(event, path);
-    fireReloadDebounced();
-  }
-});
+    buildAndReloadDebounced();
+  });
+
+chokidar
+  .watch("dist", { ignoreInitial: true })
+  .on("all", async (event, path) => {
+    if (!["add", "change"].includes(event)) return;
+    if (path.endsWith(".html") || path.endsWith(".css")) {
+      console.log(event, path);
+      fireReloadDebounced();
+    }
+  });
