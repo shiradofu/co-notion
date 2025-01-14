@@ -33,7 +33,7 @@
 
 .notion-gallery-view .notion-collection-item > a[href^="/"] {
   .AddPinnedIndicatorToGallery-hideCheckbox & {
-    > :nth-child(2) + :has(input[type="checkbox"]) {
+    > :nth-child(3) > :first-child:has(input[type="checkbox"]) {
       display: none !important;
     }
   }
